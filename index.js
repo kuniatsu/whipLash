@@ -166,12 +166,17 @@ window.onload = ()=>{
 
 })();
 
+
+/**
+ * Changing the order in the ToDoList
+ * @return {boolean}  
+ */
 var nextTask = ()=>{
     var obj = checkTask();    
     if(obj != undefined && obj != ""){
         var tasklist = document.getElementsByClassName('tasklist')[0];
-        tasklist.appendChild(obj);//タスクの並びを変える     
-        deleteEndTask(tasklist);//取り消し線が書かれているものを消す
+        tasklist.appendChild(obj);    
+        deleteEndTask(tasklist);
         return true;
     }else{
         return false;
@@ -179,7 +184,10 @@ var nextTask = ()=>{
 };
 
 
-//チェックされているタスクを削除する
+/**
+ * Delete if strikethroughLine is drawn 
+ * @param  {Object} tasklist
+ */
 var deleteEndTask = (tasklist)=>{
     //取り消し線を消す
     var selects = Array.prototype.slice.call(tasklist.children);//配列に変換
@@ -193,8 +201,10 @@ var deleteEndTask = (tasklist)=>{
 };
 
 
-///タスクの登録があるかを確認
-///戻値:タスクの名前を返す
+/**
+ * Confirm whether task is registered 
+ * @return  {String} first task name
+ */
 var checkTask = ()=>{
     console.log("checkTask");
     var tasklist = document.getElementsByClassName('tasklist')[0];
@@ -206,6 +216,11 @@ var checkTask = ()=>{
     } 
 };
 
+
+/**
+ * Register task
+ * @return  {Element} 
+ */
 var taskMake = ()=>{
     var taskText = document.getElementById('taskText');
     var ele = taskEleMake(taskText.value);
@@ -213,7 +228,13 @@ var taskMake = ()=>{
     return ele;
 };
 
+
+
 ///タスクリスト追加
+/**
+ * Register task
+ * @return  {Element} 
+ */
 var taskEleMake = (text)=>{
     var LInode = document.createElement("LI");//リストelement作成
     if(text != ""){
@@ -708,6 +729,8 @@ var taskLoad = ()=>{
     var menu = ws.getItem('menu');
     initMenu(menu);
 };
+
+
 
 var initMenu = (menu)=>{
     if(menu===null)return;
