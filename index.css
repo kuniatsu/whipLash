@@ -1,0 +1,255 @@
+.hidden{visibility:hidden;}
+.through {text-decoration: line-through;}
+.dispnon{display: none;}
+.darwin{
+    width:100%;
+    opacity: 0;
+    background-image:url(darwin00001.png);
+}
+
+html, body{
+    margin: 0;         /* 余白の削除 */
+    padding: 0;        /* 余白の削除 */
+    width:100%;
+    height:100%;
+    font-size: 32px;
+/*    font-size: 11px;   /*monacaは1/3でちょうど良い*/
+    
+}
+
+
+
+header{
+    margin:0;
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width:100%;
+/*  height:40px;   /*monacaは1/3でちょうど良い*/
+    height:120px;
+    z-index: 9;
+    background-color:rgba(0,0,0,1);
+/*    background-color:rgba(150,150,150,1); /* monacaでは色を同じにして時間を出す*/
+}
+
+#copyLight{
+    margin:0px;
+    position: fixed;
+    top: 0px; 
+    color:white;
+    font-family: 'Indie Flower',serif;
+}
+
+h1{
+/*    margin-top: 20px;   /* monaca */
+    background-color:rgba(150,150,150,1); 
+    text-align: center;
+}
+
+h2{
+    margin:0;
+    font-size:4rem;
+    text-align: center;
+    font-family: 'Lobster',serif;
+}
+
+ul{
+    margin:auto;
+}
+
+select{
+    width:100%;
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+#select{
+    margin-top: 20px;
+}
+
+
+#setUpDisp{
+    position:fixed;
+/*  top:20px; /* monacaの位置*/
+    top:50px;
+    left:5px;
+}
+    
+#startAndstop{
+    width:2rem;
+    position:fixed;
+    top:60px;
+    /*     top:25px; /* monacaの位置*/
+    right:5px;
+}
+
+#mainBody{
+    padding-top:500px; 
+    /* padding-top:200px;  /*monacaの位置*/
+    width:100%;
+    height: 100%;
+}
+
+#selectAnimetion{
+    width: 80%;
+}
+
+
+#animetion{
+    width:80%;
+    margin:auto;
+}
+
+#darwin{
+    opacity: 0;   
+    width:100%;
+}
+
+#areaAdd{
+    width:100%;
+}
+
+#taskText2{
+    width:80%;
+    height:100%;
+}
+
+.addtb{
+    width:90%;
+    height: 100%;
+    font-size: 1rem;
+}
+
+#tasklistarea{
+    width:100%;
+    margin:auto;
+    border:solid;
+    border-radius:30px;  
+}
+
+/*スマホ表示用*/
+@media (min-width:500px){
+    #tasklistarea{
+        width:60%;
+    }
+}
+
+
+
+
+#setUp{
+    background-color: gray;
+    position:fixed;
+    left:0px;
+    width:100%;
+    font-size:0.5rem;
+    z-index: 10;
+}
+
+#buttonSet{
+    width:100%;
+    height: 10%;
+}
+
+#delText{
+    font-family: serif;
+}
+
+#settingSubmit{
+    font-family: serif;
+}
+
+#newton{
+    position:fixed;
+    right:30px;
+}
+
+#menuCheckBox{
+    margin:10px;
+    font-size: 1rem;
+}
+
+
+.timeLimit{
+    font-size: 10%;
+}
+
+
+.moveNewTom0{
+    top:20%;
+}
+
+.moveNewTom1{
+    top:30%;
+}
+
+.moveNewTom2{
+    top:40%;
+}
+
+.moveNewTom3{
+    top:60%;
+}
+
+.moveNewTom4{
+    top:80%;
+}
+
+#newtonImg{
+    width: 20%;
+    float:right;
+}
+
+.button1{
+    width:50%;
+    background-color: rgba(255,255,255,0.8);
+    float: left;
+    border: solid;
+}
+
+#delete_id{
+    width:50%;    
+}
+
+.setUpFont{
+    font-size:0.5rem;
+}
+
+.darwinAnime{
+    animation-name: anime; /*　割り当てるアニメーションの名前 */
+    animation-duration: 0.8s; /* アニメーションの秒数 */
+    animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
+}
+
+.setUphidden{
+    animation-name: setUpUp; /*　割り当てるアニメーションの名前 */
+    animation-duration: 0.8s; /* アニメーションの秒数 */
+    animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
+}
+
+.startSetUphidden{
+    top:-1000px;
+}
+
+.setUpdisp{
+    top:0px;
+}
+  /* アニメーション */
+  @keyframes anime
+  {
+    100% {
+        opacity: 1;
+    }
+  }
+  
+  @keyframes setUpUp
+  {
+    0% {
+        top:0px;
+    }
+    100% {
+        top:-1000px;
+    }
+  }
+
+
