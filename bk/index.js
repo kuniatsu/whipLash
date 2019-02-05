@@ -6,9 +6,11 @@ var darwinFlg = false;
 var insertLI;
 var tasklist;
 
+
 window.onload = ()=>{
     taskLoad();
 }
+
 
 (function(){
     'use strict';
@@ -35,7 +37,6 @@ window.onload = ()=>{
     var testbutton = document.getElementById('testbutton');
     var checkLoop = document.getElementById('checkLoop');
     
-
     /*
     testbutton.addEventListener('click',()=>{
         var ws = new webStorage();
@@ -45,6 +46,7 @@ window.onload = ()=>{
     });
     */    
 
+    /*左上メニューのid配列*/
     var selectBox = [
         document.getElementById('selectAnime'),
         document.getElementById('hour'),
@@ -52,17 +54,17 @@ window.onload = ()=>{
         document.getElementById('sec'),
         document.getElementById('checkLoop')
     ];
-
+    //タスクのループを許可する、この機能はいらない
     checkLoop.addEventListener('click',()=>{
         checkLoop.value = checkLoop.checked;
     });
-
+    //メニューに変更があった場合okにテキストを変える
     selectBox.forEach((item)=>{
         item.addEventListener('change',()=>{
             changeCrossToOk('OK');
         });
     });
-
+    
     setUpDisp.addEventListener('click',()=>{
         //setUp要素のいちを下げる
         var setUp = document.getElementById('setUp');
@@ -70,6 +72,7 @@ window.onload = ()=>{
         setUp.setAttribute('class', 'setUpdisp');
     });
              
+     
     setUphidden.addEventListener('click',()=>{
         //setUp要素のいちを下げる
         var setUp = document.getElementById('setUp');
@@ -77,7 +80,6 @@ window.onload = ()=>{
         setUp.setAttribute('class', 'setUphidden');
         //OKを×に変更
         changeCrossToOk('×');
-
         //webstoにmenuの内容を保存する。
         var ws = new webStorage();
         ws.setMenu(ws,selectBox);
@@ -88,7 +90,6 @@ window.onload = ()=>{
         console.log("clear");
         var ws = new webStorage();
         ws.clear();
-
         //全てのtodoにチェックを入れる
         // document.getElementById("checkbox").checked = true;
         var a = document.getElementsByTagName('li');
@@ -99,26 +100,19 @@ window.onload = ()=>{
             //取り消し線追加
             a[i].setAttribute('class', 'through');
         }
-
         //h1やタイトルも戻す
         changeTitle("タスク未設定");
-
         // //Listを削除
         var tasklist = document.getElementsByClassName('tasklist')[0];
         deleteEndTask(tasklist);//取り消し線が書かれているものを消す
-
         //設定時間も初期化
         initTime();
-
         changeCrossToOk('ok');
     });
-
-
     timeTmp = null;
     buttonFlg　= true;
     var startTime;
     var elapsedTime = 0;
-
     taskText.addEventListener('keypress', function (e) {
         var ele = checkKeyPress(e,13,taskMake);
         var ws = new webStorage();
@@ -131,21 +125,22 @@ window.onload = ()=>{
         }
     });
 
+
+    //フォーカスが外れた時
     taskText2.addEventListener('blur',()=>{
-        //フォーカスが外れた時
         var array = bRtoArray(taskText2.value);
         aRraytoPara(array,taskEleMake);
         taskText2.value="";
     });
+
 
     taskText.addEventListener('dblclick', function (e) {
         changeTextBox('singleAdd','areaAdd');    
     });
     
     taskText2.addEventListener('dblclick', function (e) {
-        changeTextBox('areaAdd','singleAdd');         
+        changeTextBox('areaAdd','singleAdd');        
     });
-
     startAndstop.addEventListener('click',function(){
         if(buttonFlg){
             startMethod();
@@ -156,15 +151,14 @@ window.onload = ()=>{
         }
         buttonFlg = !buttonFlg;
     });
-
     tasklist.addEventListener('click',()=>{
         taskText.focus();
     });
     h2.addEventListener('click',()=>{
         taskText.focus();
     });
-
 })();
+
 
 
 /**
@@ -183,7 +177,6 @@ var nextTask = ()=>{
     } 
 };
 
-
 /**
  * Delete if strikethroughLine is drawn 
  * @param  {Object} tasklist
@@ -199,8 +192,6 @@ var deleteEndTask = (tasklist)=>{
         }
     });
 };
-
-
 /**
  * Confirm whether task is registered 
  * @return  {String} first task name
@@ -215,8 +206,6 @@ var checkTask = ()=>{
         return "";
     } 
 };
-
-
 /**
  * Register task
  * @return  {Element} 
@@ -227,10 +216,6 @@ var taskMake = ()=>{
     taskText.value = "";
     return ele;
 };
-
-
-
-///タスクリスト追加
 /**
  * Register task
  * @return  {Element} 
@@ -247,7 +232,6 @@ var taskEleMake = (text)=>{
         checkbox.addEventListener('click',(e)=>{
             // console.dir(e);
             // console.dir(checkbox.checked);
-
             if(checkbox.checked==true){
                 console.log("取り消し線");
                 //取り消し線
@@ -267,24 +251,24 @@ var taskEleMake = (text)=>{
     }
     return LInode;
 };
-
-
+/**
+ * Count 
+ * @param   {Date} startTime
+ * @param   {Object} times
+ * @param   {Object} aniObj
+ */
 var count = (startTime,times,aniObj)=>{
     console.log("------------------------"+startTime);
     setTimeObj(times);
     timerId = setTimeout(function(){
-        var now = Date.now()/1000;         
+        var now = Date.now()/1000;        
         elapsedTime = now - startTime;        
         var alertTime = times.changeSce();
-
         console.log("alertTime:"+alertTime);
         console.log("elapsedTime:"+elapsedTime);
-
         alertTime = Number(alertTime) - Number(elapsedTime);
         var flg = times.setSec(alertTime,aniObj);
-
         console.log("flg:"+flg);
-
         if(flg==true){
             // console.dir(aniObj);
             aniObj.changeImg();//アニメーション
@@ -304,7 +288,6 @@ var count = (startTime,times,aniObj)=>{
                 changeTitle(firstList.innerText);
                 //document.getElementsByTagName('title')[0].innerText = firstList.innerText+"実施中";
                 //addH1(firstList.innerText);
-
                 var time = new Time(hour.value , min.value , sec.value);
                 count(Date.now()/1000 ,time,aniObj);
             }else{
@@ -316,6 +299,7 @@ var count = (startTime,times,aniObj)=>{
     },1000);
 };
 
+//メニュー内の繰り返しのチェックをするmethod
 var oneStop = ()=>{
     console.log("oneStopCheck");
     var checkLoop = document.getElementById('checkLoop');
@@ -323,6 +307,7 @@ var oneStop = ()=>{
     return checkLoop.checked;
 }
 
+//表示用の時間文字列を作成
 var printTimeObj = (t)=>{
     var disph = "0"+Math.floor(t.hour);
     var dispm = Math.floor(t.min)<10? "0"+Math.floor(t.min):Math.floor(t.min);
@@ -331,7 +316,7 @@ var printTimeObj = (t)=>{
     return t.margeTime(disph,dispm,disps);
 };
 
-
+//時間用のクラス
 class Time{
     constructor(hour,min,sec){
         this.hour = hour;
@@ -343,18 +328,15 @@ class Time{
         //時分秒を秒数に変更
         return Number(this.hour*60*60)+Number(this.min*60)+Number(this.sec);
     }
-
     getSec(){
         return this.changeSce();
     }
-
     setSec(sec,aniObj){
         if(sec > 0){
             this.hour = Math.floor(Number(sec/(60*60)));
             this.min = Math.floor(Number(sec-this.hour*60)/60);
             this.sec = Number(sec) - (Number(this.hour)*60*60) - (Number(this.min)*60);
             this.moveFlg = Number(this.hour)+Number(this.min)+Number(this.sec)>0;
-
             if(sec<=5+1){   
                 var num = Math.floor(sec);
                 darwinFlg = true;  
@@ -374,7 +356,6 @@ class Time{
         }
         return this.moveFlg;
     }
-
     startSec(){
         this.sec = Number(this.sec)+1;
         return this;
@@ -382,28 +363,28 @@ class Time{
     margeTime(h,m,s){
         return h +":"+ m +":"+ s;
     }
-
-
     getTimeStr(){
         return this.hour +":"+ this.min +":"+ this.sec;
     }
-
 }
 
+//text to speechの実行
+//シングルトンパターンに変更する
 var tts = (speak)=> {
     var msg = new SpeechSynthesisUtterance();
     msg.text = speak; // 喋る内容
     speechSynthesis.speak(msg);// 発話実行
 };
 
+//実行中のタスクをh1タイトル表示にする
 var addH1 = (text)=>{
     var h1 = document.getElementById('activeTaskName');
     h1.innerText = text;
 };
-
 var setTimeObj = (time)=>{
     timeTmp = time;
 };
+
 
 ///表示非表示を切り替える
 ///hiddenId:隠す要素のid
@@ -415,6 +396,7 @@ var changeTextBox = (hiddenId,dispId)=>{
     disp.removeAttribute('class');    
 };
 
+
 var startMethod = ()=>{
     var times = null;
     if(timeTmp==null){
@@ -423,30 +405,26 @@ var startMethod = ()=>{
         console.log("restart");
         times = new Time(timeTmp.hour , timeTmp.min , timeTmp.sec);
     }
-
     changePlayButton("stop.png");
     dispAnime(true);
     
     //アニメーション設定
     var animetionObj = selectAnime();
     // console.dir(animetionObj);
-
     timeText.innerText = printTimeObj(times);
     //inputBox削除
     removeInputBox();
-
     var task = checkTask();
     if(task.innerText != undefined){
         tts(task.innerText+"開始");
         addH1(task.innerText);
     }
-
     console.log("蹴り出し");
     console.log(Date.now()/1000);
     console.log(times.startSec());
-
     count(Date.now()/1000,times.startSec(),animetionObj);
 };
+
 
 var stopMethod = ()=>{
     clearTimeout(timerId);
@@ -455,11 +433,13 @@ var stopMethod = ()=>{
     makeInputBox();
 };
 
+
 var changePlayButton = (text)=>{
     var startAndstop = document.getElementById('startAndstop');
-    startAndstop.removeAttribute('src');   
+    startAndstop.removeAttribute('src');  
     startAndstop.setAttribute('src', text);
 };
+
 
 var dispAnime = (flg)=>{  
     var anime = document.getElementById('selectAnime');
@@ -468,7 +448,6 @@ var dispAnime = (flg)=>{
     //stop時非表示
     animetion.setAttribute('class', "dispnon");
     newton_.setAttribute('class', "dispnon");
-
     if(flg==true){
         // console.dir(anime);
         //play表示
@@ -487,13 +466,19 @@ var dispAnime = (flg)=>{
 };
 
 
-
+/**
+ * Confirm whether the enter key is pressed
+ * @param   {Event} e EventObject
+ * @param   {Integer} keyNum Enter Key is No.13
+ * @param   {method} method callbackMethod
+ */
 var checkKeyPress = (e,keyNum,method)=>{
     var key = e.which || e.keyCode;
     if (key === keyNum) { // 13 is enter
         return method();
     }
 };
+
 
 var bRtoArray = (text)=>{
     //改行区切りの配列に変換
@@ -504,12 +489,16 @@ var bRtoArray = (text)=>{
     return new Array();
 };
 
+
 var aRraytoPara = (array,method)=>{
     array.forEach((item)=>{
         method(item);
     });
 };
 
+
+
+//アニメーションのクラス
 class Darwin{
     constructor(){
         console.log("darwinConstructor");
@@ -528,7 +517,6 @@ class Darwin{
             "darwin1_11111.png",//10_0
         ];
     }
-
     nextImg(){
         // console.log("darwinFlg:"+darwinFlg);
         // console.log("activeNum:"+this.activeNum);
@@ -543,7 +531,6 @@ class Darwin{
         // console.dir(this.darwinImg[imgnum]);
         return this.darwinImg[imgnum];
     }
-
     changeImg(){
         var darwin = document.getElementById("darwin");
         darwin.removeAttribute("class"); 
@@ -552,16 +539,12 @@ class Darwin{
         darwin.setAttribute('class', "darwinAnime");
         return this;
     }
-
-
     flgChange(flg){
         darwinFlg = flg;
     }
-
     setCount(num){
         this.activeNum = num;
     }
-
     nextTaskSet(){
         this.setCount(0);
         this.flgChange(false);
@@ -569,7 +552,6 @@ class Darwin{
         return dispAnime(true);
     }
 }
-
 class Newton{
     constructor(){
         this.activeNum = 0;
@@ -585,7 +567,6 @@ class Newton{
             "moveNewTom4"
         ];
     }
-
     nextImg(){        
         let imgnum;
         console.log("this.activeNum:"+this.activeNum);
@@ -599,7 +580,6 @@ class Newton{
         }
         return this.Img[imgnum];
     }
-
     nextStyle(){
         let stylenum = rotary(this.activeNum,this.styleClass.length);
         if(this.activeNum===5&&darwinFlg==true){
@@ -610,7 +590,6 @@ class Newton{
         this.activeNum++;
         return this.styleClass[stylenum];
     }
-
     changeImg(){
         var newtonImg = document.getElementById("newtonImg");
         var newton = document.getElementById("newton");
@@ -622,15 +601,12 @@ class Newton{
         newton.setAttribute('class', this.nextStyle());
         return this;
     }
-
     flgChange(flg){
         darwinFlg = flg;
     }
-
     setCount(num){
         this.activeNum = num;
     }
-
     nextTaskSet(){
         this.setCount(0);
         this.flgChange(false);
@@ -638,7 +614,6 @@ class Newton{
         return dispAnime(true);
     }
 }
-
 class noneAnime{
     constructor(){
         this.activeNum = 0;
@@ -654,24 +629,19 @@ class noneAnime{
     flgChange(flg){}
     setCount(num){}
 }
-
-
 var removeInputBox = ()=>{
     insertLI = document.getElementById('insertLI');
     insertLI.remove();
     // console.dir(insertLI);
 };
-
 var makeInputBox = ()=>{
     var tasklist = document.getElementsByClassName('tasklist')[0];
-    tasklist.appendChild(insertLI);   
+    tasklist.appendChild(insertLI);  
 };
-
 class webStorage{
     constructor(){
         this.storage = localStorage;
     }
-
     checkWS(){
         if (typeof(Storage) === "undefined") {
             console.log("保存機能が使えません");
@@ -679,34 +649,28 @@ class webStorage{
         }
         return true;
     }
-
     setItem(name,item){
         //webstorageに保存
         console.log("123456781234567812345678");
         console.log(name+":"+item);
         this.storage.setItem(name,item);
     }
-
     getWSCount(){
         return this.storage.length;
     }
-
     getItem(name){
         //webstorageから読み出し
         return this.storage.getItem(name);
     }
-
     getAllItem(){
         return this.storage;
     }
-
     removeItem(key){
         this.storage.removeItem(key);
     }
     clear(){
         this.storage.clear();
     }
-
     setMenu(ws,selectBox){
         var selectMenu = [];
         selectBox.forEach((selectBox)=>{
@@ -715,8 +679,6 @@ class webStorage{
         ws.setItem("menu",selectMenu);
     }
 }
-
-
 var taskLoad = ()=>{
     var ws = new webStorage(); 
     //保存されているリストを表示
@@ -729,9 +691,6 @@ var taskLoad = ()=>{
     var menu = ws.getItem('menu');
     initMenu(menu);
 };
-
-
-
 var initMenu = (menu)=>{
     if(menu===null)return;
     var selectAnime = document.getElementById('selectAnime');
@@ -743,22 +702,17 @@ var initMenu = (menu)=>{
     hour.value = menu.split(",")[1];
     min.value = menu.split(",")[2];
     sec.value = menu.split(",")[3];
-
     if(menu.split(",")[4]==="true"){
         checkLoop.checked = true;
     }else{
         checkLoop.checked = false;    
     }
 }
-
-
 var initTime = ()=>{
     document.getElementById('hour').value = 0;
     document.getElementById('min').value = 5;
     document.getElementById('sec').value = 0;  
-
 };
-
 var rotary = (num,max)=>{
     console.log("num,max:"+num+","+max);
     if(num<max){
@@ -767,8 +721,6 @@ var rotary = (num,max)=>{
         return num%max;
     }
 };
-
-
 var selectAnime = ()=>{
     var anime = document.getElementById('selectAnime');
     // console.dir(anime);
@@ -779,29 +731,24 @@ var selectAnime = ()=>{
         console.log("newton");        
         return new Newton().changeImg();
     }else{
-        console.log("noneAnime");   
+        console.log("noneAnime");  
         return new noneAnime().changeImg();
     }
 };
-
 var changeTitle = (text)=>{
     document.getElementsByTagName('title')[0].innerText = text+"実施中";
     addH1(text);
 }
-
 var maxTime = ()=>{
     var timeLimit = document.getElementById('timeLimit');
     times = new Time(hour.value , min.value , sec.value);
     console.dir(times);
     timeLimit.innerText = printTimeObj(times);
 }
-
 var changeCrossToOk = (text)=>{
     document.getElementById('settingSubmit').innerText = text;
 }
-
 //次へボタン
-
 //<!--NG後-->
 //秒数を飛ばす、別画面の時の読み上げなど
 //ガリレオアニメーション

@@ -1,105 +1,270 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <title>timer</title>
-    <meta charset="UTF-8">
-    <link rel="icon" href="timelimitIcon.ico">
-    <link rel="stylesheet" href="index.css">
-    <link rel='stylesheet'  type='text/css' href='http://fonts.googleapis.com/css?family=Indie+Flower|Lobster' />
-</head>
-<body>
-    <header>
-        <p id="copyLight">©️kunishimaAtsushi</p><!--monacaではinnerText不要-->
-        <h1>
-            <span id="setUpDisp">〓</span>
-            <span id="activeTaskName">タスク未設定</span>
-            <img src="play.png" id="startAndstop"/>
-        </h1>    
-        <h2>
-            <span id="timeText">00:00:00</span><span class="timeLimit">/<span id="timeLimit">00:00:00</span></span>
-        </h2>
-    </header>
-    <div id="mainBody">    
+<html>
+    <head>
+        <style>
+            .strikethrough{
+                text-decoration: line-through;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="timer">0:20</p>
+        <ol id="taskList">
+            <li>1つめの項目</li>
+            <li>2つめの項目</li>
+            <li>3つめの項目</li>
+        </ol>
+        <button id="bt">button</button>
+        <button id="bt2">next</button>
+        <button id="bt3">delete</button>
+        <button id="bt4">timer</button>
+        <button id="bt5">start</button>
+        
+    </body>
+<script src="./Sortable.js"></script>
+<script>
+(()=>{
+    setEvent();
+    let sortable = Sortable.create(taskList, {
+        group: "taskList",
+        animation: 100
+    });
+})();
 
-        <div id="animetion" class="dispnon">
-            <img src="" id="darwin">
-        </div>
+function setEvent(){
+    bt.addEventListener('click',()=>{
+        console.dir(taskList);
+    });
+    bt2.addEventListener('click',()=>{nextTask()});
+    bt3.addEventListener('click',()=>{deleteEndTask()});
+    bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
+    document.querySelectorAll('li').forEach((li)=>{
+        li.addEventListener('click',()=>{
+            li.classList.add('strikethrough');
+        });
+    });
+    bt5.addEventListener('click',()=>{
+        start();
+    });
+}
 
-        <div id="tasklistarea">
-            <ul class="tasklist">
-                <li id="insertLI">
-                    <span id="singleAdd">
-                        <input type="text" class="addtb" id="taskText" placeholder="※ダブルクリックで複数入力">
-                    </span>
-                    <span id="areaAdd" class="dispnon">
-                        <textarea id="taskText2" placeholder="※改行ごとに入力します。入力後フォーカスを外してください。"></textarea><br />                    
-                    </span>
-                </li>   
-            </ul>        
-        </div>
-        <!-- <button id="testbutton">testbutton</button> -->
-    </div>
 
-    <!-- <hr /> -->
 
-    <div id="setUp" class="startSetUphidden">
-        <div id="select">
-            アニメーション
-            <select name="an" id="selectAnime">
-                <option value="newton" selected>ニュートン</option>
-                <option value="darwin">ダーウィン</option>
-                <option value="none" >アニメーションなし</option>                
-            </select><br />
-            Hour
-            <select name="hour" id="hour">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select><br />
-            Minutes
-            <select name="min" id="min">
-                <option value="0">0</option>
-                <option value="5" selected>5</option>
-                <!-- <option value="5">5</option> -->
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="30">30</option>
-                <option value="35">35</option>
-                <option value="40">40</option>
-                <option value="45">45</option>
-                <option value="50">50</option>
-                <option value="55">55</option>
-            </select><br />
-            Second
-            <select name="sec" id="sec">
-                <option value="0">0</option>
-                <!-- <option value="10" selected>10</option> -->
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-            </select>
-            <span id="menuCheckBox">
-                <label><input type="checkbox" id="checkLoop">繰り返しをしない</label>
-            </span>
-        </div>
+/*   clickEvent  */
 
-        <div id="buttonSet">
-                <span id="setUphidden" class="button1"><h2 id="settingSubmit">×</h2></span>
-                <span id="delete_id"><h2 id="delText">Delete</h2></span>
-            </div>
-    </div>
+/**
+ * Changing the order in the ToDoList 
+ * method for clickEvent
+ */
+let nextTask=()=>{
+    sequentialLoopList(document.getElementById('taskList'));
+};
 
-    <span id="newton" class="dispnon"><!--dispnon-->
-        <img src="apple0.png" id="newtonImg">
-    </span>
+/**
+ * Delete if strikethroughLine is drawn 
+ * method for clickEvent
+ */
+ let deleteEndTask=()=>{
+    //取り消し線が書かれているものを消す
+    htmlElementAllDelete(document.getElementsByClassName('strikethrough'));
+};
 
-</body>
-<script src="index.js"></script>
+/**
+ * display of time
+ * method for clickEvent
+ */
+ let timeCount=(dispTimer)=>{
+    let timeLimit = new TimeLimit(dispTimer.innerText,":");
+    everySecond(()=>{
+        let loopFlg = true;
+        let limit = timeLimit.calcLimitTime();
+        let time = timeLimit.getTime();
+        if(limit <= 0){
+            time = "0:00";
+            loopFlg = false;
+        }
+        dispTimer.innerText = time;        
+        return loopFlg;
+    });
+};
+
+
+
+
+
+/**
+ * Changing the order in the List
+ * @param   {HTMLElement} List
+ * @return  {HTMLElement} List  
+ */
+let sequentialLoopList=(list)=>{
+    list.appendChild(list.children[0]);
+    return list;
+};
+
+
+/**
+ * Delete All HTMLElement 
+ * @param   {HTMLElement} Delete target
+ */
+let htmlElementAllDelete=(delElement)=>{
+    while (delElement.length > 0) {
+        delElement.item(0).remove();
+    }
+}
+
+
+
+
+/**
+ * What to do every second
+ * recursiveCall
+ * @param   {callback} callback every second
+ */
+let everySecond = (callback)=>{
+    setTimeout(()=>{
+        let loopFlg = callback();
+        console.log(loopFlg);
+        if(loopFlg==true){
+            everySecond(callback);
+        }
+    },1000);
+}
+
+
+let start = ()=>{
+    console.log("start");
+    timeCount(document.getElementById('timer'));
+
+}
+
+
+
+
+
+
+
+/**
+ * 
+ */
+//時間用のクラス
+class TimeLimit{
+    constructor(dispTimer,splitTag){
+        this.splitTag = splitTag;
+        this.limitSec = this.timeStringToSec(dispTimer,splitTag);
+        this.settingSec = this.limitSec;
+        this.startTime = this.getCurrentTime();
+    }
+
+    secToTimeString(){
+        // console.log("this.limitSec:"+this.limitSec);
+        let min = Math.floor(this.divide60(this.limitSec));
+        // console.log("min:"+min);
+        return String(min)+this.splitTag+String(this.limitSec-this.multipli60(min));
+    }
+
+    getTime(){
+        return this.secToTimeString();
+    }
+
+
+    calcLimitTime(){
+        this.limitSec=this.settingSec - this.elapsedTime();
+        return this.limitSec;
+    }
+
+    timeStringToSec(dispTimer,splitTag){
+        let tmpTimeArray = dispTimer.split(splitTag);  
+        return this.multipli60(Number(tmpTimeArray[0]))+Number(tmpTimeArray[1]);
+    }
+
+    getSec(){
+        return this.changeSce();
+    }
+
+    setSec(sec){}
+
+    /**
+     * return current time
+     * @return  {Number} current time
+     */
+    getCurrentTime(){
+        return Date.now()/1000;
+    }
+
+    /**
+     * return start time
+     * @return  {Number} current time
+     */
+    getStartTime(){
+        return this.startTime;
+    }
+
+    /**
+     * Elapsed time since obj was created
+     * @return  {Number} elapsed time
+     */
+    elapsedTime(){
+        return Math.floor(this.getCurrentTime()-this.startTime);
+    }
+
+    /**
+     * Return the remaining time set in obj
+     * @return  {Number} remain time
+     */
+    getRemainTime(){
+        return this.calcLimitTime();
+    }
+
+
+    /**
+     * 
+     */
+    changeSec(){
+        //時分秒を秒数に変更
+        return Number(this.hour*60*60)+Number(this.min*60)+Number(this.sec);
+    }
+
+    secToMin(sec){
+        return divide60(sec);
+    }
+
+    secToHour(sec){
+        return divide60(divide60(sec));
+    }
+
+    minToSec(min){
+        // console.log("min:"+min);
+        return min * 60;
+    }
+
+    divide60(num){
+        return num/60;
+    }
+
+    multipli60(num){
+        return num*60;
+    }
+
+    startSec(){
+        this.sec = Number(this.sec)+1;
+        return this;
+    }
+    margeTime(h,m,s){
+        return m +":"+ s;
+    }
+    getTimeStr(){
+        return this.min +":"+ this.sec;
+    }
+}
+
+
+</script>
 </html>
 
-
+<!---
+TaskChange
+TtoT
+design
+anime
+webstraeg
+--->
