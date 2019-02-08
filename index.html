@@ -7,7 +7,7 @@
         </style>
     </head>
     <body>
-        <p id="timer">0:20</p>
+        <p id="timer">0:05</p>
         <ol id="taskList">
             <li>1つめの項目</li>
             <li>2つめの項目</li>
@@ -56,7 +56,14 @@ function setEvent(){
  * method for clickEvent
  */
 let nextTask=()=>{
-    sequentialLoopList(document.getElementById('taskList'));
+    console.log('nextTask()');
+    let list = document.getElementById('taskList');
+    let task = list.getElementsByTagName('li');
+    if(task.length > 0){
+        sequentialLoopList(list);
+        return task;
+    }
+    return null;
 };
 
 /**
@@ -64,6 +71,7 @@ let nextTask=()=>{
  * method for clickEvent
  */
  let deleteEndTask=()=>{
+     console.log('deleteEndTask()');
     //取り消し線が書かれているものを消す
     htmlElementAllDelete(document.getElementsByClassName('strikethrough'));
 };
@@ -72,9 +80,10 @@ let nextTask=()=>{
  * display of time
  * method for clickEvent
  */
- let timeCount=(dispTimer)=>{
+ let timeCount = async (dispTimer)=>{
+    console.log("timeCount()");
     let timeLimit = new TimeLimit(dispTimer.innerText,":");
-    everySecond(()=>{
+    await everySecond(()=>{
         let loopFlg = true;
         let limit = timeLimit.calcLimitTime();
         let time = timeLimit.getTime();
@@ -82,7 +91,8 @@ let nextTask=()=>{
             time = "0:00";
             loopFlg = false;
         }
-        dispTimer.innerText = time;        
+        
+        dispTimer.innerText = timeLimit.getTimeStr(time);//要対応      
         return loopFlg;
     });
 };
@@ -121,24 +131,39 @@ let htmlElementAllDelete=(delElement)=>{
  * @param   {callback} callback every second
  */
 let everySecond = (callback)=>{
-    setTimeout(()=>{
-        let loopFlg = callback();
-        console.log(loopFlg);
-        if(loopFlg==true){
-            everySecond(callback);
-        }
-    },1000);
+    return new Promise((res)=>{
+        setTimeout(async ()=>{
+            let loopFlg = callback();
+            console.log(loopFlg);
+            if(loopFlg==true){
+                await everySecond(callback);
+            }
+            res();
+        },1000);
+    });
+}
+
+/**
+ * Loop if there is a task
+ * recursiveCall
+ * 
+ */
+let start = async ()=>{
+    console.log("start()");
+    await timeCount(document.getElementById('timer'));
+    deleteEndTask();
+    let taskEle = nextTask();
+    initTime();
+    console.log(taskEle.length);
+    if(taskEle.length > 0){
+        start();
+    }
 }
 
 
-let start = ()=>{
-    console.log("start");
-    timeCount(document.getElementById('timer'));
-
+let initTime = ()=>{
+    document.getElementById('timer').innerText = "0:05";
 }
-
-
-
 
 
 
@@ -225,11 +250,11 @@ class TimeLimit{
     }
 
     secToMin(sec){
-        return divide60(sec);
+        return this.divide60(sec);
     }
 
     secToHour(sec){
-        return divide60(divide60(sec));
+        return this.divide60(this.divide60(sec));
     }
 
     minToSec(min){
@@ -249,13 +274,25 @@ class TimeLimit{
         this.sec = Number(this.sec)+1;
         return this;
     }
-    margeTime(h,m,s){
-        return m +":"+ s;
+    margeTime(m,s){
+        let sec = String(s);
+        if(sec.length<2){
+            sec="0"+sec;
+        }
+        return m +":"+ sec;
     }
+
     getTimeStr(){
-        return this.min +":"+ this.sec;
+        let min = Math.floor(this.secToMin(this.limitSec));
+        let sec = this.limitSec - this.minToSec(min);
+        let time = this.margeTime(min,sec);
+        return time;
     }
 }
+
+
+
+
 
 
 </script>
