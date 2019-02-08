@@ -87,11 +87,10 @@ let nextTask=()=>{
         let loopFlg = true;
         let limit = timeLimit.calcLimitTime();
         let time = timeLimit.getTime();
-        if(limit <= 0){
+        if(limit <= -1){
             time = "0:00";
             loopFlg = false;
-        }
-        
+        }        
         dispTimer.innerText = timeLimit.getTimeStr(time);//要対応      
         return loopFlg;
     });
@@ -289,9 +288,6 @@ class TimeLimit{
         return time;
     }
 }
-
-
-
 
 
 
