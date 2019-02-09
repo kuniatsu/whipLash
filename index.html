@@ -17,7 +17,7 @@
             <li>3つめの項目</li>
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
-        <input type="hidden" id="stopFlg" value="">
+        <!-- <input type="hidden" id="stopFlg" value=""> -->
         <button id="bt">button</button>
         <button id="bt2">next</button>
         <button id="bt3">delete</button>
@@ -25,9 +25,13 @@
         <button id="bt5">start</button>
         <button id="bt6">stop</button>
         <button id="bt7">back</button>
+        <button id="bt8"> < </button>
+        <button id="bt9"> > </button>
+        <button id="bt10">init</button>
     </body>
 <script src="./Sortable.js"></script>
 <script>
+let timeLimit;
 (()=>{
     setEvent();
     let sortable = Sortable.create(taskList, {
@@ -64,6 +68,9 @@ function setEvent(){
         var ele = checkKeyPress(e,13,taskMake);
     });
     bt7.addEventListener('click',()=>{previousTask()});
+    bt8.addEventListener('click',()=>{back2()});
+    bt9.addEventListener('click',()=>{next2()});
+    bt10.addEventListener('click',()=>{initTime()});
 }
 
 
@@ -106,6 +113,21 @@ let getTaskLength=()=>{
     return list.getElementsByTagName('li').length;
 }
 
+let next2 = () =>{
+    // stopFlg.value = "stop";
+    timeLimit.stop();
+
+    nextTask();
+    initTime();
+    playTask();
+}
+
+
+let back2 = () =>{
+    back();
+}
+
+
 
 
 
@@ -125,20 +147,22 @@ let getTaskLength=()=>{
  */
  let timeCount = async (dispTimer)=>{
     console.log("timeCount()");
-    let timeLimit = new TimeLimit(dispTimer.innerText,":");
-    await everySecond(()=>{
+    timeLimit = new TimeLimit(dispTimer.innerText,":");
+    let timeObj = timeLimit;
+    let endObj = await everySecond(()=>{
         let loopFlg = true;
-        let limit = timeLimit.calcLimitTime();
-        let time = timeLimit.getTime();
+        let limit = timeObj.calcLimitTime();
+        let time = timeObj.getTime();
         if(limit <= -1){
             time = "0:00";
             loopFlg = false;
         }        
-        if(stopFlg.value != "stop"){            
-            dispTimer.innerText = timeLimit.getTimeStr(time);
-        }   
+        if(timeObj.getFlg() != false){            
+            dispTimer.innerText = timeObj.getTimeStr(time);
+        }
         return loopFlg;
-    });
+    },timeObj);
+    return endObj;
 };
 
 
@@ -185,15 +209,22 @@ let htmlElementAllDelete=(delElement)=>{
  * recursiveCall
  * @param   {callback} callback every second
  */
-let everySecond = (callback)=>{
+let everySecond = (callback,timeLimitObj)=>{
     return new Promise((res)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
-            console.log(loopFlg);
-            if(loopFlg==true && stopFlg.value != "stop"){
-                await everySecond(callback);
+            console.log("loopFlg:"+loopFlg);
+            console.log(timeLimitObj.getFlg()); 
+            console.log("Num:"+timeLimitObj.getNum());  
+            if(timeLimitObj.getNum() !== timeLimit.getNum()){
+                console.log("あかん");
+                timeLimitObj.stop();
             }
-            res();
+            if(loopFlg==true && timeLimitObj.getFlg() == true){
+                console.log("生きてる:"+timeLimitObj.getNum());
+                await everySecond(callback,timeLimitObj);
+            }
+            res(timeLimitObj);
         },1000);
     });
 }
@@ -210,11 +241,15 @@ let start = ()=>{
 }
 
 let playTask = async ()=>{
-    stopFlg.value = "start";    
+    // stopFlg.value = "start"; 
+    // timeLimit.start();   
     deleteEndTask();
-    await timeCount(document.getElementById('timer'));
+    let endObj = await timeCount(document.getElementById('timer'));
+    console.log("timeCount_end");
+    console.log("数え終わりNo:"+endObj.getNum());
+    console.log("お役御免？："+endObj.getFlg());
     let taskCount = getTaskLength();
-    if(taskCount > 0 && stopFlg.value != "stop"){
+    if(taskCount > 0 && endObj.getFlg() == true){
         nextTask();
         initTime();
         playTask();
@@ -222,7 +257,7 @@ let playTask = async ()=>{
 }
 
 let stop = ()=>{
-    stopFlg.value = "stop";
+    timeLimit.stop();
     addInput();
 }
 
@@ -241,10 +276,25 @@ let initTime = ()=>{
 //時間用のクラス
 class TimeLimit{
     constructor(dispTimer,splitTag){
+        this.objNum = Math.floor(Math.random()*100);
+        this.moveFlg = true;
         this.splitTag = splitTag;
         this.limitSec = this.timeStringToSec(dispTimer,splitTag);
         this.settingSec = this.limitSec;
         this.startTime = this.getCurrentTime();
+    }
+    getNum(){
+        return this.objNum;
+    }
+
+    start(){
+        this.moveFlg = true;        
+    }
+    stop(){
+        this.moveFlg = false;
+    }
+    getFlg(){
+        return this.moveFlg;
     }
 
     secToTimeString(){
@@ -254,10 +304,10 @@ class TimeLimit{
         return String(min)+this.splitTag+String(this.limitSec-this.multipli60(min));
     }
 
+
     getTime(){
         return this.secToTimeString();
     }
-
 
     calcLimitTime(){
         this.limitSec=this.settingSec - this.elapsedTime();
