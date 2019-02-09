@@ -10,6 +10,7 @@
         </style>
     </head>
     <body>
+        <p id="title">タイトル</p>
         <p id="timer">0:05</p>
         <ol id="taskList">
             <li>1つめの項目</li>
@@ -31,6 +32,7 @@
     </body>
 <script src="./Sortable.js"></script>
 <script>
+let speach = new SpeechSynthesisUtterance();
 let timeLimit;
 (()=>{
     setEvent();
@@ -236,9 +238,8 @@ let start = ()=>{
 }
 
 let playTask = async ()=>{
-    // stopFlg.value = "start"; 
-    // timeLimit.start();   
     deleteEndTask();
+    changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
     let taskCount = getTaskLength();
     if(taskCount > 0 && endObj.getFlg() == true){
@@ -452,14 +453,28 @@ let checkClass = (ele,checkClass)=>{
 } 
 
 
+//text to speechの実行
+//シングルトンパターンに変更する
+let tts = (speak)=> {
+    var speach = new SpeechSynthesisUtterance();
+    speach.text = speak; // 喋る内容
+    speechSynthesis.speak(speach);// 発話実行
+};
+
+let changeTitle = ()=>{
+    let titleText = taskList.children[0].innerText;
+    title.innerText = titleText;
+    console.log(title);
+    tts(titleText);
+}
+
 
 </script>
 </html>
 
 <!---
-TaskChange
 TtoT
+webstraeg
 design
 anime
-webstraeg
 --->
