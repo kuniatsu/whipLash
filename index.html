@@ -29,71 +29,19 @@
         <button id="bt11">ws</button>
     </body>
 <script src="./Sortable.js"></script>
+<script src="./TimeLimit.js"></script>
+<script src="./WebStorage.js"></script>
+<script src="./module.js"></script>
+<script src="./view.js"></script>
+
 <script>
 let speach = new SpeechSynthesisUtterance();
 let timeLimit;
 let ws;
 
-
-
-
-class WebStorage{
-    constructor(){
-        this.storage = localStorage;
-    }
-    checkWs(){
-        if (typeof(Storage) === "undefined") {
-            console.log("保存機能が使えません");
-            return false;
-        }
-        return true;
-    }
-    checkItem(key){
-        if(this.storage.getItem(key) == undefined){
-            return true;
-        }
-        return false;
-    }
-
-    log(){
-        console.dir(this.getAllItem());
-    }
-    setItem(name,item){
-        //webstorageに保存
-        console.log(name+":"+item);
-        this.storage.setItem(name,item);
-    }
-    getWsCount(){
-        return this.storage.length;
-    }
-    getItem(name){
-        //webstorageから読み出し
-        return this.storage.getItem(name);
-    }
-    getAllItem(){
-        return this.storage;
-    }
-    removeItem(key){
-        this.storage.removeItem(key);
-    }
-    clear(){
-        this.storage.clear();
-    }
-    setSelectorInnerText(selector,key){
-        let textArray = [];
-        let eleArray = document.querySelectorAll(selector);
-        eleArray.forEach((ele)=>{
-            textArray.push(ele.innerText);
-        });
-        this.setItem(key,textArray);
-    }
-
-}
-
 (()=>{
     setList();
-    setEvent();
-    
+    setEvent();    
     let sortable = Sortable.create(taskList, {
         group: "taskList",
         animation: 100
@@ -223,8 +171,6 @@ let back2 = () =>{
 
 
 
-
-
 /**
  * Delete if strikethroughLine is drawn 
  * method for clickEvent
@@ -233,6 +179,7 @@ let back2 = () =>{
      console.log('deleteEndTask()');
     //取り消し線が書かれているものを消す
     htmlElementAllDelete(document.getElementsByClassName('strikethrough'));
+    saveWs();
 };
 
 /**
@@ -356,142 +303,7 @@ let initTime = ()=>{
 
 
 
-/**
- * 
- */
-//時間用のクラス
-class TimeLimit{
-    constructor(dispTimer,splitTag){
-        this.objNum = Math.floor(Math.random()*100);
-        this.moveFlg = true;
-        this.splitTag = splitTag;
-        this.limitSec = this.timeStringToSec(dispTimer,splitTag);
-        this.settingSec = this.limitSec;
-        this.startTime = this.getCurrentTime();
-    }
-    getNum(){
-        return this.objNum;
-    }
 
-    start(){
-        this.moveFlg = true;        
-    }
-    stop(){
-        this.moveFlg = false;
-    }
-    getFlg(){
-        return this.moveFlg;
-    }
-
-    secToTimeString(){
-        // console.log("this.limitSec:"+this.limitSec);
-        let min = Math.floor(this.divide60(this.limitSec));
-        // console.log("min:"+min);
-        return String(min)+this.splitTag+String(this.limitSec-this.multipli60(min));
-    }
-
-
-    getTime(){
-        return this.secToTimeString();
-    }
-
-    calcLimitTime(){
-        this.limitSec=this.settingSec - this.elapsedTime();
-        return this.limitSec;
-    }
-
-    timeStringToSec(dispTimer,splitTag){
-        let tmpTimeArray = dispTimer.split(splitTag);  
-        return this.multipli60(Number(tmpTimeArray[0]))+Number(tmpTimeArray[1]);
-    }
-
-    getSec(){
-        return this.changeSce();
-    }
-
-    setSec(sec){}
-
-    /**
-     * return current time
-     * @return  {Number} current time
-     */
-    getCurrentTime(){
-        return Date.now()/1000;
-    }
-
-    /**
-     * return start time
-     * @return  {Number} current time
-     */
-    getStartTime(){
-        return this.startTime;
-    }
-
-    /**
-     * Elapsed time since obj was created
-     * @return  {Number} elapsed time
-     */
-    elapsedTime(){
-        return Math.floor(this.getCurrentTime()-this.startTime);
-    }
-
-    /**
-     * Return the remaining time set in obj
-     * @return  {Number} remain time
-     */
-    getRemainTime(){
-        return this.calcLimitTime();
-    }
-
-
-    /**
-     * 
-     */
-    changeSec(){
-        //時分秒を秒数に変更
-        return Number(this.hour*60*60)+Number(this.min*60)+Number(this.sec);
-    }
-
-    secToMin(sec){
-        return this.divide60(sec);
-    }
-
-    secToHour(sec){
-        return this.divide60(this.divide60(sec));
-    }
-
-    minToSec(min){
-        // console.log("min:"+min);
-        return min * 60;
-    }
-
-    divide60(num){
-        return num/60;
-    }
-
-    multipli60(num){
-        return num*60;
-    }
-
-    startSec(){
-        this.sec = Number(this.sec)+1;
-        return this;
-    }
-    margeTime(m,s){
-        let sec = String(s);
-        if(sec.length<2){
-            sec="0"+sec;
-        }
-        return m +":"+ sec;
-    }
-
-    getTimeStr(){
-        let min = Math.floor(this.secToMin(this.limitSec));
-        let sec = this.limitSec - this.minToSec(min);
-        let time = this.margeTime(min,sec);
-        return time;
-    }
-}
 
 
 /**
