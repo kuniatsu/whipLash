@@ -13,9 +13,6 @@
         <p id="title">タイトル</p>
         <p id="timer">3:00</p>
         <ol id="taskList">
-            <!-- <li>1つめの項目</li>
-            <li>2つめの項目</li>
-            <li>3つめの項目</li> -->
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
         <!-- <input type="hidden" id="stopFlg" value=""> -->
@@ -94,8 +91,8 @@ class WebStorage{
 }
 
 (()=>{
-    setEvent();
     setList();
+    setEvent();
     
     let sortable = Sortable.create(taskList, {
         group: "taskList",
@@ -517,9 +514,17 @@ let checkKeyPress = (e,keyNum,method)=>{
 
 let taskMake = ()=>{
     if(inputTask.value!=""){
-        let Ele = document.createElement('li');
-        Ele.innerText = inputTask.value;
-        addTaskList(Ele);
+        let ele = document.createElement('li');
+        ele.innerText = inputTask.value;
+        addTaskList(ele);
+        ele.addEventListener('click',(e)=>{
+            let strikethroughFlg = checkClass(e.target,"strikethrough");
+            if(strikethroughFlg){
+                ele.classList.remove('strikethrough');
+            }else{
+                ele.classList.add('strikethrough');
+            }
+        });
         inputTask.value = "";
         inputTask.focus();
     }
@@ -563,18 +568,5 @@ let changeTitle = ()=>{
     tts(titleText+"開始");
 }
 
-
-
-
-
-
-
-
-
 </script>
 </html>
-
-<!---
-design
-anime
---->
