@@ -11,11 +11,11 @@
     </head>
     <body>
         <p id="title">タイトル</p>
-        <p id="timer">0:05</p>
+        <p id="timer">3:00</p>
         <ol id="taskList">
-            <li>1つめの項目</li>
+            <!-- <li>1つめの項目</li>
             <li>2つめの項目</li>
-            <li>3つめの項目</li>
+            <li>3つめの項目</li> -->
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
         <!-- <input type="hidden" id="stopFlg" value=""> -->
@@ -29,13 +29,74 @@
         <button id="bt8"> < </button>
         <button id="bt9"> > </button>
         <button id="bt10">init</button>
+        <button id="bt11">ws</button>
     </body>
 <script src="./Sortable.js"></script>
 <script>
 let speach = new SpeechSynthesisUtterance();
 let timeLimit;
+let ws;
+
+
+
+
+class WebStorage{
+    constructor(){
+        this.storage = localStorage;
+    }
+    checkWs(){
+        if (typeof(Storage) === "undefined") {
+            console.log("保存機能が使えません");
+            return false;
+        }
+        return true;
+    }
+    checkItem(key){
+        if(this.storage.getItem(key) == undefined){
+            return true;
+        }
+        return false;
+    }
+
+    log(){
+        console.dir(this.getAllItem());
+    }
+    setItem(name,item){
+        //webstorageに保存
+        console.log(name+":"+item);
+        this.storage.setItem(name,item);
+    }
+    getWsCount(){
+        return this.storage.length;
+    }
+    getItem(name){
+        //webstorageから読み出し
+        return this.storage.getItem(name);
+    }
+    getAllItem(){
+        return this.storage;
+    }
+    removeItem(key){
+        this.storage.removeItem(key);
+    }
+    clear(){
+        this.storage.clear();
+    }
+    setSelectorInnerText(selector,key){
+        let textArray = [];
+        let eleArray = document.querySelectorAll(selector);
+        eleArray.forEach((ele)=>{
+            textArray.push(ele.innerText);
+        });
+        this.setItem(key,textArray);
+    }
+
+}
+
 (()=>{
     setEvent();
+    setList();
+    
     let sortable = Sortable.create(taskList, {
         group: "taskList",
         animation: 100
@@ -66,16 +127,51 @@ function setEvent(){
     bt6.addEventListener('click',()=>{
         stop();
     });
-    inputTask.addEventListener('keypress', function (e) {
-        var ele = checkKeyPress(e,13,taskMake);
-    });
+
     bt7.addEventListener('click',()=>{previousTask()});
     bt8.addEventListener('click',()=>{back2()});
     bt9.addEventListener('click',()=>{next2()});
     bt10.addEventListener('click',()=>{initTime()});
+    bt11.addEventListener('click',()=>{
+        // if(ws == undefined || ws == null){
+        //     ws = new WebStorage();
+        // }        
+        // ws.log();
+        makeWs();
+        ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
+    });
+
+    inputTask.addEventListener('keypress', function (e) {
+        var ele = checkKeyPress(e,13,taskMake);
+    });
 }
 
 
+
+function makeWs(){
+    if(ws == undefined || ws == null){
+        ws = new WebStorage();
+    }        
+    ws.log();
+}
+
+function setList(){
+    makeWs();
+    if(ws.checkItem('task')){
+        return;
+    }
+    let taskArray = ws.getItem('task').split(',');
+    for(let task of taskArray){
+        let li = document.createElement('li');
+        li.innerText = task;
+        addTaskList(li);
+    }
+}
+
+function addTaskList(Ele){
+    taskList.appendChild(Ele);
+    taskList.appendChild(inputTaskList);
+}
 
 /*   clickEvent  */
 
@@ -161,7 +257,11 @@ let back2 = () =>{
         if(limit <= -1){
             time = "0:00";
             loopFlg = false;
-        }        
+        }else if(limit <= 10 && timeObj.getFlg() != false){
+            tts(limit);
+        }else if(limit%60==0 && timeObj.getFlg() != false){
+            tts("あと"+(limit/60)+"分です");
+        }
         if(timeObj.getFlg() != false){            
             dispTimer.innerText = timeObj.getTimeStr(time);
         }
@@ -257,7 +357,7 @@ let stop = ()=>{
 
 
 let initTime = ()=>{
-    document.getElementById('timer').innerText = "0:05";
+    document.getElementById('timer').innerText = "3:00";
 }
 
 
@@ -425,11 +525,6 @@ let taskMake = ()=>{
     }
 }
 
-let addTaskList = (Ele)=>{
-    taskList.appendChild(Ele);
-    taskList.appendChild(inputTaskList);
-}
-
 let deleteInput = ()=>{
     console.log("deleteInput()");
     inputTaskList.classList.add("displayNone");
@@ -465,16 +560,21 @@ let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText;
     console.log(title);
-    tts(titleText);
+    tts(titleText+"開始");
 }
+
+
+
+
+
+
+
 
 
 </script>
 </html>
 
 <!---
-TtoT
-webstraeg
 design
 anime
 --->
