@@ -124,7 +124,10 @@ let next2 = () =>{
 
 
 let back2 = () =>{
-    back();
+    timeLimit.stop();
+    previousTask();
+    initTime();
+    playTask();
 }
 
 
@@ -213,15 +216,7 @@ let everySecond = (callback,timeLimitObj)=>{
     return new Promise((res)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
-            console.log("loopFlg:"+loopFlg);
-            console.log(timeLimitObj.getFlg()); 
-            console.log("Num:"+timeLimitObj.getNum());  
-            if(timeLimitObj.getNum() !== timeLimit.getNum()){
-                console.log("あかん");
-                timeLimitObj.stop();
-            }
             if(loopFlg==true && timeLimitObj.getFlg() == true){
-                console.log("生きてる:"+timeLimitObj.getNum());
                 await everySecond(callback,timeLimitObj);
             }
             res(timeLimitObj);
@@ -245,9 +240,6 @@ let playTask = async ()=>{
     // timeLimit.start();   
     deleteEndTask();
     let endObj = await timeCount(document.getElementById('timer'));
-    console.log("timeCount_end");
-    console.log("数え終わりNo:"+endObj.getNum());
-    console.log("お役御免？："+endObj.getFlg());
     let taskCount = getTaskLength();
     if(taskCount > 0 && endObj.getFlg() == true){
         nextTask();
