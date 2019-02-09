@@ -4,6 +4,9 @@
             .strikethrough{
                 text-decoration: line-through;
             }
+            .displayNone{
+                display:none;
+            }
         </style>
     </head>
     <body>
@@ -12,13 +15,16 @@
             <li>1つめの項目</li>
             <li>2つめの項目</li>
             <li>3つめの項目</li>
+            <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
+        <input type="hidden" id="stopFlg" value="">
         <button id="bt">button</button>
         <button id="bt2">next</button>
         <button id="bt3">delete</button>
         <button id="bt4">timer</button>
         <button id="bt5">start</button>
-        
+        <button id="bt6">stop</button>
+        <button id="bt7">back</button>
     </body>
 <script src="./Sortable.js"></script>
 <script>
@@ -37,14 +43,27 @@ function setEvent(){
     bt2.addEventListener('click',()=>{nextTask()});
     bt3.addEventListener('click',()=>{deleteEndTask()});
     bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
-    document.querySelectorAll('li').forEach((li)=>{
-        li.addEventListener('click',()=>{
-            li.classList.add('strikethrough');
+    document.querySelectorAll('li:not(#inputTaskList)').forEach((li)=>{
+        li.addEventListener('click',(e)=>{
+            let strikethroughFlg = checkClass(e.target,"strikethrough");
+            if(strikethroughFlg){
+                li.classList.remove('strikethrough');
+            }else{
+                li.classList.add('strikethrough');
+            }
         });
     });
-    bt5.addEventListener('click',()=>{
+
+    bt5.addEventListener('click',()=>{        
         start();
     });
+    bt6.addEventListener('click',()=>{
+        stop();
+    });
+    inputTask.addEventListener('keypress', function (e) {
+        var ele = checkKeyPress(e,13,taskMake);
+    });
+    bt7.addEventListener('click',()=>{previousTask()});
 }
 
 
@@ -61,10 +80,34 @@ let nextTask=()=>{
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
         sequentialLoopList(list);
+        list.appendChild(inputTaskList);
         return task;
     }
     return null;
 };
+
+
+let previousTask=()=>{
+    console.log('previousTask()');
+    let list = document.getElementById('taskList');
+    let task = list.getElementsByTagName('li');
+    console.dir(task);
+    if(task.length > 0){
+        reverseLoopList(list);
+        list.appendChild(inputTaskList);
+        return task;
+    }
+    return null;
+};
+
+
+let getTaskLength=()=>{
+    let list = document.getElementById('taskList');
+    return list.getElementsByTagName('li').length;
+}
+
+
+
 
 /**
  * Delete if strikethroughLine is drawn 
@@ -91,7 +134,9 @@ let nextTask=()=>{
             time = "0:00";
             loopFlg = false;
         }        
-        dispTimer.innerText = timeLimit.getTimeStr(time);//要対応      
+        if(stopFlg.value != "stop"){            
+            dispTimer.innerText = timeLimit.getTimeStr(time);
+        }   
         return loopFlg;
     });
 };
@@ -106,9 +151,20 @@ let nextTask=()=>{
  * @return  {HTMLElement} List  
  */
 let sequentialLoopList=(list)=>{
+    // addTaskList(list.children[0]);
     list.appendChild(list.children[0]);
-    return list;
 };
+
+/**
+ * Changing the order in the List
+ * @param   {HTMLElement} List
+ * @return  {HTMLElement} List  
+ */
+let reverseLoopList=(list)=>{
+    list.insertBefore(list.lastElementChild, list.children[0]);
+    list.insertBefore(list.lastElementChild, list.children[0]);
+};
+
 
 
 /**
@@ -134,7 +190,7 @@ let everySecond = (callback)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
             console.log(loopFlg);
-            if(loopFlg==true){
+            if(loopFlg==true && stopFlg.value != "stop"){
                 await everySecond(callback);
             }
             res();
@@ -147,17 +203,29 @@ let everySecond = (callback)=>{
  * recursiveCall
  * 
  */
-let start = async ()=>{
+let start = ()=>{
     console.log("start()");
-    await timeCount(document.getElementById('timer'));
+    deleteInput();
+    playTask();
+}
+
+let playTask = async ()=>{
+    stopFlg.value = "start";    
     deleteEndTask();
-    let taskEle = nextTask();
-    initTime();
-    console.log(taskEle.length);
-    if(taskEle.length > 0){
-        start();
+    await timeCount(document.getElementById('timer'));
+    let taskCount = getTaskLength();
+    if(taskCount > 0 && stopFlg.value != "stop"){
+        nextTask();
+        initTime();
+        playTask();
     }
 }
+
+let stop = ()=>{
+    stopFlg.value = "stop";
+    addInput();
+}
+
 
 
 let initTime = ()=>{
@@ -288,6 +356,58 @@ class TimeLimit{
         return time;
     }
 }
+
+
+/**
+ * Confirm whether the enter key is pressed
+ * @param   {Event} e EventObject
+ * @param   {Integer} keyNum Enter Key is No.13
+ * @param   {method} method callbackMethod
+ */
+let checkKeyPress = (e,keyNum,method)=>{
+    var key = e.which || e.keyCode;
+    if (key === keyNum) { // 13 is enter
+        return method();
+    }
+};
+
+
+let taskMake = ()=>{
+    if(inputTask.value!=""){
+        let Ele = document.createElement('li');
+        Ele.innerText = inputTask.value;
+        addTaskList(Ele);
+        inputTask.value = "";
+        inputTask.focus();
+    }
+}
+
+let addTaskList = (Ele)=>{
+    taskList.appendChild(Ele);
+    taskList.appendChild(inputTaskList);
+}
+
+let deleteInput = ()=>{
+    console.log("deleteInput()");
+    inputTaskList.classList.add("displayNone");
+}
+
+let addInput = ()=>{
+    inputTaskList.classList.remove('displayNone');
+}
+
+let checkClass = (ele,checkClass)=>{
+    let checkFlag = false;
+    let classes = ele.className;
+    console.dir(classes);
+    if(!classes)return checkFlag;
+    classArray = classes.split(' ');
+    classArray.forEach((className)=>{
+        checkFlag = className == checkClass?true:checkFlag;
+    });
+    console.log(checkFlag);
+    return checkFlag;
+} 
 
 
 
