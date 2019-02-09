@@ -130,10 +130,6 @@ function setEvent(){
     bt9.addEventListener('click',()=>{next2()});
     bt10.addEventListener('click',()=>{initTime()});
     bt11.addEventListener('click',()=>{
-        // if(ws == undefined || ws == null){
-        //     ws = new WebStorage();
-        // }        
-        // ws.log();
         makeWs();
         ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
     });
@@ -525,9 +521,14 @@ let taskMake = ()=>{
                 ele.classList.add('strikethrough');
             }
         });
+        saveWs();
         inputTask.value = "";
         inputTask.focus();
     }
+}
+
+let saveWs = ()=>{
+    ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
 }
 
 let deleteInput = ()=>{
