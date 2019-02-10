@@ -13,6 +13,10 @@ let ws;
     });
 })();
 
+
+/**
+ * Assign events
+ */
 function setEvent(){
     bt.addEventListener('click',()=>{
         console.dir(taskList);
@@ -53,7 +57,9 @@ function setEvent(){
 }
 
 
-
+/**
+ * init WebStorage
+ */
 function makeWs(){
     if(ws == undefined || ws == null){
         ws = new WebStorage();
@@ -61,6 +67,9 @@ function makeWs(){
     ws.log();
 }
 
+/**
+ * add task to taskList from webstorage
+ */
 function setList(){
     makeWs();
     if(ws.checkItem('task')){
@@ -74,16 +83,19 @@ function setList(){
     }
 }
 
+/**
+ * add taskElements to taskListElements
+ * @param   {HTMLElement} element
+ */
 function addTaskList(Ele){
     taskList.appendChild(Ele);
     taskList.appendChild(inputTaskList);
 }
 
-/*   clickEvent  */
-
 /**
  * Changing the order in the ToDoList 
  * method for clickEvent
+ * @return  {HTMLElement[]} task
  */
  let nextTask=()=>{
     console.log('nextTask()');
@@ -97,11 +109,10 @@ function addTaskList(Ele){
     return null;
 };
 
-
-
 /**
  * Changing the order in the ToDoList 
  * method for clickEvent
+ * @return  {HTMLElement[]} task
  */
 let previousTask=()=>{
     console.log('previousTask()');
@@ -116,22 +127,28 @@ let previousTask=()=>{
     return null;
 };
 
-
+/**
+ * Get the count number of tasks
+ * @return  {Number} countTask
+ */
 let getTaskLength=()=>{
     let list = document.getElementById('taskList');
     return list.getElementsByTagName('li').length;
 }
 
+/**
+ * Make it the next task during execution
+ */
 let next2 = () =>{
-    // stopFlg.value = "stop";
     timeLimit.stop();
-
     nextTask();
     initTime();
     playTask();
 }
 
-
+/**
+ * Make it the previous task during execution
+ */
 let back2 = () =>{
     timeLimit.stop();
     previousTask();
@@ -145,19 +162,16 @@ let back2 = () =>{
  * Delete if strikethroughLine is drawn 
  * method for clickEvent
  */
- let deleteEndTask=()=>{
-     console.log('deleteEndTask()');
-    //取り消し線が書かれているものを消す
+let deleteEndTask=()=>{
     htmlElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
 };
 
 /**
- * display of time
+ * Control time
  * method for clickEvent
  */
  let timeCount = async (dispTimer)=>{
-    console.log("timeCount()");
     timeLimit = new TimeLimit(dispTimer.innerText,":");
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
@@ -180,14 +194,9 @@ let back2 = () =>{
     return endObj;
 };
 
-
-
-
-
 /**
  * Changing the order in the List
  * @param   {HTMLElement} List
- * @return  {HTMLElement} List  
  */
 let sequentialLoopList=(list)=>{
     // addTaskList(list.children[0]);
@@ -197,14 +206,12 @@ let sequentialLoopList=(list)=>{
 /**
  * Changing the order in the List
  * @param   {HTMLElement} List
- * @return  {HTMLElement} List  
  */
 let reverseLoopList=(list)=>{
+    //Since there is inputbox twice
     list.insertBefore(list.lastElementChild, list.children[0]);
     list.insertBefore(list.lastElementChild, list.children[0]);
 };
-
-
 
 /**
  * Delete All HTMLElement 
@@ -216,19 +223,17 @@ let htmlElementAllDelete=(delElement)=>{
     }
 }
 
-
-
-
 /**
  * What to do every second
  * recursiveCall
- * @param   {callback} callback every second
+ * @param   {callback} callback everySecond
  */
 let everySecond = (callback,timeLimitObj)=>{
     return new Promise((res)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
             if(loopFlg==true && timeLimitObj.getFlg() == true){
+                //recursiveCall
                 await everySecond(callback,timeLimitObj);
             }
             res(timeLimitObj);
@@ -237,16 +242,18 @@ let everySecond = (callback,timeLimitObj)=>{
 }
 
 /**
- * Loop if there is a task
- * recursiveCall
- * 
+ * taskStart
  */
 let start = ()=>{
-    console.log("start()");
     deleteInput();
     playTask();
 }
 
+/**
+ * Loop if there is a task
+ * recursiveCall
+ * 
+ */
 let playTask = async ()=>{
     deleteEndTask();
     changeTitle();
@@ -259,28 +266,28 @@ let playTask = async ()=>{
     }
 }
 
+/**
+ * taskStop
+ */
 let stop = ()=>{
     timeLimit.stop();
     addInput();
 }
 
 
-
+/**
+ * init to timeLimit
+ */
 let initTime = ()=>{
     document.getElementById('timer').innerText = "3:00";
 }
-
-
-
-
-
-
 
 /**
  * Confirm whether the enter key is pressed
  * @param   {Event} e EventObject
  * @param   {Integer} keyNum Enter Key is No.13
  * @param   {method} method callbackMethod
+ * @return  {callBackResult} 
  */
 let checkKeyPress = (e,keyNum,method)=>{
     var key = e.which || e.keyCode;
@@ -289,7 +296,9 @@ let checkKeyPress = (e,keyNum,method)=>{
     }
 };
 
-
+/**
+ * init to timeLimit
+ */
 let taskMake = ()=>{
     if(inputTask.value!=""){
         let ele = document.createElement('li');
@@ -309,41 +318,58 @@ let taskMake = ()=>{
     }
 }
 
+/**
+ * save to WebStrage
+ */
 let saveWs = ()=>{
     ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
 }
 
+/**
+ * Add class to hide input box 
+ */
 let deleteInput = ()=>{
-    console.log("deleteInput()");
     inputTaskList.classList.add("displayNone");
 }
 
+/**
+ * Delete class hiding input box 
+ */
 let addInput = ()=>{
     inputTaskList.classList.remove('displayNone');
 }
 
+
+/**
+ * check to specified class in the specified Element
+ * @param   {HTMLElement} ele
+ * @param   {String} checkClass
+ * @return  {bool} checkFlag
+ */
 let checkClass = (ele,checkClass)=>{
     let checkFlag = false;
     let classes = ele.className;
-    console.dir(classes);
     if(!classes)return checkFlag;
     classArray = classes.split(' ');
     classArray.forEach((className)=>{
         checkFlag = className == checkClass?true:checkFlag;
     });
-    console.log(checkFlag);
     return checkFlag;
 } 
 
-
-//text to speechの実行
-//シングルトンパターンに変更する
+/**
+ * Speak parameters
+ * @param   {String} speak
+ */
 let tts = (speak)=> {
     var speach = new SpeechSynthesisUtterance();
     speach.text = speak; // 喋る内容
     speechSynthesis.speak(speach);// 発話実行
 };
 
+/**
+ * Set titleDisplay and speak title
+ */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText;
