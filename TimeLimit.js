@@ -120,6 +120,7 @@ class TimeLimit{
 
     /**
      * Convert seconds to minutes
+     * @param   {Number} seconds
      * @return  {Number} minutes
      */
     secToMin(sec){
@@ -128,6 +129,7 @@ class TimeLimit{
 
     /**
      * Convert seconds to hour
+     * @param   {Number} seconds
      * @return  {Number} hour
      */
     secToHour(sec){
@@ -136,6 +138,7 @@ class TimeLimit{
 
     /**
      * Convert minutes to seconds
+     * @param   {Number} minutes
      * @return  {Number} seconds
      */
     minToSec(min){
@@ -144,6 +147,7 @@ class TimeLimit{
 
     /**
      * Calculate the Number divided by 60
+     * @param   {Number} num
      * @return  {Number} num
      */
     divide60(num){
@@ -152,6 +156,7 @@ class TimeLimit{
 
     /**
      * Calculate the Number multipli by 60
+     * @param   {Number} num
      * @return  {Number} num
      */
     multipli60(num){
@@ -160,6 +165,8 @@ class TimeLimit{
 
     /**
      * Create timeString for display
+     * @param   {Number} minutes
+     * @param   {Number} seconds
      * @return  {String} time
      */
     margeTime(m,s){
