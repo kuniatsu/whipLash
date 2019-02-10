@@ -350,7 +350,8 @@ let checkClass = (ele,checkClass)=>{
     let checkFlag = false;
     let classes = ele.className;
     if(!classes)return checkFlag;
-    classArray = classes.split(' ');
+    console.dir(classes);
+    let classArray = classes.split(' ');
     classArray.forEach((className)=>{
         checkFlag = className == checkClass?true:checkFlag;
     });
