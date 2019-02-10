@@ -1,7 +1,7 @@
 "use strict";
 
 let speach = new SpeechSynthesisUtterance();
-let timeLimit;
+let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ws;
 
 (()=>{
@@ -54,7 +54,34 @@ function setEvent(){
     inputTask.addEventListener('keypress', function (e) {
         var ele = checkKeyPress(e,13,taskMake);
     });
+    back.addEventListener('click',()=>{
+        console.log("back");
+        activIfMethod(previousTask,back2);
+    });
+    playstop.addEventListener('click',()=>{
+        console.log("playstop");
+        activIfMethod(start,stop);
+    });
+    next.addEventListener('click',()=>{
+        console.log("next");
+        activIfMethod(nextTask,next2);
+    });
 }
+
+
+/**
+ * Change execution method in task state
+ * @param   {Method} activeMethod
+ * @param   {Method} inactiveMethod
+ */
+function activIfMethod(activeCallBack,inactiveCallBack){
+    if(timeLimit.getFlg()){
+        inactiveCallBack();
+    }else{
+        activeCallBack();
+    }
+}
+
 
 
 /**
