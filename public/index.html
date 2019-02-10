@@ -1,9 +1,86 @@
 <html>
     <head>
         <style>
+            body{
+                margin: 0 auto;
+                height:100%;  
+            }
+
+            @media screen and (max-width: 999px) { 
+                /*SP*/
+                body{
+                    width:100%;
+                    font-size: 300%; 
+                }
+
+                #taskList{
+                    margin-left: 10%;
+                    font-size: 1.5em;
+                }
+
+            }
+            @media screen and (min-width:1000px) {
+                body{
+                    width:60%;
+                    font-size: 100%; 
+                }
+                #taskList{
+                    font-size: 2em;
+                }
+
+            }
+
+            #title{
+                margin-top: 0px;
+                margin-bottom:0px;
+                font-size: 3em;
+                white-space: nowrap;
+            }
+
+            #animationBox{
+                height:40%;
+                background-color: red;
+                position: relative;
+            }
+
+            #timer{
+                margin-top: 0px;
+                margin-left: 5%;
+                margin-bottom:0px; 
+                position: absolute;
+                bottom: 0;
+                font-size: 3em;
+            }
+
+            #taskList{
+                /* margin-left: 10%; SP*/
+                margin-top: 0px;
+                margin-bottom:0px; 
+            }
+
+            li{
+                white-space: nowrap;
+                border-bottom-style: solid;
+                border-bottom: solid 2px #000;
+            }
+
+            #playBox{
+                text-align: center;
+            }
+
+            img{
+                height: 10%;
+            }
+
+            #playstop{
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
             .strikethrough{
                 text-decoration: line-through;
             }
+
             .displayNone{
                 display:none;
             }
@@ -11,11 +88,22 @@
     </head>
     <body>
         <p id="title">タイトル</p>
-        <p id="timer">3:00</p>
+        <div id="animationBox">
+            <p id="timer">3:00</p>
+        </div>
+        <div id="playBox">
+            <img src="./image/back.png">
+            <img src="./image/play.png" id="playstop">
+            <img src="./image/next.png">
+        </div>
+
         <ol id="taskList">
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
-        <!-- <input type="hidden" id="stopFlg" value=""> -->
+
+
+        <hr />
+
         <button id="bt">button</button>
         <button id="bt2">next</button>
         <button id="bt3">delete</button>
@@ -28,10 +116,10 @@
         <button id="bt10">init</button>
         <button id="bt11">ws</button>
     </body>
-<script src="./Sortable.js"></script>
-<script src="./TimeLimit.js"></script>
-<script src="./WebStorage.js"></script>
-<script src="./module.js"></script>
-<script src="./index.js"></script>
-<script src="./test.js"></script>
+    <script src="./Sortable.js"></script>
+    <script src="./TimeLimit.js"></script>
+    <script src="./WebStorage.js"></script>
+    <script src="./module.js"></script>
+    <script src="./index.js"></script>
+    <script src="./test.js"></script>
 </html>
