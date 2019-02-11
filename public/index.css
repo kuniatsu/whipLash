@@ -1,0 +1,97 @@
+@charset "UTF-8";
+body{
+    margin: 0 auto;
+    height:100%;  
+}
+
+@media screen and (max-width: 999px) { 
+    /*SP*/
+    body{
+        width:100%;
+        font-size: 300%; 
+    }
+
+    #taskList{
+        margin-left: 10%;
+        font-size: 1.5em;
+    }
+
+}
+@media screen and (min-width:1000px) {
+    body{
+        width:60%;
+        font-size: 100%; 
+    }
+    #taskList{
+        font-size: 2em;
+    }
+
+}
+
+#title{
+    margin-top: 0px;
+    margin-bottom:0px;
+    font-size: 3em;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+#animationBox{
+    height:40%;
+    background-color: red;
+    position: relative;
+}
+
+#timer{
+    margin-top: 0px;
+    margin-left: 5%;
+    margin-bottom:0px; 
+    position: absolute;
+    bottom: 0;
+    font-size: 3em;
+}
+
+#taskList{
+    margin-top: 0px;
+    margin-bottom:0px; 
+}
+
+li{
+    border-bottom: solid 2px #000;
+    position: relative;        
+}
+
+#playBox{
+    text-align: center;
+}
+
+img{
+    height: 10%;
+}
+
+#playstop{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.listIcon{
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    height: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#inputTask{
+    width: 90%;
+    font-size:100%
+}
+
+.strikethrough{
+    text-decoration: line-through;
+}
+
+.displayNone{
+    display:none;
+}
