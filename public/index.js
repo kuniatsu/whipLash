@@ -24,13 +24,13 @@ function setEvent(){
     bt2.addEventListener('click',()=>{nextTask()});
     bt3.addEventListener('click',()=>{deleteEndTask()});
     bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
-    document.querySelectorAll('li:not(#inputTaskList)').forEach((li)=>{
-        li.addEventListener('click',(e)=>{
+    document.querySelectorAll('.task').forEach((task)=>{
+        task.addEventListener('click',(e)=>{
             let strikethroughFlg = checkClass(e.target,"strikethrough");
             if(strikethroughFlg){
-                li.classList.remove('strikethrough');
+                task.classList.remove('strikethrough');
             }else{
-                li.classList.add('strikethrough');
+                task.classList.add('strikethrough');
             }
         });
     });
@@ -65,6 +65,12 @@ function setEvent(){
     next.addEventListener('click',()=>{
         console.log("next");
         activIfMethod(nextTask,next2);
+    });
+
+    document.querySelectorAll('.listIcon').forEach((icon)=>{
+        icon.addEventListener('click',(e)=>{
+            console.log("hamburger");
+        });
     });
 }
 
@@ -105,7 +111,14 @@ function setList(){
     let taskArray = ws.getItem('task').split(',');
     for(let task of taskArray){
         let li = document.createElement('li');
-        li.innerText = task;
+        let span = document.createElement('span');
+        span.classList.add('task');
+        span.innerText = task;
+        let img = document.createElement('img');
+        img.classList.add('listIcon');
+        img.src = "./image/menu.png";
+        li.appendChild(span);
+        li.appendChild(img);
         addTaskList(li);
     }
 }
@@ -190,7 +203,7 @@ let back2 = () =>{
  * method for clickEvent
  */
 let deleteEndTask=()=>{
-    htmlElementAllDelete(document.getElementsByClassName('strikethrough'));
+    htmlParentElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
 };
 
@@ -244,9 +257,9 @@ let reverseLoopList=(list)=>{
  * Delete All HTMLElement 
  * @param   {HTMLElement} Delete target
  */
-let htmlElementAllDelete=(delElement)=>{
+let htmlParentElementAllDelete=(delElement)=>{
     while (delElement.length > 0) {
-        delElement.item(0).remove();
+        delElement.item(0).parentNode.remove();
     }
 }
 
@@ -358,16 +371,26 @@ let checkKeyPress = (e,keyNum,method)=>{
 let taskMake = ()=>{
     if(inputTask.value!=""){
         let ele = document.createElement('li');
-        ele.innerText = inputTask.value;
-        addTaskList(ele);
-        ele.addEventListener('click',(e)=>{
+        let span = document.createElement('span');
+        span.classList.add('task');
+        span.innerText = inputTask.value;
+        span.addEventListener('click',(e)=>{
             let strikethroughFlg = checkClass(e.target,"strikethrough");
             if(strikethroughFlg){
-                ele.classList.remove('strikethrough');
+                span.classList.remove('strikethrough');
             }else{
-                ele.classList.add('strikethrough');
+                span.classList.add('strikethrough');
             }
         });
+        let img = document.createElement('img');
+        img.classList.add('listIcon');
+        img.src = "./image/menu.png";
+        img.addEventListener('click',(e)=>{
+            console.log("hamburger");
+        });
+
+        ele.appendChild(span);
+        addTaskList(ele);
         saveWs();
         inputTask.value = "";
         inputTask.focus();

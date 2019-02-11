@@ -60,9 +60,10 @@
 
             li{
                 white-space: nowrap;
-                border-bottom-style: solid;
                 border-bottom: solid 2px #000;
+                position: relative;
             }
+
 
             #playBox{
                 text-align: center;
@@ -75,6 +76,14 @@
             #playstop{
                 margin-left: 5%;
                 margin-right: 5%;
+            }
+
+            .listIcon{
+                position: absolute;
+                top: 50%;
+                right: 3%;
+                height: 50%;
+                transform: translate(-50%,-50%);
             }
 
             .strikethrough{
@@ -98,6 +107,7 @@
         </div>
 
         <ol id="taskList">
+            <li><span class="task">テスト</span><img src="./image/menu.png" class="listIcon"></li>
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
 
