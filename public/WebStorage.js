@@ -97,7 +97,7 @@ class WebStorage{
         let textArray = [];
         let eleArray = document.querySelectorAll(selector);
         eleArray.forEach((ele)=>{
-            if(ele.innerText == ""){
+            if(ele.innerText != ""){
                 textArray.push(ele.innerText);
             }
         });

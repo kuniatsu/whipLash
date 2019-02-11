@@ -404,7 +404,8 @@ let taskMake = ()=>{
  * save to WebStrage
  */
 let saveWs = ()=>{
-    ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
+    // ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
+    ws.setSelectorInnerText('span.task',"task");    
 }
 
 /**
