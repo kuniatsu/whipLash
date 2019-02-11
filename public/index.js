@@ -2,6 +2,7 @@
 
 let speach = new SpeechSynthesisUtterance();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
+let ani = {end:function(){return false}/*prototype*/};
 let ws;
 
 (()=>{
@@ -72,6 +73,16 @@ function setEvent(){
         icon.addEventListener('click',(e)=>{
             // console.log("hamburger");
         });
+    });
+
+    bt12.addEventListener('click',()=>{
+        ani = new Newton(animationBox,timer);
+        // ani.changeAnimationBox();
+        ani.start();
+    });
+
+    bt13.addEventListener('click',()=>{
+        ani.toggle();
     });
 }
 
@@ -216,6 +227,7 @@ let deleteEndTask=()=>{
  */
  let timeCount = async (dispTimer)=>{
     timeLimit = new TimeLimit(dispTimer.innerText,":");
+    ani.start();
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
         let loopFlg = true;
@@ -226,9 +238,13 @@ let deleteEndTask=()=>{
             loopFlg = false;
         }else if(limit <= 10 && timeObj.getFlg() != false){
             tts(limit);
+            ani.last(limit);
         }else if(limit%60==0 && timeObj.getFlg() != false){
             tts("あと"+(limit/60)+"分です");
+        }else if(timeObj.getFlg() != false){
+            ani.toggle();
         }
+
         if(timeObj.getFlg() != false){            
             dispTimer.innerText = timeObj.getTimeStr(time);
         }
@@ -326,6 +342,11 @@ let changeImageSrc = (imageTag,url)=>{
  * 
  */
 let playTask = async ()=>{
+    ani.end();
+    ani = new Newton(animationBox,timer);
+//    ani = new Darwin(animationBox,timer);
+
+
     deleteEndTask();
     changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
@@ -351,7 +372,8 @@ let stop = ()=>{
  * init to timeLimit
  */
 let initTime = ()=>{
-    document.getElementById('timer').innerText = "3:00";
+//    document.getElementById('timer').innerText = "3:00";
+    document.getElementById('timer').innerText = "0:15";
 }
 
 /**

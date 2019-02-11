@@ -38,19 +38,30 @@ body{
 }
 
 #animationBox{
-    height:40%;
-    background-color: red;
     position: relative;
+    height:40%;
+    border:solid 2px;
+    /* background-image: url("./image/darwin/darwin0.png");
+    background-size: contain; */
 }
 
 #timer{
-    margin-top: 0px;
-    margin-left: 5%;
-    margin-bottom:0px; 
     position: absolute;
-    bottom: 0;
-    font-size: 3em;
+    margin-top: 0px;
+    margin-bottom:0px; 
 }
+
+.timer1{
+    font-size: 3em;
+    margin-left: 5%;
+    bottom: 0;
+}
+
+.timer2{
+    font-size: 6em;
+    right: 40%;
+}
+
 
 #taskList{
     margin-top: 0px;
@@ -94,4 +105,50 @@ img{
 
 .displayNone{
     display:none;
+}
+
+.apple0{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 0%;
+}
+
+.apple1{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 25%;
+}
+
+.apple2{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 50%;
+}
+
+.apple3{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 75%;
+}
+
+.apple4{
+    position: absolute;
+    right: 3%;
+    height: 0%;
+}
+
+.appleEnd{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 75%;
+}
+
+.darwin0{
+    background-image: url("./image/darwin/darwin0.png");
+    background-size: contain;
 }
