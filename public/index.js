@@ -111,16 +111,18 @@ function setList(){
     }
     let taskArray = ws.getItem('task').split(',');
     for(let task of taskArray){
-        let li = document.createElement('li');
-        let span = document.createElement('span');
-        span.classList.add('task');
-        span.innerText = task;
-        let img = document.createElement('img');
-        img.classList.add('listIcon');
-        img.src = "./image/menu.png";
-        li.appendChild(span);
-        li.appendChild(img);
-        addTaskList(li);
+        if(task!==""){
+            let li = document.createElement('li');
+            let span = document.createElement('span');
+            span.classList.add('task');
+            span.innerText = task;
+            let img = document.createElement('img');
+            img.classList.add('listIcon');
+            img.src = "./image/menu.png";
+            li.appendChild(span);
+            li.appendChild(img);
+            addTaskList(li);
+        }
     }
 }
 
@@ -389,8 +391,8 @@ let taskMake = ()=>{
         img.addEventListener('click',(e)=>{
             // console.log("hamburger");
         });
-
         ele.appendChild(span);
+        ele.appendChild(img);
         addTaskList(ele);
         saveWs();
         inputTask.value = "";

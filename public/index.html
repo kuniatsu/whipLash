@@ -35,6 +35,8 @@
                 margin-bottom:0px;
                 font-size: 3em;
                 white-space: nowrap;
+                overflow:hidden;
+                text-overflow: ellipsis;
             }
 
             #animationBox{
@@ -53,17 +55,14 @@
             }
 
             #taskList{
-                /* margin-left: 10%; SP*/
                 margin-top: 0px;
                 margin-bottom:0px; 
             }
 
             li{
-                white-space: nowrap;
                 border-bottom: solid 2px #000;
-                position: relative;
+                position: relative;        
             }
-
 
             #playBox{
                 text-align: center;
@@ -107,7 +106,6 @@
         </div>
 
         <ol id="taskList">
-            <li><span class="task">テスト</span><img src="./image/menu.png" class="listIcon"></li>
             <li id="inputTaskList"><input type="text" id="inputTask"></li>
         </ol>
 
