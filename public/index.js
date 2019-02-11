@@ -9,6 +9,7 @@ let ws;
     setEvent();    
     let sortable = Sortable.create(taskList, {
         group: "taskList",
+        handle:".listIcon",
         animation: 100
     });
 })();
@@ -69,7 +70,7 @@ function setEvent(){
 
     document.querySelectorAll('.listIcon').forEach((icon)=>{
         icon.addEventListener('click',(e)=>{
-            console.log("hamburger");
+            // console.log("hamburger");
         });
     });
 }
@@ -386,7 +387,7 @@ let taskMake = ()=>{
         img.classList.add('listIcon');
         img.src = "./image/menu.png";
         img.addEventListener('click',(e)=>{
-            console.log("hamburger");
+            // console.log("hamburger");
         });
 
         ele.appendChild(span);
