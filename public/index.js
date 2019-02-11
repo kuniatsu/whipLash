@@ -272,9 +272,37 @@ let everySecond = (callback,timeLimitObj)=>{
  * taskStart
  */
 let start = ()=>{
+    changeStopImage();
     deleteInput();
     playTask();
 }
+
+/**
+ * Change to playButton
+ */
+let changeStartImage = ()=>{
+    changeImageSrc(playstop,"./image/play.png");
+}
+
+/**
+ * Change to stopButton
+ */
+let changeStopImage = ()=>{
+    changeImageSrc(playstop,"./image/stop.png");
+}
+
+/**
+ * Change to stopButton
+ * @param   {HTMLElement} imageTag
+ * @param   {String} URL
+ */
+let changeImageSrc = (imageTag,url)=>{
+    imageTag.src = url;
+}
+
+
+
+
 
 /**
  * Loop if there is a task
@@ -297,6 +325,7 @@ let playTask = async ()=>{
  * taskStop
  */
 let stop = ()=>{
+    changeStartImage();
     timeLimit.stop();
     addInput();
 }
