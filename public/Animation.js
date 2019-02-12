@@ -38,11 +38,14 @@ class Animation{
         return this.timer;
     }
 
+    getName(){
+        return this.name;
+    }
+
     start(){}
     toggle(){}
     last(num){}
     end(){}
-
 
 }
 

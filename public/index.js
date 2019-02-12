@@ -2,12 +2,13 @@
 
 let speach = new SpeechSynthesisUtterance();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
-let ani = {end:function(){return false}/*prototype*/};
+let ani = {end:function(){return false},getName:function(){return ""}/*prototype*/};
 let ws;
 
 (()=>{
     setList();
-    setEvent();    
+    setEvent();   
+    initTime(); 
     let sortable = Sortable.create(taskList, {
         group: "taskList",
         handle:".listIcon",
@@ -145,6 +146,15 @@ function addTaskList(Ele){
     taskList.appendChild(Ele);
     taskList.appendChild(inputTaskList);
 }
+
+/**
+ * init to timeLimit
+ */
+function initTime(){
+//    document.getElementById('timer').innerText = "3:00";
+    document.getElementById('timer').innerText = "0:20";
+}
+
 
 /**
  * Changing the order in the ToDoList 
@@ -339,13 +349,9 @@ let changeImageSrc = (imageTag,url)=>{
 /**
  * Loop if there is a task
  * recursiveCall
- * 
  */
 let playTask = async ()=>{
-    ani.end();
-    // ani = new Newton(animationBox,timer);
-    ani = new Darwin(animationBox,timer);
-
+    ani = aniObjToggle(ani);
 
     deleteEndTask();
     changeTitle();
@@ -358,12 +364,16 @@ let playTask = async ()=>{
     }
 }
 
-
-let aniObjToggle = ()=>{
-    if(ani){
-        ani = new Newton(animationBox,timer);
+/**
+ * Change animation alternately
+ * @param   {Animation} ani obj
+ */
+let aniObjToggle = (ani)=>{
+    ani.end();
+    if(ani.getName() != 'newton'){
+        return new Newton(animationBox,timer);
     }else{
-        ani = new Darwin(animationBox,timer);
+        return new Darwin(animationBox,timer);
     }
 }
 
@@ -379,15 +389,6 @@ let stop = ()=>{
     changeStartImage();
     timeLimit.stop();
     addInput();
-}
-
-
-/**
- * init to timeLimit
- */
-let initTime = ()=>{
-//    document.getElementById('timer').innerText = "3:00";
-    document.getElementById('timer').innerText = "0:15";
 }
 
 /**
