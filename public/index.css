@@ -15,7 +15,10 @@ body{
         margin-left: 10%;
         font-size: 1.5em;
     }
-
+    .timer2{
+        font-size: 3em;
+        right: 35%;
+    }
 }
 @media screen and (min-width:1000px) {
     body{
@@ -25,7 +28,10 @@ body{
     #taskList{
         font-size: 2em;
     }
-
+    .timer2{
+        font-size: 6em;
+        right: 40%;
+    }
 }
 
 #title{
@@ -57,10 +63,7 @@ body{
     bottom: 0;
 }
 
-.timer2{
-    font-size: 6em;
-    right: 40%;
-}
+
 
 
 #taskList{
@@ -151,4 +154,65 @@ img{
 .darwin0{
     background-image: url("./image/darwin/darwin0.png");
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin1{
+    background-image: url("./image/darwin/darwin1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin2{
+    background-image: url("./image/darwin/darwin2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin3{
+    background-image: url("./image/darwin/darwin3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin4{
+    background-image: url("./image/darwin/darwin4.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin5{
+    background-image: url("./image/darwin/darwin5.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin6{
+    background-image: url("./image/darwin/darwin6.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin7{
+    background-image: url("./image/darwin/darwin7.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin8{
+    background-image: url("./image/darwin/darwin8.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin_end{
+    background-image: url("./image/darwin/darwin_end.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
 }

@@ -343,8 +343,8 @@ let changeImageSrc = (imageTag,url)=>{
  */
 let playTask = async ()=>{
     ani.end();
-    ani = new Newton(animationBox,timer);
-//    ani = new Darwin(animationBox,timer);
+    // ani = new Newton(animationBox,timer);
+    ani = new Darwin(animationBox,timer);
 
 
     deleteEndTask();
@@ -357,6 +357,20 @@ let playTask = async ()=>{
         playTask();
     }
 }
+
+
+let aniObjToggle = ()=>{
+    if(ani){
+        ani = new Newton(animationBox,timer);
+    }else{
+        ani = new Darwin(animationBox,timer);
+    }
+}
+
+
+
+
+
 
 /**
  * taskStop

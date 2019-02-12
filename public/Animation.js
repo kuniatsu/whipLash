@@ -4,6 +4,7 @@
  */
 class Animation{
     constructor(animationBox,timer){
+        this.name = "prent";
         this.animationBox = animationBox;
         this.timer = timer;
     }
@@ -48,6 +49,7 @@ class Animation{
 class Newton extends Animation {
     constructor(animationBox,timer){
         super(animationBox,timer);
+        this.name = "newton";
         this.img = document.createElement('img');
         this.img.src = "./image/apple.png";
     }
@@ -55,6 +57,7 @@ class Newton extends Animation {
     start(){
         this.img.classList.add('apple0');
         super.getAnimationBox().appendChild(this.img);
+        super.getTimer().classList.replace( 'timer2', 'timer1' );
     }
 
     toggle(){
@@ -67,7 +70,7 @@ class Newton extends Animation {
     last(num){
         if(num==0){
             this.img.src = "./image/neko.png";
-            this.img.classList.replace( this.img.className, 'appleEnd' )
+            this.img.classList.replace( this.img.className, 'appleEnd' );
         }else if(num<10){
             let i = 4 - (num%5);
             this.img.classList.replace( this.img.className, 'apple'+i );
@@ -88,15 +91,46 @@ class Newton extends Animation {
 class Darwin extends Animation {
     constructor(animationBox,timer){
         super(animationBox,timer);
+        this.name = "darwin";
     }
 
     start(){
         super.getAnimationBox().classList.add('darwin0');
-        super.getTimer()
+        super.getTimer().classList.replace( 'timer1', 'timer2' );
+        super.getAnimationBox().style.border = "none";        
     }
 
-    toggle(){}
-    last(num){}
-    end(){}
+    toggle(){
+        let div = super.getAnimationBox();
+        let activeClass = div.className;
+        let i = Number(activeClass.replace(/[^0-9^\.]/g,""));
+        i = (i+1)%5;
+        console.dir(activeClass);
+        div.classList.replace( activeClass, 'darwin'+i );
+    }
+
+    last(num){
+        let div = super.getAnimationBox();
+        if(num==0){
+            div.classList.replace( div.className, 'darwin_end' );
+        }else if(num==1){
+            div.classList.replace( div.className, 'darwin8' );
+        }else if(num==2){
+            div.classList.replace( div.className, 'darwin7' );
+        }else if(num==3){
+            div.classList.replace( div.className, 'darwin6' );
+        }else if(num==4){
+            div.classList.replace( div.className, 'darwin5' );
+        }else if(num==5){
+            div.classList.replace( div.className, 'darwin0' );
+        }else{
+            this.toggle();
+        }
+    }
+
+    end(){
+        super.getAnimationBox().className = "";
+        super.getAnimationBox().style.border = "";
+    }
 
 }
