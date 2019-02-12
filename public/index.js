@@ -369,6 +369,7 @@ let playTask = async ()=>{
         playTask();
     }else{
         changeStartImage();
+        addInput();
     }
 }
 
