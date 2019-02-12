@@ -197,7 +197,7 @@ let previousTask=()=>{
  */
 let getTaskLength=()=>{
     let list = document.getElementById('taskList');
-    return list.getElementsByTagName('li').length;
+    return list.querySelectorAll('li:not(#inputTaskList)').length;
 }
 
 /**
@@ -207,6 +207,7 @@ let next2 = () =>{
     timeLimit.stop();
     nextTask();
     initTime();
+    deleteEndTask();
     playTask();
 }
 
@@ -217,6 +218,7 @@ let back2 = () =>{
     timeLimit.stop();
     previousTask();
     initTime();
+    deleteEndTask();
     playTask();
 }
 
@@ -314,10 +316,14 @@ let everySecond = (callback,timeLimitObj)=>{
  * taskStart
  */
 let start = ()=>{
-    changeStopImage();
-    deleteInput();
-    playTask();
+    deleteEndTask();
+    if(getTaskLength()>0){
+        changeStopImage();
+        deleteInput();
+        playTask();
+    }
 }
+
 
 /**
  * Change to playButton
@@ -353,14 +359,16 @@ let changeImageSrc = (imageTag,url)=>{
 let playTask = async ()=>{
     ani = aniObjToggle(ani);
 
-    deleteEndTask();
     changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
+    deleteEndTask();
+    initTime();
     let taskCount = getTaskLength();
     if(taskCount > 0 && endObj.getFlg() == true){
         nextTask();
-        initTime();
         playTask();
+    }else{
+        changeStartImage();
     }
 }
 
@@ -470,7 +478,6 @@ let checkClass = (ele,checkClass)=>{
     let checkFlag = false;
     let classes = ele.className;
     if(!classes)return checkFlag;
-    console.dir(classes);
     let classArray = classes.split(' ');
     classArray.forEach((className)=>{
         checkFlag = className == checkClass?true:checkFlag;

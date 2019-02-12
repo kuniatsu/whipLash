@@ -108,7 +108,7 @@ class Darwin extends Animation {
         let activeClass = div.className;
         let i = Number(activeClass.replace(/[^0-9^\.]/g,""));
         i = (i+1)%5;
-        console.dir(activeClass);
+        // console.dir(activeClass);
         div.classList.replace( activeClass, 'darwin'+i );
     }
 
