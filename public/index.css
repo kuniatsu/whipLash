@@ -78,6 +78,8 @@ li{
     position: relative;        
 }
 
+
+
 #playBox{
     text-align: center;
 }
@@ -99,9 +101,12 @@ img{
     transform: translate(-50%,-50%);
 }
 
+
 #inputTask{
     width: 90%;
-    font-size:100%
+    font-size:100%;
+    outline: 0;
+    border: 0px;
 }
 
 .strikethrough{
