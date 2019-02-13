@@ -151,8 +151,8 @@ function addTaskList(Ele){
  * init to timeLimit
  */
 function initTime(){
-//    document.getElementById('timer').innerText = "3:00";
-    document.getElementById('timer').innerText = "0:20";
+   document.getElementById('timer').innerText = "3:00";
+    // document.getElementById('timer').innerText = "0:20";
 }
 
 
