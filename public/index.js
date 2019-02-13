@@ -6,7 +6,7 @@ let ani = {end:function(){return false},getName:function(){return ""}/*prototype
 let ws;
 
 (()=>{
-    setList();
+    setList();//addTask
     setEvent();   
     initTime(); 
     let sortable = Sortable.create(taskList, {
@@ -21,42 +21,6 @@ let ws;
  * Assign events
  */
 function setEvent(){
-    bt.addEventListener('click',()=>{
-        console.dir(taskList);
-    });
-    bt2.addEventListener('click',()=>{nextTask()});
-    bt3.addEventListener('click',()=>{deleteEndTask()});
-    bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
-    document.querySelectorAll('.task').forEach((task)=>{
-        task.addEventListener('click',(e)=>{
-            let strikethroughFlg = checkClass(e.target,"strikethrough");
-            if(strikethroughFlg){
-                task.classList.remove('strikethrough');
-            }else{
-                task.classList.add('strikethrough');
-            }
-        });
-    });
-
-    bt5.addEventListener('click',()=>{        
-        start();
-    });
-    bt6.addEventListener('click',()=>{
-        stop();
-    });
-
-    bt7.addEventListener('click',()=>{previousTask()});
-    bt8.addEventListener('click',()=>{back2()});
-    bt9.addEventListener('click',()=>{next2()});
-    bt10.addEventListener('click',()=>{initTime()});
-    bt11.addEventListener('click',()=>{
-        makeWs();
-        ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
-    });
-
-    inputTask.addEventListener('keypress', function (e) {
-        var ele = checkKeyPress(e,13,taskMake);
-    });
     back.addEventListener('click',()=>{
         console.log("back");
         activIfMethod(previousTask,back2);
@@ -69,22 +33,6 @@ function setEvent(){
         console.log("next");
         activIfMethod(nextTask,next2);
     });
-
-    document.querySelectorAll('.listIcon').forEach((icon)=>{
-        icon.addEventListener('click',(e)=>{
-            // console.log("hamburger");
-        });
-    });
-
-    bt12.addEventListener('click',()=>{
-        ani = new Newton(animationBox,timer);
-        // ani.changeAnimationBox();
-        ani.start();
-    });
-
-    bt13.addEventListener('click',()=>{
-        ani.toggle();
-    });
 }
 
 
@@ -94,6 +42,7 @@ function setEvent(){
  * @param   {Method} inactiveMethod
  */
 function activIfMethod(activeCallBack,inactiveCallBack){
+    console.log("timeLimit.getFlg()"+timeLimit.getFlg());
     if(timeLimit.getFlg()){
         inactiveCallBack();
     }else{
@@ -117,7 +66,7 @@ function makeWs(){
  * add task to taskList from webstorage
  */
 function setList(){
-    makeWs();
+    makeWs();//create object
     if(ws.checkItem('task')){
         return;
     }
@@ -204,22 +153,34 @@ let getTaskLength=()=>{
  * Make it the next task during execution
  */
 let next2 = () =>{
-    timeLimit.stop();
-    nextTask();
-    initTime();
     deleteEndTask();
-    playTask();
+    timeLimit.stop();
+    let task = document.querySelectorAll('li:not(#inputTaskList)');
+    if(task.length > 0){
+        nextTask();
+        initTime();
+        playTask();
+    }else{
+        addInput();
+        changeStartImage();
+    }
 }
 
 /**
  * Make it the previous task during execution
  */
 let back2 = () =>{
-    timeLimit.stop();
-    previousTask();
-    initTime();
     deleteEndTask();
-    playTask();
+    timeLimit.stop();
+    let task = document.querySelectorAll('li:not(#inputTaskList)');
+    if(task.length > 0){
+        previousTask();
+        initTime();
+        playTask();
+    }else{
+        addInput();
+        changeStartImage();
+    }
 }
 
 
@@ -240,8 +201,12 @@ let deleteEndTask=()=>{
  let timeCount = async (dispTimer)=>{
     timeLimit = new TimeLimit(dispTimer.innerText,":");
     ani.start();
+
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
+        console.log(99)
+        // changeStopImage();
+        // deleteInput();
         let loopFlg = true;
         let limit = timeObj.calcLimitTime();
         let time = timeObj.getTime();
@@ -358,18 +323,21 @@ let changeImageSrc = (imageTag,url)=>{
  */
 let playTask = async ()=>{
     ani = aniObjToggle(ani);
-
+    console.log(888)
+    changeStopImage();
+    deleteInput();
     changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
     deleteEndTask();
-    initTime();
+    console.log(77)
     let taskCount = getTaskLength();
     if(taskCount > 0 && endObj.getFlg() == true){
+        initTime();
         nextTask();
         playTask();
     }else{
-        changeStartImage();
-        addInput();
+        // changeStartImage();
+        // addInput();
     }
 }
 
@@ -505,3 +473,6 @@ let changeTitle = ()=>{
     console.log(title);
     tts(titleText+"開始");
 }
+
+
+/*inputboxにはliNumber出さない */

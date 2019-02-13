@@ -109,6 +109,10 @@ img{
     border: 0px;
 }
 
+#inputTaskList{
+    list-style: none;
+}
+
 .strikethrough{
     text-decoration: line-through;
 }
