@@ -115,6 +115,7 @@ function initTime(){
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
+        initTime();
         sequentialLoopList(list);
         list.appendChild(inputTaskList);
         return task;
@@ -133,6 +134,7 @@ let previousTask=()=>{
     let task = list.getElementsByTagName('li');
     console.dir(task);
     if(task.length > 0){
+        initTime();
         reverseLoopList(list);
         list.appendChild(inputTaskList);
         return task;
@@ -145,6 +147,7 @@ let previousTask=()=>{
  * @return  {Number} countTask
  */
 let getTaskLength=()=>{
+    console.log("getTaskLength()");
     let list = document.getElementById('taskList');
     return list.querySelectorAll('li:not(#inputTaskList)').length;
 }
@@ -190,6 +193,7 @@ let back2 = () =>{
  * method for clickEvent
  */
 let deleteEndTask=()=>{
+    console.log("deleteEndTask()");
     htmlParentElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
 };
@@ -204,7 +208,7 @@ let deleteEndTask=()=>{
 
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
-        console.log(99)
+        console.log("everySecond_callBack");
         // changeStopImage();
         // deleteInput();
         let loopFlg = true;
@@ -281,10 +285,9 @@ let everySecond = (callback,timeLimitObj)=>{
  * taskStart
  */
 let start = ()=>{
+    console.log("start()");
     deleteEndTask();
     if(getTaskLength()>0){
-        changeStopImage();
-        deleteInput();
         playTask();
     }
 }
@@ -322,8 +325,8 @@ let changeImageSrc = (imageTag,url)=>{
  * recursiveCall
  */
 let playTask = async ()=>{
+    console.log("playTask()");
     ani = aniObjToggle(ani);
-    console.log(888)
     changeStopImage();
     deleteInput();
     changeTitle();
@@ -346,8 +349,10 @@ let playTask = async ()=>{
  * @param   {Animation} ani obj
  */
 let aniObjToggle = (ani)=>{
+    console.log("aniObjToggle()");
     ani.end();
     if(ani.getName() != 'newton'){
+        // return getNewton(animationBox,timer);
         return new Newton(animationBox,timer);
     }else{
         return new Darwin(animationBox,timer);

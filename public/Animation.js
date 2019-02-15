@@ -9,11 +9,12 @@ class Animation{
         this.timer = timer;
     }
 
-    animationBoxStyle = {
-        'backgroundColor':'black'
-    }
+    // animationBoxStyle = {
+    //     'backgroundColor':'black'
+    // }
     
     getElementStyle(elementId){
+        console.log("getElementStyle()");
         let ele = document.getElementById(elementId);
         console.dir(ele);
         return ele.style;
@@ -25,10 +26,10 @@ class Animation{
         }
     }
 
-    changeAnimationBox(){
-        console.dir(this.animationBox);
-        this.changeCss(this.animationBox.style,this.animationBoxStyle);
-    }
+    // changeAnimationBox(){
+    //     console.dir(this.animationBox);
+    //     this.changeCss(this.animationBox.style,this.animationBoxStyle);
+    // }
 
     getAnimationBox(){
         return this.animationBox;
@@ -48,6 +49,11 @@ class Animation{
     end(){}
 
 }
+
+// function getNewton(a,b){
+//     console.log("getNewton()");
+//     return new Newton(a,b);
+// }
 
 class Newton extends Animation {
     constructor(animationBox,timer){
@@ -90,6 +96,9 @@ class Newton extends Animation {
         }
     }
 }
+
+
+
 
 class Darwin extends Animation {
     constructor(animationBox,timer){
