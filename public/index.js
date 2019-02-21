@@ -471,13 +471,11 @@ let tts = (speak)=> {
 
 /**
  * Set titleDisplay and speak title
+ * ControlDom
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText;
-    console.log(title);
     tts(titleText+"開始");
 }
 
-
-/*inputboxにはliNumber出さない */

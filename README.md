@@ -7,14 +7,20 @@ https://whiplash-todo.firebaseapp.com/
 4.時間制限があるので中だるみ、ダラけが発生しない。
 
 
-要望
+村上さん要望
 1.10分間隔
 2.ランダム(同じものが連続しない)
 3.ランダム(同じものが連続する)
 4.タスク編集
+
+
 
 開発
 1.動作しなくなるbug修正
 2.debugのlogレベル設定
 3.JSDoc3の使用
 4.Module.jsに分ける
+5.footer欲しい
+6.AlexaとGoogleHome開発
+7.ionic開発
+
