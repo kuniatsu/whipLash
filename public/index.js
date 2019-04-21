@@ -23,15 +23,15 @@ let ws;
 function setEvent(){
     back.addEventListener('click',()=>{
         console.log("back");
-        activIfMethod(previousTask,back2);
+        activeIfMethod(previousTask,back2);
     });
     playstop.addEventListener('click',()=>{
         console.log("playstop");
-        activIfMethod(start,stop);
+        activeIfMethod(start,stop);
     });
     next.addEventListener('click',()=>{
         console.log("next");
-        activIfMethod(nextTask,next2);
+        activeIfMethod(nextTask,next2);
     });
 }
 
@@ -41,7 +41,7 @@ function setEvent(){
  * @param   {Method} activeMethod
  * @param   {Method} inactiveMethod
  */
-function activIfMethod(activeCallBack,inactiveCallBack){
+function activeIfMethod(activeCallBack,inactiveCallBack){
     console.log("timeLimit.getFlg()"+timeLimit.getFlg());
     if(timeLimit.getFlg()){
         inactiveCallBack();
