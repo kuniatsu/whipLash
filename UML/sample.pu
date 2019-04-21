@@ -1,0 +1,21 @@
+
+@startuml playstopFlowchart
+:処理１;
+:処理２;
+:入力;
+while (条件)
+    :再入力;
+    if (end of file) then (true)
+        :trueの処理;
+    else
+        :folseの処理;
+    endif
+    :共通処理;
+endwhile
+:OK処理;
+partition Initialization {
+:read config file;
+:init internal variable;
+}
+
+@enduml
