@@ -7,6 +7,7 @@ if (activeIfMethod() ) then
         :終了タスクを削除; 
         if (次のタスクがあるか？) then (true)
             partition playTask() {
+                repeat
                 :アニメーションオブジェクト作成;
                 :再生ボタン画像変更;
                 :textBox非表示;
@@ -34,8 +35,8 @@ if (activeIfMethod() ) then
                 if (次のタスクがある) then 
                     :時間の初期化;
                     :次のタスクに変える;
-                    :playTask();
                 endif
+                repeat while (次のタスクがある)
             }
         endif
     }
