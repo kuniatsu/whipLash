@@ -73,40 +73,52 @@ function setList(){
     if(ws.checkItem('task')){
         //disp GuideLine
         inputTask.placeholder = "→  タスク入力してENTER";
+        createTaskElement("タスクを登録する");
         return;
     }
     let taskArray = ws.getItem('task').split(',');
 
     //task nothing 
     if(taskArray.length == 1 && taskArray[0] == ""){
-        let li = document.createElement('li');
-        let span = document.createElement('span');
-        span.classList.add('task');
-        span.innerText = "タスクを登録する";
-        let img = document.createElement('img');
-        img.classList.add('listIcon');
-        img.src = "./image/menu.png";
-        li.appendChild(span);
-        li.appendChild(img);
-        addTaskList(li);
+        createTaskElement("タスクを登録する");
     }
-
 
     for(let task of taskArray){
         if(task!==""){
-            let li = document.createElement('li');
-            let span = document.createElement('span');
-            span.classList.add('task');
-            span.innerText = task;
-            let img = document.createElement('img');
-            img.classList.add('listIcon');
-            img.src = "./image/menu.png";
-            li.appendChild(span);
-            li.appendChild(img);
-            addTaskList(li);
+            createTaskElement(task);
         }
     }
 }
+
+/**
+ * create task element
+ * @param   {String} taskName
+ */
+function createTaskElement(taskName){
+    let li = document.createElement('li');
+    let span = document.createElement('span');
+    span.classList.add('task');
+    span.innerText = taskName;
+    span.addEventListener('click',(e)=>{
+        let strikethroughFlg = checkClass(e.target,"strikethrough");
+        if(strikethroughFlg){
+            span.classList.remove('strikethrough');
+        }else{
+            span.classList.add('strikethrough');
+            console.log("add");
+        }
+    });
+    let img = document.createElement('img');
+    img.classList.add('listIcon');
+    img.src = "./image/menu.png";
+    li.appendChild(span);
+    li.appendChild(img);
+    addTaskList(li);
+}
+
+
+
+
 
 /**
  * add taskElements to taskListElements
@@ -426,6 +438,7 @@ let makeTask = ()=>{
                 span.classList.remove('strikethrough');
             }else{
                 span.classList.add('strikethrough');
+                console.log("add");
             }
         });
         let img = document.createElement('img');

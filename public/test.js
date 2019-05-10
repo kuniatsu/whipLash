@@ -5,16 +5,16 @@
     bt2.addEventListener('click',()=>{nextTask()});
     bt3.addEventListener('click',()=>{deleteEndTask()});
     bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
-    document.querySelectorAll('.task').forEach((task)=>{
-        task.addEventListener('click',(e)=>{
-            let strikethroughFlg = checkClass(e.target,"strikethrough");
-            if(strikethroughFlg){
-                task.classList.remove('strikethrough');
-            }else{
-                task.classList.add('strikethrough');
-            }
-        });
-    });
+    // document.querySelectorAll('.task').forEach((task)=>{
+    //     task.addEventListener('click',(e)=>{
+    //         let strikethroughFlg = checkClass(e.target,"strikethrough");
+    //         if(strikethroughFlg){
+    //             task.classList.remove('strikethrough');
+    //         }else{
+    //             task.classList.add('strikethrough');
+    //         }
+    //     });
+    // });
 
     bt5.addEventListener('click',()=>{        
         start();
