@@ -76,6 +76,22 @@ function setList(){
         return;
     }
     let taskArray = ws.getItem('task').split(',');
+
+    //task nothing 
+    if(taskArray.length == 1 && taskArray[0] == ""){
+        let li = document.createElement('li');
+        let span = document.createElement('span');
+        span.classList.add('task');
+        span.innerText = "タスクを登録する";
+        let img = document.createElement('img');
+        img.classList.add('listIcon');
+        img.src = "./image/menu.png";
+        li.appendChild(span);
+        li.appendChild(img);
+        addTaskList(li);
+    }
+
+
     for(let task of taskArray){
         if(task!==""){
             let li = document.createElement('li');
