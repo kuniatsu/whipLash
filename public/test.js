@@ -31,10 +31,6 @@
         makeWs();
         ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
     });
-
-    inputTask.addEventListener('keypress', function (e) {
-        var ele = checkKeyPress(e,13,taskMake);
-    });
     
     document.querySelectorAll('.listIcon').forEach((icon)=>{
         icon.addEventListener('click',(e)=>{

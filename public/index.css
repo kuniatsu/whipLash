@@ -143,11 +143,17 @@ img{
 
 
 #inputTask{
-    width: 90%;
+    width: 100%;
     font-size:100%;
     outline: 0;
-    border: 0px;
+    /* border: 0px; */
+    border-top-width: 0px;
+    border-bottom-width: 5px;
+    border-bottom-color: #000;
+    border-left-width: 0px;
+    border-right-width: 0px;
 }
+
 #inputTask2{
     width: 100%;
     font-size:100%;

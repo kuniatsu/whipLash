@@ -33,6 +33,9 @@ function setEvent(){
         console.log("next");
         activeIfMethod(nextTask,next2);
     });
+    inputTask.addEventListener('keypress', (e)=> {
+        var ele = checkKeyPress(e,13,taskMake);
+    });
 }
 
 
@@ -103,6 +106,9 @@ function initTime(){
    document.getElementById('timer').innerText = "3:00";
     // document.getElementById('timer').innerText = "0:20";
 }
+
+
+
 
 
 /**
