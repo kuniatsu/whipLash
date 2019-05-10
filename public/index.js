@@ -71,6 +71,8 @@ function makeWs(){
 function setList(){
     makeWs();//create object
     if(ws.checkItem('task')){
+        //disp GuideLine
+        inputTask.placeholder = "→  タスク入力してENTER";
         return;
     }
     let taskArray = ws.getItem('task').split(',');
