@@ -34,7 +34,7 @@ function setEvent(){
         activeIfMethod(nextTask,next2);
     });
     inputTask.addEventListener('keypress', (e)=> {
-        var ele = checkKeyPress(e,13,taskMake);
+        var ele = checkKeyPress(e,13,makeTask);
     });
 }
 
@@ -414,7 +414,7 @@ let checkKeyPress = (e,keyNum,method)=>{
 /**
  * init to timeLimit
  */
-let taskMake = ()=>{
+let makeTask = ()=>{
     if(inputTask.value!=""){
         let ele = document.createElement('li');
         let span = document.createElement('span');
