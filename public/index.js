@@ -428,28 +428,7 @@ let checkKeyPress = (e,keyNum,method)=>{
  */
 let makeTask = ()=>{
     if(inputTask.value!=""){
-        let ele = document.createElement('li');
-        let span = document.createElement('span');
-        span.classList.add('task');
-        span.innerText = inputTask.value;
-        span.addEventListener('click',(e)=>{
-            let strikethroughFlg = checkClass(e.target,"strikethrough");
-            if(strikethroughFlg){
-                span.classList.remove('strikethrough');
-            }else{
-                span.classList.add('strikethrough');
-                console.log("add");
-            }
-        });
-        let img = document.createElement('img');
-        img.classList.add('listIcon');
-        img.src = "./image/menu.png";
-        img.addEventListener('click',(e)=>{
-            // console.log("hamburger");
-        });
-        ele.appendChild(span);
-        ele.appendChild(img);
-        addTaskList(ele);
+        createTaskElement(inputTask.value);
         saveWs();
         inputTask.value = "";
         inputTask.focus();
