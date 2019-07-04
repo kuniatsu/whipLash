@@ -17,6 +17,22 @@ let ws;
 })();
 
 
+
+function getParam(){
+    let param = location.search;
+    param = param.slice(1) ;//?の削除
+    console.log(param);
+    let paramArray = param.split('&');
+    console.dir(paramArray);
+    let paramObj;
+    for(let i in paramArray) {
+        paramArray[i];
+    }
+}
+
+
+
+
 /**
  * Assign events
  */
@@ -74,6 +90,7 @@ function setList(){
         //disp GuideLine
         inputTask.placeholder = "→  タスク入力してENTER";
         createTaskElement("タスクを登録する");
+        createTaskElement("終わったタスクをタップ");
         return;
     }
     let taskArray = ws.getItem('task').split(',');
