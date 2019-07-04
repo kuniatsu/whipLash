@@ -90,13 +90,14 @@ function setList(){
         //disp GuideLine
         inputTask.placeholder = "→  タスク入力してENTER";
         createTaskElement("タスクを登録する");
-        createTaskElement("終わったタスクをタップ");
+        createTaskElement("終わったタスク名をタップ");
         return;
     }
     let taskArray = ws.getItem('task').split(',');
 
     //task nothing 
     if(taskArray.length == 1 && taskArray[0] == ""){
+        inputTask.placeholder = "→  タスク入力してENTER";
         createTaskElement("タスクを登録する");
     }
 
