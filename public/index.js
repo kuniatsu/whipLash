@@ -90,7 +90,7 @@ function setList(){
         //disp GuideLine
         inputTask.placeholder = "→  タスク入力してENTER";
         createTaskElement("タスクを登録する");
-        createTaskElement("終わったタスク名をタップ");
+        createTaskElement("終了タスク削除");
         return;
     }
     let taskArray = ws.getItem('task').split(',');

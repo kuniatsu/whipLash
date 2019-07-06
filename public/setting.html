@@ -1,0 +1,149 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./index.css">
+        <title>whipLash</title>
+        <style>
+body {
+  font-family: 'Lato', sans-serif;
+  color: white;
+  background-color: teal;
+}
+h1 {
+  font-size: 60px;
+  margin: 0px;
+  padding: 0px;
+}
+h3 {
+  margin: 0px;
+  padding: 0px;
+  color: #999;
+}
+
+div.wrap {
+  /* width: 500px;
+   */
+  /* width:100%; */
+  width:80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  vertical-align: middle;
+}
+
+div.wrap div {
+  position: relative;
+  margin: 50px 0;
+
+}
+
+label {
+  position: absolute;
+  top: 0;
+  /* font-size: 30px; */
+  font-size: 200%;
+  margin: 10px;
+  padding: 0 10px;
+  background-color: teal;
+  -webkit-transition: top .2s ease-in-out, 
+                      font-size .2s ease-in-out;
+  transition: top .2s ease-in-out, 
+              font-size .2s ease-in-out;
+}
+
+.active {
+  top: -25px;
+  font-size: 20px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 40px;
+  border: 1px solid white;
+  font-size: 40px;
+  background-color: teal;
+  color: white;
+} 
+
+input[type=text]:focus {
+  outline: none;
+}
+        </style>        
+    </head>
+    <body>
+        <header></header>
+        <article>
+                <link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+                <div id="inputs" class="wrap">
+                  <div>
+                    <label for="fname">HOST</label>
+                    <input id="fname" type="text" class="cool" value="http://192.168.1.11"/>
+                  </div>                
+                  <div>
+                    <label for="lname"></label>
+                    <input id="lname" type="text" class="cool"/>
+                  </div>                  
+                  <div>
+                    <label for="email">Some Long Copy Goes Here</label>
+                    <input id="email" type="text" class="cool"/>
+                  </div>
+                </div>
+        </article>
+        <footer>
+        </footer>
+    </body>
+    <script>
+ 
+
+    var fname = document.querySelector("#fname");
+    var lname = document.querySelector("#lname");
+    var email = document.querySelector("#email");
+    var eleArray = [fname,lname,email];
+
+    fname.addEventListener('focus',(e)=>{
+        e.target.parentNode.firstElementChild.classList.add('active');
+    });
+    fname.addEventListener('blur',(e)=>{
+        if (e.target.value == "") {
+            e.target.parentNode.firstElementChild.classList.remove('active');
+        }
+    });
+
+    lname.addEventListener('focus',(e)=>{
+        e.target.parentNode.firstElementChild.classList.add('active');
+    });
+    lname.addEventListener('blur',(e)=>{
+        if (e.target.value == "") {
+            e.target.parentNode.firstElementChild.classList.remove('active');
+        }
+    });
+
+    email.addEventListener('focus',(e)=>{
+        e.target.parentNode.firstElementChild.classList.add('active');
+    });
+    email.addEventListener('blur',(e)=>{
+        if (e.target.value == "") {
+            e.target.parentNode.firstElementChild.classList.remove('active');
+        }
+    });
+
+    function checkValue(eleArray){
+        for(ele of eleArray){
+            console.dir(ele);
+            console.dir(ele.value);
+            if(!ele.value==""){
+                console.log("in");
+                ele.parentNode.firstElementChild.classList.add('active');
+            }            
+        }
+    }
+
+    (()=>{
+        //init method
+        checkValue (eleArray);
+    })();
+
+
+    </script>
+</html>
