@@ -26,9 +26,9 @@ class WebStorage{
      */
     checkItem(key){
         if(this.storage.getItem(key) == undefined){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
