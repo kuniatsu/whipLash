@@ -14,8 +14,8 @@ header {
     left: 0px;                  /* 位置(右0px) */
     width: 100%;                /* 横幅100%　*/
     height: 5%;
-    background-color:rgba(250,250,250,0.8);
-    border-bottom: solid 2px;
+    /* background-color:rgba(250,250,250,0.8);
+    border-bottom: solid 2px; */
 }
 
 article{

@@ -22,7 +22,6 @@ function setParam(){
     var paramObj = getParam();
     if(Object.keys(paramObj).length){
         ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
-        console.log("ani.flg:"+ani.flg);
     }
 
 }
@@ -508,7 +507,7 @@ let checkClass = (ele,checkClass)=>{
  * @param   {String} speak
  */
 let tts = (speak)=> {
-    var speach = new SpeechSynthesisUtterance();
+    // speach = new SpeechSynthesisUtterance();
     speach.text = speak; // 喋る内容
     speechSynthesis.speak(speach);// 発話実行
 };
