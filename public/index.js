@@ -2,10 +2,11 @@
 
 let speach = new SpeechSynthesisUtterance();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
-let ani = {end:function(){return false},getName:function(){return ""}/*prototype*/};
+let ani = {end:function(){return false},getName:function(){return ""},flg:"" /*prototype*/};
 let ws;
 
 (()=>{
+    setParam();
     setList();//addTask
     setEvent();   
     initTime(); 
@@ -16,21 +17,30 @@ let ws;
     });
 })();
 
-
-
-function getParam(){
-    let param = location.search;
-    param = param.slice(1) ;//?の削除
-    console.log(param);
-    let paramArray = param.split('&');
-    console.dir(paramArray);
-    let paramObj;
-    for(let i in paramArray) {
-        paramArray[i];
+function setParam(){
+    console.log("setParam()");
+    var paramObj = getParam();
+    if(Object.keys(paramObj).length){
+        ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
+        console.log("ani.flg:"+ani.flg);
     }
+
 }
 
 
+function getParam(){
+    // console.log("getParam()");
+    let param = location.search;
+    param = param.slice(1) ;//?の削除
+    let paramArray = param.split('&');
+    let paramObj = {};
+    for(let i in paramArray) {
+        console.dir(paramArray[i]);
+        var pair = paramArray[i].split('=');
+        paramObj[pair[0]] = pair[1];
+    }
+    return paramObj;
+}
 
 
 /**
@@ -262,7 +272,7 @@ let deleteEndTask=()=>{
 
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
-        console.log("everySecond_callBack");
+        // console.log("everySecond_callBack");
         // changeStopImage();
         // deleteInput();
         let loopFlg = true;
@@ -382,11 +392,10 @@ let playTask = async ()=>{
     console.log("playTask()");
     ani = aniObjToggle(ani);
     changeStopImage();
-    deleteInput();
+    // deleteInput();//check!!
     changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
     deleteEndTask();
-    console.log(77)
     let taskCount = getTaskLength();
     if(taskCount > 0 && endObj.getFlg() == true){
         initTime();
@@ -403,10 +412,11 @@ let playTask = async ()=>{
  * @param   {Animation} ani obj
  */
 let aniObjToggle = (ani)=>{
-    console.log("aniObjToggle()");
+    console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
-    if(ani.getName() != 'newton'){
-        // return getNewton(animationBox,timer);
+    if(ani.flg == 'NO'){
+        return new Animation(animationBox,timer);
+    }else if(ani.getName() != 'newton'){
         return new Newton(animationBox,timer);
     }else{
         return new Darwin(animationBox,timer);

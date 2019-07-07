@@ -5,6 +5,7 @@
 class Animation{
     constructor(animationBox,timer){
         this.name = "prent";
+        this.flg = "NO";
         this.animationBox = animationBox;
         this.timer = timer;
     }
@@ -43,6 +44,7 @@ class Animation{
         return this.name;
     }
 
+    //abstract method
     start(){}
     toggle(){}
     last(num){}
@@ -59,6 +61,7 @@ class Newton extends Animation {
     constructor(animationBox,timer){
         super(animationBox,timer);
         this.name = "newton";
+        this.flg = "YES";
         this.img = document.createElement('img');
         this.img.src = "./image/apple.png";
     }
@@ -104,6 +107,7 @@ class Darwin extends Animation {
     constructor(animationBox,timer){
         super(animationBox,timer);
         this.name = "darwin";
+        this.flg = "YES";
     }
 
     start(){
