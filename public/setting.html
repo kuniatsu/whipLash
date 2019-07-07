@@ -141,16 +141,17 @@
                 </li>
                 <li id="hidelist">
                     <label for="hidelist">HIDELIST</label>
-                    <input type="text" name="lidelist" readonly="readonly" value="NO">
+                    <input type="text" name="lidelist" readonly="readonly" value="OFF">
                     <span>Hide the TODOList</span>
                 </li>    
-
+                <li id="animetion">
+                    <label for="animetion">ANIMETION</label>
+                    <input type="text" name="animetion" readonly="readonly" value="ON">
+                    <span>Animetion</span>
+                </li>    
+    
                 <li id="disptaskList">
                     <label>TASKLIST</label>
-                    <input type="text" readonly="readonly" value="NO">
-                    <input type="text" readonly="readonly" value="NO">
-                    <input type="text" readonly="readonly" value="NO">
-                    <input type="text" readonly="readonly" value="NO">
                 </li>    
                             
                 <li>
@@ -191,12 +192,14 @@
             }
         });
         var hideList = document.querySelector("#hidelist");
+        var animetion = document.querySelector("#animetion");
         var set = document.querySelector("#set");
         set.addEventListener("click",()=>{
             window.location.href="http://"+hostValue+"?"
             +"timelimit="+timeLimit.childNodes[3].value
             +"&order="+order.childNodes[3].value
             +"&hidelist="+hideList.childNodes[3].value
+            +"&animetion="+animetion.childNodes[3].value            
         });
 
 
