@@ -2,13 +2,11 @@
 
 let speach = new SpeechSynthesisUtterance();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
-//let ani = {end:function(){return false},getName:function(){return ""},flg:"" /*prototype*/};
 let ani;
 let ws;
 let config;
 
-(()=>{
-    config = new Config();
+(()=>{    
     setParam();
     setList();//addTask
     setEvent();
@@ -31,6 +29,7 @@ function setAnimetion(){
 
 function setParam(){
     console.log("setParam()");
+    config = new Config();
     var paramObj = getParam();
     if(Object.keys(paramObj).length){
         config.timelimit = paramObj["timelimit"];
