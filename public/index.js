@@ -2,14 +2,18 @@
 
 let speach = new SpeechSynthesisUtterance();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
-let ani = {end:function(){return false},getName:function(){return ""},flg:"" /*prototype*/};
+//let ani = {end:function(){return false},getName:function(){return ""},flg:"" /*prototype*/};
+let ani;
 let ws;
+let config;
 
 (()=>{
+    config = new Config();
     setParam();
     setList();//addTask
-    setEvent();   
+    setEvent();
     initTime(); 
+    setAnimetion();
     let sortable = Sortable.create(taskList, {
         group: "taskList",
         handle:".listIcon",
@@ -17,13 +21,24 @@ let ws;
     });
 })();
 
+function setAnimetion(){
+    console.log("setAnimetion");
+    ani = new Animation();
+    ani.setFlg(config.animetion);
+    console.log(config.animetion);
+    console.log(ani.getFlg());
+}
+
 function setParam(){
     console.log("setParam()");
     var paramObj = getParam();
     if(Object.keys(paramObj).length){
-        ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
+        config.timelimit = paramObj["timelimit"];
+        config.order = paramObj["order"];
+        config.hidelist = paramObj["hidelist"];
+        config.animetion = paramObj["animetion"];
+        // ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
     }
-
 }
 
 
@@ -160,7 +175,7 @@ function addTaskList(Ele){
  * init to timeLimit
  */
 function initTime(){
-   document.getElementById('timer').innerText = "3:00";
+    document.getElementById('timer').innerText = config.timelimit;
     // document.getElementById('timer').innerText = "0:20";
 }
 
@@ -175,6 +190,7 @@ function initTime(){
  */
  let nextTask=()=>{
     console.log('nextTask()');
+    console.log("check:"+ani.getFlg());
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
@@ -388,14 +404,21 @@ let changeImageSrc = (imageTag,url)=>{
  * recursiveCall
  */
 let playTask = async ()=>{
+    console.log("check:"+ani.getFlg());
     console.log("playTask()");
-    ani = aniObjToggle(ani);
+    aniObjToggle(ani);
+    console.dir(ani);    
+    console.log("check:"+ani.getFlg());
     changeStopImage();
+    console.log("check:"+ani.getFlg());
     // deleteInput();//check!!
+    console.log("check:"+ani.getFlg());
     changeTitle();
+    console.log("check:"+ani.getFlg());
     let endObj = await timeCount(document.getElementById('timer'));
     deleteEndTask();
     let taskCount = getTaskLength();
+    console.log("check:"+ani.getFlg());
     if(taskCount > 0 && endObj.getFlg() == true){
         initTime();
         nextTask();
@@ -404,6 +427,7 @@ let playTask = async ()=>{
         // changeStartImage();
         // addInput();
     }
+    console.log("check:"+ani.getFlg());
 }
 
 /**
@@ -413,12 +437,10 @@ let playTask = async ()=>{
 let aniObjToggle = (ani)=>{
     console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
-    if(ani.flg == 'NO'){
-        return new Animation(animationBox,timer);
-    }else if(ani.getName() != 'newton'){
-        return new Newton(animationBox,timer);
-    }else{
-        return new Darwin(animationBox,timer);
+    if(ani.flg && ani.getName() != 'newton'){
+        ani = new Newton(animationBox,timer);
+    }else if(ani.flg && ani.getName() != 'darwin'){
+        ani =  new Darwin(animationBox,timer);
     }
 }
 

@@ -44,6 +44,19 @@ class Animation{
         return this.name;
     }
 
+    getFlg(){
+        return this.flg;
+    }
+    setFlg(arg){
+        if(arg == 'OFF'){
+            this.flg = false;
+        }else if(arg == 'ON'){
+            this.flg = true;
+        }else {
+            this.flg = arg;
+        }
+    }
+
     //abstract method
     start(){}
     toggle(){}
