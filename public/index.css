@@ -66,6 +66,10 @@ article{
     }
 }
 
+#settingIcon{
+    height:100%;
+}
+
 #title{
     margin-top: 0px;
     margin-bottom:0px;
@@ -172,6 +176,7 @@ img{
 
 #inputTaskList{
     list-style: none;
+    display: none;
 }
 
 #inputTaskList2{
