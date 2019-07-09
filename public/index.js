@@ -126,6 +126,12 @@ function setList(){
             createTaskElement(task);
         }
     }
+
+    //Listの表示がOFFの場合
+    console.log("config.hidelist:"+config.hidelist);
+    if(config.hidelist == "ON"){
+        document.querySelector("#taskList").classList.add('displayNone');
+    }
 }
 
 /**
