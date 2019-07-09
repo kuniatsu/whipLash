@@ -20,15 +20,13 @@ let config;
 })();
 
 function setAnimetion(){
-    console.log("setAnimetion");
+    // console.log("setAnimetion");
     ani = new Animation();
     ani.setFlg(config.animetion);
-    console.log(config.animetion);
-    console.log(ani.getFlg());
 }
 
 function setParam(){
-    console.log("setParam()");
+    // console.log("setParam()");
     config = new Config();
     var paramObj = getParam();
     if(Object.keys(paramObj).length){
@@ -48,7 +46,7 @@ function getParam(){
     let paramArray = param.split('&');
     let paramObj = {};
     for(let i in paramArray) {
-        console.dir(paramArray[i]);
+        // console.dir(paramArray[i]);
         var pair = paramArray[i].split('=');
         paramObj[pair[0]] = pair[1];
     }
@@ -84,7 +82,6 @@ function setEvent(){
  * @param   {Method} inactiveMethod
  */
 function activeIfMethod(activeCallBack,inactiveCallBack){
-    console.log("timeLimit.getFlg()"+timeLimit.getFlg());
     if(timeLimit.getFlg()){
         inactiveCallBack();
     }else{
@@ -225,7 +222,7 @@ let previousTask=()=>{
  * @return  {Number} countTask
  */
 let getTaskLength=()=>{
-    console.log("getTaskLength()");
+    // console.log("getTaskLength()");
     let list = document.getElementById('taskList');
     return list.querySelectorAll('li:not(#inputTaskList)').length;
 }
@@ -271,7 +268,7 @@ let back2 = () =>{
  * method for clickEvent
  */
 let deleteEndTask=()=>{
-    console.log("deleteEndTask()");
+    // console.log("deleteEndTask()");
     htmlParentElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
 };
@@ -283,14 +280,13 @@ let deleteEndTask=()=>{
  let timeCount = async (dispTimer)=>{
     timeLimit = new TimeLimit(dispTimer.innerText,":");
     ani.start();
-
     let timeObj = timeLimit;
     let endObj = await everySecond(()=>{
         // console.log("everySecond_callBack");
-        // changeStopImage();
-        // deleteInput();
         let loopFlg = true;
-        let limit = timeObj.calcLimitTime();
+        let limit = timeObj.calcLimitTime();//問題点
+        console.log("limit:"+limit);
+        
         let time = timeObj.getTime();
         if(limit <= -1){
             time = "0:00";
@@ -363,7 +359,7 @@ let everySecond = (callback,timeLimitObj)=>{
  * taskStart
  */
 let start = ()=>{
-    console.log("start()");
+    // console.log("start()");
     deleteEndTask();
     if(getTaskLength()>0){
         playTask();
@@ -403,21 +399,14 @@ let changeImageSrc = (imageTag,url)=>{
  * recursiveCall
  */
 let playTask = async ()=>{
-    console.log("check:"+ani.getFlg());
-    console.log("playTask()");
+    // console.log("playTask()");
     aniObjToggle(ani);
     console.dir(ani);    
-    console.log("check:"+ani.getFlg());
     changeStopImage();
-    console.log("check:"+ani.getFlg());
-    // deleteInput();//check!!
-    console.log("check:"+ani.getFlg());
     changeTitle();
-    console.log("check:"+ani.getFlg());
     let endObj = await timeCount(document.getElementById('timer'));
     deleteEndTask();
     let taskCount = getTaskLength();
-    console.log("check:"+ani.getFlg());
     if(taskCount > 0 && endObj.getFlg() == true){
         initTime();
         nextTask();
@@ -426,7 +415,6 @@ let playTask = async ()=>{
         // changeStartImage();
         // addInput();
     }
-    console.log("check:"+ani.getFlg());
 }
 
 /**
@@ -434,7 +422,7 @@ let playTask = async ()=>{
  * @param   {Animation} ani obj
  */
 let aniObjToggle = (ani)=>{
-    console.log("aniObjToggle()  aniflg:"+ani.flg);
+    // console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
     if(ani.flg && ani.getName() != 'newton'){
         ani = new Newton(animationBox,timer);
