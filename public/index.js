@@ -19,6 +19,33 @@ let config;
     });
 })();
 
+function arrayShuffle(arg){
+    console.dir(arg);
+    var array = arg;
+    var len = array.length;
+    while(len > 0){
+        var rnd = Math.floor(Math.random() * len);
+        var tmp = array[len-1];
+        array[len-1] = array[rnd];
+        array[rnd] = tmp;
+        len-=1;
+    }
+    return array;
+}
+
+function htmlCollectionShuffle(hc){
+    console.dir(hc);
+    var len = hc.children.length;
+    console.log("hcの個数:"+len);
+    while(len > 0){
+        var rnd = Math.floor(Math.random() * len);
+        hc.appendChild(hc.children[rnd]);
+        len-=1;
+    }
+    return hc;
+}
+
+
 function setAnimetion(){
     // console.log("setAnimetion");
     ani = new Animation();
@@ -121,6 +148,11 @@ function setList(){
         createTaskElement("タスクを登録する");
     }
 
+    //タンスの順番をRandomにする。
+    // console.log(config.order);
+    if(config.order !== "Sequential"){
+        taskArray = arrayShuffle(taskArray);
+    }
     for(let task of taskArray){
         if(task!==""){
             createTaskElement(task);
@@ -128,7 +160,6 @@ function setList(){
     }
 
     //Listの表示がOFFの場合
-    console.log("config.hidelist:"+config.hidelist);
     if(config.hidelist == "ON"){
         document.querySelector("#taskList").classList.add('displayNone');
     }
@@ -197,12 +228,23 @@ function initTime(){
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
         initTime();
-        sequentialLoopList(list);
+        loopList(list);
         list.appendChild(inputTaskList);
         return task;
     }
     return null;
 };
+
+
+function loopList(list){
+    if(config.order !== "Random"){
+        sequentialLoopList(list);
+    }else{
+        randomLoopList(list);
+    }
+}
+
+
 
 /**
  * Changing the order in the ToDoList 
@@ -291,8 +333,6 @@ let deleteEndTask=()=>{
         // console.log("everySecond_callBack");
         let loopFlg = true;
         let limit = timeObj.calcLimitTime();//問題点
-        console.log("limit:"+limit);
-        
         let time = timeObj.getTime();
         if(limit <= -1){
             time = "0:00";
@@ -322,6 +362,15 @@ let sequentialLoopList=(list)=>{
     // addTaskList(list.children[0]);
     list.appendChild(list.children[0]);
 };
+
+let randomLoopList=(list)=>{
+    // console.log("randomLoopList");
+    list.appendChild(list.children[0]);
+    htmlCollectionShuffle(list);    
+};
+
+
+
 
 /**
  * Changing the order in the List
