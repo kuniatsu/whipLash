@@ -117,37 +117,35 @@
                 font-size: 100%;
                 color: #C0C0C0;
             }
-            
-
         </style>        
     </head>
     <body>
         <form class="form-style-7">
             <ul>
-                <li>
+                <li style="background-color: #DDD;">
                     <label for="url">URL</label>
-                    <input id="host" type="text" name="url" readonly="readonly" value="whiplash-todo.firebaseapp.com/">
+                    <input id="host" type="text" style="background-color: #DDD;" name="url" readonly="readonly" value="whiplash-todo.firebaseapp.com/">
                     <span>HOST for Parameter</span>
                 </li>
                 <li id="timelimit">
                     <label for="timelimit">TIMELIMIT</label>
                     <input type="text" name="timelimit" readonly="readonly" value="3:00">
-                    <span>Task TimeLimit  1:00 > 3:00 > 5:00</span>
+                    <span> 1:00 > 3:00 > 5:00</span>
                 </li>
                 <li id="order">
                     <label for="order">ORDER</label>
                     <input type="text" name="order" readonly="readonly" value="Sequential">
-                    <span>Order TODO  Sequential > Random > Shuffle</span>
+                    <span> Sequential > Random > Shuffle</span>
                 </li>
                 <li id="hidelist">
                     <label for="hidelist">HIDELIST</label>
                     <input type="text" name="lidelist" readonly="readonly" value="OFF">
-                    <span>Hide the TODOList</span>
+                    <span> ON > OFF </span>
                 </li>    
                 <li id="animetion">
                     <label for="animetion">ANIMETION</label>
                     <input type="text" name="animetion" readonly="readonly" value="ON">
-                    <span>Animetion</span>
+                    <span> ON > OFF </span>
                 </li>    
     
                 <li id="disptaskList">
@@ -192,7 +190,27 @@
             }
         });
         var hideList = document.querySelector("#hidelist");
+        hideList.addEventListener("click",(e)=>{
+            if(hideList.childNodes[3].value == "ON"){
+                hideList.childNodes[3].value = "OFF";
+            }else if(hideList.childNodes[3].value == "OFF"){
+                hideList.childNodes[3].value = "ON";
+            }else{
+                hideList.childNodes[3].value = "OFF";
+            }
+        });
+
         var animetion = document.querySelector("#animetion");
+        animetion.addEventListener("click",(e)=>{
+            if(animetion.childNodes[3].value == "ON"){
+                animetion.childNodes[3].value = "OFF";
+            }else if(animetion.childNodes[3].value == "OFF"){
+                animetion.childNodes[3].value = "ON";
+            }else{
+                animetion.childNodes[3].value = "OFF";
+            }
+        });
+
         var set = document.querySelector("#set");
         set.addEventListener("click",()=>{
             window.location.href="http://"+hostValue+"?"
