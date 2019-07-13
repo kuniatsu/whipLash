@@ -117,14 +117,17 @@
                 font-size: 100%;
                 color: #C0C0C0;
             }
+            #host{
+                color: #DDD;
+            }
         </style>        
     </head>
     <body>
         <form class="form-style-7">
             <ul>
-                <li style="background-color: #DDD;">
+                <li >
                     <label for="url">URL</label>
-                    <input id="host" type="text" style="background-color: #DDD;" name="url" readonly="readonly" value="whiplash-todo.firebaseapp.com/">
+                    <input id="host" type="text"  name="url" readonly="readonly" value="whiplash-todo.firebaseapp.com/">
                     <span>HOST for Parameter</span>
                 </li>
                 <li id="timelimit">
@@ -168,6 +171,9 @@
     </body>
     <script src="./WebStorage.js"></script>
     <script>        
+        (()=>{
+            document.querySelector('#host').value=window.location.href;
+        })();
         var hostValue = document.querySelector("#host").value;
         var timeLimit = document.querySelector("#timelimit");
         timeLimit.addEventListener("click",(e)=>{
@@ -213,7 +219,7 @@
 
         var set = document.querySelector("#set");
         set.addEventListener("click",()=>{
-            window.location.href="http://"+hostValue+"?"
+            window.location.href="./index.html"+"?"
             +"timelimit="+timeLimit.childNodes[3].value
             +"&order="+order.childNodes[3].value
             +"&hidelist="+hideList.childNodes[3].value
