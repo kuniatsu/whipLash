@@ -418,6 +418,9 @@ let start = ()=>{
     deleteEndTask();
     if(getTaskLength()>0){
         playTask();
+    }else{
+        inputTask.placeholder = "→  タスク入力してENTER";
+        createTaskElement("タスクを登録する");
     }
 }
 
