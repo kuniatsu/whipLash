@@ -47,16 +47,16 @@ function htmlCollectionShuffle(hc){
 
 
 function setAnimetion(){
-    // console.log("setAnimetion");
+    console.log("setAnimetion:"+config.animetion);
     ani = new Animation();
     ani.setFlg(config.animetion);
 }
 
 function setParam(){
-    // console.log("setParam()");
+    console.log("setParam()");
     config = new Config();
     var paramObj = getParam();
-    if(Object.keys(paramObj).length){
+    if(Object.keys(paramObj).length > 1){
         config.timelimit = paramObj["timelimit"];
         config.order = paramObj["order"];
         config.hidelist = paramObj["hidelist"];
@@ -208,9 +208,15 @@ function addTaskList(Ele){
  * init to timeLimit
  */
 function initTime(){
-    document.getElementById('timer').innerText = config.timelimit;
+    console.log("initTime:"+config.timelimit);
+    if(config.timelimit != ""){
+        document.getElementById('timer').innerText = config.timelimit;
+    }else{
+        document.getElementById('timer').innerText = "3:00";
+    }
     // document.getElementById('timer').innerText = "0:20";
 }
+
 
 
 
@@ -458,7 +464,7 @@ let changeImageSrc = (imageTag,url)=>{
  */
 let playTask = async ()=>{
     // console.log("playTask()");
-    aniObjToggle(ani);
+    ani = aniObjToggle(ani);
     console.dir(ani);    
     changeStopImage();
     changeTitle();
@@ -480,13 +486,19 @@ let playTask = async ()=>{
  * @param   {Animation} ani obj
  */
 let aniObjToggle = (ani)=>{
-    // console.log("aniObjToggle()  aniflg:"+ani.flg);
+    console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
-    if(ani.flg && ani.getName() != 'newton'){
+    if(ani.flg && ani.getName() == 'darwin'){
         ani = new Newton(animationBox,timer);
-    }else if(ani.flg && ani.getName() != 'darwin'){
+    }else if(ani.flg && ani.getName() == 'newton'){
         ani =  new Darwin(animationBox,timer);
+    }else if(ani.flg){
+        ani =  new Darwin(animationBox,timer);
+    }else if(!ani.flg){
+        ani =  new Animation();
     }
+    console.dir(ani);
+    return ani;
 }
 
 
