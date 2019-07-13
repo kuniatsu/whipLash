@@ -20,7 +20,6 @@ let config;
 })();
 
 function arrayShuffle(arg){
-    console.dir(arg);
     var array = arg;
     var len = array.length;
     while(len > 0){
@@ -34,9 +33,9 @@ function arrayShuffle(arg){
 }
 
 function htmlCollectionShuffle(hc){
-    console.dir(hc);
+    // console.dir(hc);
     var len = hc.children.length;
-    console.log("hcの個数:"+len);
+    // console.log("hcの個数:"+len);
     while(len > 0){
         var rnd = Math.floor(Math.random() * len);
         hc.appendChild(hc.children[rnd]);
@@ -47,13 +46,13 @@ function htmlCollectionShuffle(hc){
 
 
 function setAnimetion(){
-    console.log("setAnimetion:"+config.animetion);
+    // console.log("setAnimetion:"+config.animetion);
     ani = new Animation();
     ani.setFlg(config.animetion);
 }
 
 function setParam(){
-    console.log("setParam()");
+    // console.log("setParam()");
     config = new Config();
     var paramObj = getParam();
     if(Object.keys(paramObj).length > 1){
@@ -208,7 +207,7 @@ function addTaskList(Ele){
  * init to timeLimit
  */
 function initTime(){
-    console.log("initTime:"+config.timelimit);
+    // console.log("initTime:"+config.timelimit);
     if(config.timelimit != ""){
         document.getElementById('timer').innerText = config.timelimit;
     }else{
@@ -228,8 +227,7 @@ function initTime(){
  * @return  {HTMLElement[]} task
  */
  let nextTask=()=>{
-    console.log('nextTask()');
-    console.log("check:"+ani.getFlg());
+    // console.log('nextTask()');
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
@@ -258,7 +256,7 @@ function loopList(list){
  * @return  {HTMLElement[]} task
  */
 let previousTask=()=>{
-    console.log('previousTask()');
+    // console.log('previousTask()');
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
     console.dir(task);
@@ -339,7 +337,9 @@ let deleteEndTask=()=>{
         // console.log("everySecond_callBack");
         let loopFlg = true;
         let limit = timeObj.calcLimitTime();//問題点
-        let time = timeObj.getTime();
+        let time;
+
+        // console.log(limit);
         if(limit <= -1){
             time = "0:00";
             loopFlg = false;
@@ -352,7 +352,9 @@ let deleteEndTask=()=>{
             ani.toggle();
         }
 
-        if(timeObj.getFlg() != false){            
+        if(timeObj.getFlg() != false){   
+            //タブが非表示なら不要。 
+            time = timeObj.getTime();        
             dispTimer.innerText = timeObj.getTimeStr(time);
         }
         return loopFlg;
@@ -465,7 +467,6 @@ let changeImageSrc = (imageTag,url)=>{
 let playTask = async ()=>{
     // console.log("playTask()");
     ani = aniObjToggle(ani);
-    console.dir(ani);    
     changeStopImage();
     changeTitle();
     let endObj = await timeCount(document.getElementById('timer'));
@@ -486,7 +487,7 @@ let playTask = async ()=>{
  * @param   {Animation} ani obj
  */
 let aniObjToggle = (ani)=>{
-    console.log("aniObjToggle()  aniflg:"+ani.flg);
+    // console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
     if(ani.flg && ani.getName() == 'darwin'){
         ani = new Newton(animationBox,timer);
@@ -497,7 +498,6 @@ let aniObjToggle = (ani)=>{
     }else if(!ani.flg){
         ani =  new Animation();
     }
-    console.dir(ani);
     return ani;
 }
 
