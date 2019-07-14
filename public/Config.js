@@ -3,11 +3,10 @@
  * class for config
  */
 class Config{
-    //timelimit=3:00&order=Random&hidelist=OFF&animetion=ON
     constructor(){
         this._timelimit = "3:00";
         this._order = "Sequential";
-        this._hidelist = "OFF";
+        this._showlist = "ON";
         this._animetion = "ON";
     }
 
@@ -25,11 +24,11 @@ class Config{
         this._order = arg;
     }
 
-    get hidelist(){
-        return this._hidelist
+    get showlist(){
+        return this._showlist
     }
-    set hidelist(arg){
-        this._hidelist = arg;
+    set showlist(arg){
+        this._showlist = arg;
     }
 
     get animetion(){

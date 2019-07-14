@@ -140,9 +140,9 @@
                     <input type="text" name="order" readonly="readonly" value="Sequential">
                     <span> Sequential > Random > Shuffle</span>
                 </li>
-                <li id="hidelist">
-                    <label for="hidelist">HIDELIST</label>
-                    <input type="text" name="lidelist" readonly="readonly" value="OFF">
+                <li id="showlist">
+                    <label for="showlist">SHOWLIST</label>
+                    <input type="text" name="showlist" readonly="readonly" value="ON">
                     <span> ON > OFF </span>
                 </li>    
                 <li id="animetion">
@@ -195,14 +195,14 @@
                 order.childNodes[3].value = "Sequential";
             }
         });
-        var hideList = document.querySelector("#hidelist");
-        hideList.addEventListener("click",(e)=>{
-            if(hideList.childNodes[3].value == "ON"){
-                hideList.childNodes[3].value = "OFF";
-            }else if(hideList.childNodes[3].value == "OFF"){
-                hideList.childNodes[3].value = "ON";
+        var showList = document.querySelector("#showlist");
+        showList.addEventListener("click",(e)=>{
+            if(showList.childNodes[3].value == "ON"){
+                showList.childNodes[3].value = "OFF";
+            }else if(showList.childNodes[3].value == "OFF"){
+                showList.childNodes[3].value = "ON";
             }else{
-                hideList.childNodes[3].value = "OFF";
+                showList.childNodes[3].value = "OFF";
             }
         });
 
@@ -222,7 +222,7 @@
             window.location.href="./index.html"+"?"
             +"timelimit="+timeLimit.childNodes[3].value
             +"&order="+order.childNodes[3].value
-            +"&hidelist="+hideList.childNodes[3].value
+            +"&showlist="+showList.childNodes[3].value
             +"&animetion="+animetion.childNodes[3].value            
         });
 

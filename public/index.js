@@ -58,7 +58,7 @@ function setParam(){
     if(Object.keys(paramObj).length > 1){
         config.timelimit = paramObj["timelimit"];
         config.order = paramObj["order"];
-        config.hidelist = paramObj["hidelist"];
+        config.showlist = paramObj["showlist"];
         config.animetion = paramObj["animetion"];
         // ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
     }
@@ -159,7 +159,7 @@ function setList(){
     }
 
     //Listの表示がOFFの場合
-    if(config.hidelist == "ON"){
+    if(config.showlist == "OFF"){
         document.querySelector("#taskList").classList.add('displayNone');
     }
 }
