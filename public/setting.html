@@ -120,6 +120,10 @@
             #host{
                 color: #DDD;
             }
+
+            #disptaskList{
+                display:none;
+            }
         </style>        
     </head>
     <body>
@@ -150,11 +154,21 @@
                     <input type="text" name="animetion" readonly="readonly" value="ON">
                     <span> ON > OFF </span>
                 </li>    
-    
-                <li id="disptaskList">
-                    <label>TASKLIST</label>
+                <li id="googletasks">
+                    <label for="googletasks">GoogleTasks</label>
+                    <input type="text" name="googletasks" readonly="readonly" value="ASYNC">
+                </li>
+
+                <li type="hidden" id="disptaskList">
+                    <label>TASKLISTS</label>
+                </li>
+
+                <li id="disptasks">
+                    <label>TASKS</label>
                 </li>    
-                            
+
+
+
                 <li>
                     <input type="hidden" value="SET" >
                 </li>
@@ -217,6 +231,16 @@
             }
         });
 
+        var googletasks = document.querySelector("#googletasks");
+        googletasks.addEventListener("click",(e)=>{
+            //ACCESS_KEY取得
+            
+            //TaskListの取得と選択
+
+            //Taskの取得
+
+        });
+
         var set = document.querySelector("#set");
         set.addEventListener("click",()=>{
             window.location.href="./index.html"+"?"
@@ -232,17 +256,19 @@
         makeWs();//create object
         if(ws.checkItem('task')){
             let taskArray = ws.getItem('task').split(',');
-            let dispTaskList = document.querySelector("#disptaskList");
+            let dispTasks = document.querySelector("#disptasks");
             for(let task of taskArray){
                 if(task!==""){
                     var input = document.createElement('input');
                     input.value = task;
                     input.type = "text";
                     input.readOnly="readonly";
-                    dispTaskList.appendChild(input);
+                    dispTasks.appendChild(input);
                 }
             }
         }
+
+
         function makeWs(){
             if(ws == undefined || ws == null){
                 ws = new WebStorage();
