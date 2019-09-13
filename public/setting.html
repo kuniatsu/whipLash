@@ -154,12 +154,12 @@
                     <input type="text" name="animetion" readonly="readonly" value="ON">
                     <span> ON > OFF </span>
                 </li>    
-                <li id="googletasks">
+                <li style="display:none" id="googletasks">
                     <label for="googletasks">GoogleTasks</label>
                     <input type="text" name="googletasks" readonly="readonly" value="ASYNC">
                 </li>
 
-                <li type="hidden" id="disptaskList">
+                <li id="disptaskList">
                     <label>TASKLISTS</label>
                 </li>
 
@@ -184,6 +184,7 @@
         </footer>
     </body>
     <script src="./WebStorage.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script>        
         (()=>{
             document.querySelector('#host').value=window.location.href;
@@ -233,9 +234,15 @@
 
         var googletasks = document.querySelector("#googletasks");
         googletasks.addEventListener("click",(e)=>{
+            console.log("googletasks");
             //ACCESS_KEY取得
-            
-            //TaskListの取得と選択
+            console.log("ACCESS_KEY取得");            
+            authenticate().then(loadClient);
+
+            // //TaskListの取得と選択
+            // console.log("TaskListの取得と選択");
+            // getTaskList();
+
 
             //Taskの取得
 
@@ -276,6 +283,88 @@
             ws.log();
         }
         
-        
+        const CLIENT_ID ="googleのIDを記載";
+        function authenticate() {
+            console.log("authenticate()");
+            return gapi.auth2.getAuthInstance().signIn({
+                client_id: CLIENT_ID, //API_KEYの代わりになることを祈って追加!
+                scope: "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly"
+            }).then(function() {
+                console.log("Sign-in successful");
+            }, function(err) {
+                console.error("Error signing in", err);
+            });
+        }
+        function loadClient() {
+            console.log("loadClient()");
+            return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest").then(function() {
+                console.log("GAPI client loaded for API");
+                getTaskList();             
+            }, function(err) {
+                console.error("Error loading GAPI client for API", err);
+                return null;
+            });
+        }
+        function getTaskList(){
+            console.log("getTaskList()");
+            return gapi.client.tasks.tasklists.list({}).then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+                console.dir(response.result);
+                console.dir(response.result.items);
+                
+
+                var disptaskList = document.querySelector("#disptaskList");
+                for(item of response.result.items){
+                    console.dir(item.title+": "+item.id);
+                    console.dir(item);
+                    var input = document.createElement('input');
+                    input.value = item.title;
+                    input.code = item.id;
+                    input.type = "text";
+                    input.readOnly="readonly";
+                    input.addEventListener('click',(event)=>{
+                        console.dir(event.target);
+                    });
+                    disptaskList.appendChild(input);
+                }
+                disptaskList.style.display = "inline";
+
+
+
+            }, function(err) {
+                console.error("Execute error", err);
+            });
+        }
+        function execute() {
+            console.log("execute()");
+            var tasklist = document.getElementById("textbox").value;
+            if(tasklist==""){
+                console.log("return");
+                return;
+            }else{
+                console.log("tasklist:"+tasklist);                    
+            }
+            
+            return gapi.client.tasks.tasks.list({
+                "tasklist": tasklist
+            }).then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+                console.dir(response.result);
+                console.dir(response.result.items);
+                for(item of response.result.items){
+                    console.dir(item.title);
+                }                    
+            }, function(err) {
+                console.error("Execute error", err);
+            });
+        }
+        gapi.load("client:auth2", function() {
+            console.log(CLIENT_ID);
+            gapi.auth2.init({
+                client_id: CLIENT_ID
+            });
+        });
     </script>
 </html>
