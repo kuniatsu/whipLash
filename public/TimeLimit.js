@@ -63,14 +63,21 @@ class TimeLimit{
      * Calculate LimitTime
      * @return  {Number} second  
      */ 
-    calcLimitTime(){
-        // console.dir("calcLimitTime() limiSec:"+this.limitSec);
+    calcLimitTime(mode=null){
+        console.dir("calcLimitTime() ");
+        console.dir("mode:"+mode);
+
         if(this.limitSec > 10){
-            //正確な時間を返却
+            //正確な時間を返却 50/60でここを通過
+            console.log("this.limitSec > 10");
             this.limitSec=this.settingSec - this.elapsedTime();
-        }else{
+        }else if(mode == "COUNT"){
             //10秒以内なら必ず１づつ数えること
+            console.log("modeはcountで10秒以内");
             this.limitSec-= 1;
+        }else{
+            console.log("else");
+            this.limitSec=this.settingSec - this.elapsedTime();
         }
         return this.limitSec;
     }

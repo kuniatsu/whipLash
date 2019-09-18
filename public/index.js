@@ -60,7 +60,7 @@ function setParam(){
         config.order = paramObj["order"];
         config.showlist = paramObj["showlist"];
         config.animetion = paramObj["animetion"];
-        // ani.flg = paramObj["animetion"] == "OFF"?"NO":"";
+        config.timeORcount = paramObj["timeORcount"];
     }
 }
 
@@ -336,7 +336,7 @@ let deleteEndTask=()=>{
     let endObj = await everySecond(()=>{
         // console.log("everySecond_callBack");
         let loopFlg = true;
-        let limit = timeObj.calcLimitTime();//問題点
+        let limit = timeObj.calcLimitTime(config.timeORcount);//問題点
         let time;
 
         // console.log(limit);
