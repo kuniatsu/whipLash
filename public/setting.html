@@ -121,8 +121,8 @@
                 color: #DDD;
             }
 
-            #disptaskList{
-                display:none;
+            .displayNone{
+                /* display:none; */
             }
         </style>        
     </head>
@@ -161,22 +161,18 @@
                     <span> COUNT > TIME </span>
                 </li>    
 
-
-
-                <li style="display:none" id="googletasks">
+                <li id="googletasks">
                     <label for="googletasks">GoogleTasks</label>
                     <input type="text" name="googletasks" readonly="readonly" value="ASYNC">
                 </li>
 
-                <li id="disptaskList">
+                <li id="disptaskList" class="displayNone">
                     <label>TASKLISTS</label>
                 </li>
 
                 <li id="disptasks">
                     <label>TASKS</label>
                 </li>    
-
-
 
                 <li>
                     <input type="hidden" value="SET" >
@@ -258,17 +254,14 @@
         var googletasks = document.querySelector("#googletasks");
         googletasks.addEventListener("click",(e)=>{
             console.log("googletasks");
-            //ACCESS_KEY取得
-            console.log("ACCESS_KEY取得");            
-            authenticate().then(loadClient);
-
-            // //TaskListの取得と選択
-            // console.log("TaskListの取得と選択");
-            // getTaskList();
-
-
-            //Taskの取得
-
+            console.dir(googletasks);
+            
+            if(googletasks.childNodes[3].value == "ASYNC"){
+                googletasks.childNodes[3].value = "SYNC";
+                //ACCESS_KEY取得
+                console.log("ACCESS_KEY取得");            
+                authenticate().then(loadClient);
+            }
         });
 
         var set = document.querySelector("#set");
@@ -290,13 +283,17 @@
             let dispTasks = document.querySelector("#disptasks");
             for(let task of taskArray){
                 if(task!==""){
-                    var input = document.createElement('input');
-                    input.value = task;
-                    input.type = "text";
-                    input.readOnly="readonly";
-                    dispTasks.appendChild(input);
+                    makeTaskLi(task,dispTasks);
                 }
             }
+        }
+
+        function makeTaskLi(task,dispTasks){
+            var input = document.createElement('input');
+            input.value = task;
+            input.type = "text";
+            input.readOnly="readonly";
+            dispTasks.appendChild(input);
         }
 
 
@@ -307,11 +304,12 @@
             ws.log();
         }
         
-        const CLIENT_ID ="googleのIDを記載";
+
+        const CLIENT_ID ="500100005158-lkuvjh25mvsc4kbfqqssfg9n1bdl8h5m.apps.googleusercontent.com";
         function authenticate() {
             console.log("authenticate()");
             return gapi.auth2.getAuthInstance().signIn({
-                client_id: CLIENT_ID, //API_KEYの代わりになることを祈って追加!
+                client_id: CLIENT_ID,
                 scope: "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly"
             }).then(function() {
                 console.log("Sign-in successful");
@@ -349,6 +347,8 @@
                     input.readOnly="readonly";
                     input.addEventListener('click',(event)=>{
                         console.dir(event.target);
+                        console.log("taskId:"+event.target.code);
+                        execute(event.target.code);
                     });
                     disptaskList.appendChild(input);
                 }
@@ -360,9 +360,10 @@
                 console.error("Execute error", err);
             });
         }
-        function execute() {
+
+
+        function execute(tasklist="") {
             console.log("execute()");
-            var tasklist = document.getElementById("textbox").value;
             if(tasklist==""){
                 console.log("return");
                 return;
@@ -377,15 +378,24 @@
                 console.log("Response", response);
                 console.dir(response.result);
                 console.dir(response.result.items);
+                let dispTasks = document.querySelector("#disptasks");
+                dispTasks.textContent = null;//削除
+                var label = document.createElement('label');
+                label.innerText = "TASKS";
+                dispTasks.appendChild(label);
+
                 for(item of response.result.items){
-                    console.dir(item.title);
-                }                    
+                    console.dir(item.title);    
+                    makeTaskLi(item.title,dispTasks);
+                }
+
+
             }, function(err) {
                 console.error("Execute error", err);
             });
         }
         gapi.load("client:auth2", function() {
-            console.log(CLIENT_ID);
+            // console.log(CLIENT_ID);
             gapi.auth2.init({
                 client_id: CLIENT_ID
             });
