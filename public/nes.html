@@ -1,46 +1,54 @@
 <html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    <style>
+        @font-face{
+        font-family: 美咲ゴシック;
+        src: url('https://cdn.leafscape.be/misaki/misaki_gothic_web.woff2')
+            format("woff2");
+        }
+        body{
+             font-family: "Press Start 2P","美咲ゴシック";
+        }
+
+        @media screen and (min-width: 1025px){
+          section{
+              margin-right: 10%;
+              margin-left: 10%;
+          }
+        }
+        @media screen and (max-width: 1024px){
+          section{
+              margin-right: 0%;
+              margin-left: 0%;
+          }
+        }
+        
+    </style>
+</head>
 <body>
 
+  <span>あいうおえカキクケコ差氏酢瀬蘇</span>
 
-<section class="message-list">
-    <section class="message -left">
-      <i class="nes-bcrikko"></i>
-      <!-- Balloon -->
-      <div class="nes-balloon from-left">
-        <p>Hello NES.css</p>
-      </div>
-    </section>
-  
-    <section class="message -right">
-      <!-- Balloon -->
-      <div class="nes-balloon from-right">
-        <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-      </div>
-      <i class="nes-bcrikko"></i>
+
+  <section class="showcase">
+    <section class="nes-container with-title">
+      <h3 class="title">Radios</h3> 
+      <div id="radios" class="item">
+        <label>
+          <input type="radio" class="nes-radio" name="answer" checked="">
+          <span>あいうおえカキクケコ差氏酢瀬蘇</span>
+        </label><br />
+    
+        <label>
+          <input type="radio" class="nes-radio" name="answer">
+          <span>i don't no!! have to love don't ask me why?</span>
+        </label>
+      </div> 
     </section>
   </section>
 
-  <label>
-    <input type="radio" class="nes-radio" name="answer" checked />
-    <span>Yes</span>
-  </label>
   
-  <label>
-    <input type="radio" class="nes-radio" name="answer" />
-    <span>No</span>
-  </label>
-  
-  <div style="background-color:#212529; padding: 1rem 0;">
-    <label>
-      <input type="radio" class="nes-radio is-dark" name="answer-dark" checked />
-      <span>Yes</span>
-    </label>
-  
-    <label>
-      <input type="radio" class="nes-radio is-dark" name="answer-dark" />
-      <span>No</span>
-    </label>
-  </div>
-
 </body>
 </html>
