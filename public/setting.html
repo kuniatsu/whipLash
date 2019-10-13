@@ -114,15 +114,15 @@
             button{
                 width: 100%;
                 height: 100%;
-                font-size: 100%;
+                font-size: 80%;
                 color: #C0C0C0;
             }
             #host{
                 color: #DDD;
             }
 
-            .displayNone{
-                /* display:none; */
+            li.displayNone{
+                display:none;
             }
         </style>        
     </head>
@@ -170,6 +170,7 @@
                     <label>TASKLISTS</label>
                 </li>
 
+                <!-- <span id="test" ><button type="button" >TEST</button></button></span> -->
                 <li id="disptasks">
                     <label>TASKS</label>
                 </li>    
@@ -190,104 +191,132 @@
     </body>
     <script src="./WebStorage.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
-    <script>        
-        (()=>{
-            document.querySelector('#host').value=window.location.href;
-        })();
+    <script>    
+        const CLIENT_ID ="500100005158-lkuvjh25mvsc4kbfqqssfg9n1bdl8h5m.apps.googleusercontent.com";
+        var changeTaskFlg = false;   //同期によりタスクに変更があった時にtrue
+        let ws;                      //WebStorageのObject用
+        let gApiFlg = false;
+
+        //DOM取得
         var hostValue = document.querySelector("#host").value;
         var timeLimit = document.querySelector("#timelimit");
-        timeLimit.addEventListener("click",(e)=>{
-            if(timeLimit.childNodes[3].value == "3:00"){
-                timeLimit.childNodes[3].value = "5:00";
-            }else if(timeLimit.childNodes[3].value == "5:00"){
-                timeLimit.childNodes[3].value = "1:00";
-            }else{
-                timeLimit.childNodes[3].value = "3:00";
-            }
-        });
         var order = document.querySelector("#order");
-        order.addEventListener("click",(e)=>{
-            if(order.childNodes[3].value == "Sequential"){
-                order.childNodes[3].value = "Random";
-            }else if(order.childNodes[3].value == "Random"){
-                order.childNodes[3].value = "Shuffle";
-            }else{
-                order.childNodes[3].value = "Sequential";
-            }
-        });
         var showList = document.querySelector("#showlist");
-        showList.addEventListener("click",(e)=>{
-            if(showList.childNodes[3].value == "ON"){
-                showList.childNodes[3].value = "OFF";
-            }else if(showList.childNodes[3].value == "OFF"){
-                showList.childNodes[3].value = "ON";
-            }else{
-                showList.childNodes[3].value = "OFF";
-            }
-        });
-
-        var animetion = document.querySelector("#animetion");
-        animetion.addEventListener("click",(e)=>{
-            if(animetion.childNodes[3].value == "ON"){
-                animetion.childNodes[3].value = "OFF";
-            }else if(animetion.childNodes[3].value == "OFF"){
-                animetion.childNodes[3].value = "ON";
-            }else{
-                animetion.childNodes[3].value = "OFF";
-            }
-        });
-
-
-        var timeORcount = document.querySelector("#timeORcount");
-        timeORcount.addEventListener("click",(e)=>{
-            if(timeORcount.childNodes[3].value == "TIME"){
-                timeORcount.childNodes[3].value = "COUNT";
-            }else if(timeORcount.childNodes[3].value == "COUNT"){
-                timeORcount.childNodes[3].value = "TIME";
-            }else{
-                timeORcount.childNodes[3].value = "COUNT";
-            }
-        });
-        
-
-
-        var googletasks = document.querySelector("#googletasks");
-        googletasks.addEventListener("click",(e)=>{
-            console.log("googletasks");
-            console.dir(googletasks);
-            
-            if(googletasks.childNodes[3].value == "ASYNC"){
-                googletasks.childNodes[3].value = "SYNC";
-                //ACCESS_KEY取得
-                console.log("ACCESS_KEY取得");            
-                authenticate().then(loadClient);
-            }
-        });
-
         var set = document.querySelector("#set");
-        set.addEventListener("click",()=>{
-            window.location.href="./index.html"+"?"
-            +"timelimit="+timeLimit.childNodes[3].value
-            +"&order="+order.childNodes[3].value
-            +"&showlist="+showList.childNodes[3].value
-            +"&animetion="+animetion.childNodes[3].value            
-            +"&timeORcount="+timeORcount.childNodes[3].value            
-        });
+        var animetion = document.querySelector("#animetion");
+        var timeORcount = document.querySelector("#timeORcount");
+        var googletasks = document.querySelector("#googletasks");
 
 
-        //task
-        let ws;
-        makeWs();//create object
-        if(ws.checkItem('task')){
-            let taskArray = ws.getItem('task').split(',');
-            let dispTasks = document.querySelector("#disptasks");
-            for(let task of taskArray){
-                if(task!==""){
-                    makeTaskLi(task,dispTasks);
+
+        (()=>{
+            document.querySelector('#host').value=window.location.href;　//host欄を入力する
+
+            makeWs();//create object
+            if(ws.checkItem('task')){
+                let taskArray = ws.getItem('task').split(',');
+                let dispTasks = document.querySelector("#disptasks");
+                for(let task of taskArray){
+                    if(task!==""){
+                        makeTaskLi(task,dispTasks);
+                    }
                 }
             }
-        }
 
+            // if(ws.checkItem('List')){
+            //     console.log("ws.List確認！");
+            //     let taskListArray = ws.getItem('List').split(',');
+            //     setTaskListLi(taskListArray);//追加!
+            //     disptaskList.classList.remove("displayNone");
+            // }
+
+            // document.getElementById("test").addEventListener('click',()=>{
+            //     console.log(111);
+            //     ws.log();
+            //     ws.log2();
+            //     ws.setSelectorValu();
+            // });
+
+            timeLimit.addEventListener("click",(e)=>{
+                if(timeLimit.childNodes[3].value == "3:00"){
+                    timeLimit.childNodes[3].value = "5:00";
+                }else if(timeLimit.childNodes[3].value == "5:00"){
+                    timeLimit.childNodes[3].value = "1:00";
+                }else{
+                    timeLimit.childNodes[3].value = "3:00";
+                }
+            });
+
+            order.addEventListener("click",(e)=>{
+                if(order.childNodes[3].value == "Sequential"){
+                    order.childNodes[3].value = "Random";
+                }else if(order.childNodes[3].value == "Random"){
+                    order.childNodes[3].value = "Shuffle";
+                }else{
+                    order.childNodes[3].value = "Sequential";
+                }
+            });
+
+            showList.addEventListener("click",(e)=>{
+                if(showList.childNodes[3].value == "ON"){
+                    showList.childNodes[3].value = "OFF";
+                }else if(showList.childNodes[3].value == "OFF"){
+                    showList.childNodes[3].value = "ON";
+                }else{
+                    showList.childNodes[3].value = "OFF";
+                }
+            });
+
+            animetion.addEventListener("click",(e)=>{
+                if(animetion.childNodes[3].value == "ON"){
+                    animetion.childNodes[3].value = "OFF";
+                }else if(animetion.childNodes[3].value == "OFF"){
+                    animetion.childNodes[3].value = "ON";
+                }else{
+                    animetion.childNodes[3].value = "OFF";
+                }
+            });
+
+            timeORcount.addEventListener("click",(e)=>{
+                if(timeORcount.childNodes[3].value == "TIME"){
+                    timeORcount.childNodes[3].value = "COUNT";
+                }else if(timeORcount.childNodes[3].value == "COUNT"){
+                    timeORcount.childNodes[3].value = "TIME";
+                }else{
+                    timeORcount.childNodes[3].value = "COUNT";
+                }
+            });
+
+            googletasks.addEventListener("click",(e)=>{
+                console.log("googletasks");
+                console.dir(googletasks);
+                
+                if(googletasks.childNodes[3].value == "ASYNC"){
+                    googletasks.childNodes[3].value = "SYNC";
+                    //ACCESS_KEY取得
+                    console.log("ACCESS_KEY取得");            
+                    authenticate().then(loadClient);//GoogleAPI
+                }
+            });
+
+            set.addEventListener("click",()=>{
+                //wsにタスクを登録する
+                if(changeTaskFlg){
+                    console.log("changeTaskFlg:"+changeTaskFlg);
+                    var tasks = document.querySelectorAll('#disptasks > input[type=text]');
+                    ws.setSelectorValue('#disptasks > input[type=text]',"task");    
+                }
+
+                window.location.href="./index.html"+"?"
+                +"timelimit="+timeLimit.childNodes[3].value
+                +"&order="+order.childNodes[3].value
+                +"&showlist="+showList.childNodes[3].value
+                +"&animetion="+animetion.childNodes[3].value            
+                +"&timeORcount="+timeORcount.childNodes[3].value;
+            });
+        })();
+
+        //タスクのLiを作成する
         function makeTaskLi(task,dispTasks){
             var input = document.createElement('input');
             input.value = task;
@@ -296,16 +325,14 @@
             dispTasks.appendChild(input);
         }
 
-
         function makeWs(){
             if(ws == undefined || ws == null){
+                console.log("makeWs");
                 ws = new WebStorage();
             }
             ws.log();
         }
-        
 
-        const CLIENT_ID ="500100005158-lkuvjh25mvsc4kbfqqssfg9n1bdl8h5m.apps.googleusercontent.com";
         function authenticate() {
             console.log("authenticate()");
             return gapi.auth2.getAuthInstance().signIn({
@@ -313,89 +340,160 @@
                 scope: "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly"
             }).then(function() {
                 console.log("Sign-in successful");
+                gApiFlg = true;//APIが成功した場合
             }, function(err) {
                 console.error("Error signing in", err);
             });
         }
         function loadClient() {
             console.log("loadClient()");
-            return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest").then(function() {
-                console.log("GAPI client loaded for API");
-                getTaskList();             
-            }, function(err) {
-                console.error("Error loading GAPI client for API", err);
-                return null;
-            });
+            if(gApiFlg==true){
+                return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest").then(function() {
+                    console.log("GAPI client loaded for API");
+                    //タスクリストの作成
+                    getTaskList();             
+                }, function(err) {
+                    console.error("Error loading GAPI client for API", err);
+                    return null;
+                });
+            }else{
+                console.log("Google API async");
+            }
         }
+
+        //GoogleAPIでタスクリストを取得する。
         function getTaskList(){
             console.log("getTaskList()");
+            var disptaskList = document.querySelector("#disptaskList");
+            //タスクリストの初期化
+            disptaskList.textContent = null;//削除
+            addLabel(disptaskList,"TASKLISTS");
+
             return gapi.client.tasks.tasklists.list({}).then(function(response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-                console.dir(response.result);
-                console.dir(response.result.items);
-                
+                var getListStr=[];
+                getListStr = makeTaskListLi(response.result.items);
 
-                var disptaskList = document.querySelector("#disptaskList");
-                for(item of response.result.items){
-                    console.dir(item.title+": "+item.id);
-                    console.dir(item);
-                    var input = document.createElement('input');
-                    input.value = item.title;
-                    input.code = item.id;
-                    input.type = "text";
-                    input.readOnly="readonly";
-                    input.addEventListener('click',(event)=>{
-                        console.dir(event.target);
-                        console.log("taskId:"+event.target.code);
-                        execute(event.target.code);
-                    });
-                    disptaskList.appendChild(input);
+                //wsに保存
+                if(getListStr.length){
+                    console.dir(getListStr);
+                    ws.setItem("List",getListStr);
                 }
-                disptaskList.style.display = "inline";
-
-
-
+                disptaskList.classList.remove("displayNone");
+                changeTaskFlg = true;
             }, function(err) {
                 console.error("Execute error", err);
             });
         }
 
+        //タスクリストのLIを作成する
+        function makeTaskListLi(List){
+            var disptaskList = document.querySelector("#disptaskList");
+            var getListStr=[];
+            for(item of List){
+                getListStr.push('{"'+ item.title +'" : "'+ item.id +'"}');
 
+                var input = document.createElement('input');
+                input.value = item.title;
+                input.code = item.id;
+                input.type = "text";
+                input.readOnly="readonly";
+                input.addEventListener('click',(event)=>{
+                    console.dir(event.target);
+                    console.log("taskId:"+event.target.code);
+                    console.log("taskName:"+event.target.value);
+
+                    //wsから取得
+                    if(ws.checkItem(event.target.value)){
+                        console.log("wsにある");
+                    }else{
+                        console.log("wsにない");
+                    }
+
+                    //GoogleApiから取得
+                    execute(event.target);
+                });
+                disptaskList.appendChild(input);
+            }
+            return getListStr;
+        }
+
+        //タスクリストのLIを作成する
+        function setTaskListLi(List){
+            var disptaskList = document.querySelector("#disptaskList");
+            for(item of List){
+                var obj = JSON.parse(item);
+
+                var input = document.createElement('input');
+                input.value = Object.keys(obj)[0];
+                input.code = obj[Object.keys(obj)[0]];
+                input.type = "text";
+                input.readOnly="readonly";
+                input.addEventListener('click',(event)=>{
+                    console.dir(event.target);
+                    console.log("taskId:"+event.target.code);
+
+                    console.log("wsにあったならexecuteではなくwsから引っ張る");
+                    //wsから取得
+                    if(ws.checkItem(event.target.value)){
+                        console.log("このリストwsにある");
+                    }else{
+                        console.log("このリストwsにない");
+                    }
+
+                    execute(event.target);
+
+                });
+                disptaskList.appendChild(input);
+            }
+        }
+
+        //指定のタグの子要素にLabelを追加
+        function addLabel(parent,text){
+            var label = document.createElement('label');
+            label.innerText = text;
+            parent.appendChild(label);
+        }
+
+        //TaskAPIを叩いて、タスクリストのコードからタスクを取得する
         function execute(tasklist="") {
             console.log("execute()");
-            if(tasklist==""){
+            if(tasklist.code==""){
                 console.log("return");
                 return;
             }else{
-                console.log("tasklist:"+tasklist);                    
+                console.log("tasklist:"+tasklist.code);                    
             }
             
+            console.dir(gapi.client.tasks);
+            if(undefined == gapi.client.tasks){
+                //GoogleにログインしていないのでAPIが叩けない状態
+                authenticate().then(loadClient);
+                return;
+            }
             return gapi.client.tasks.tasks.list({
-                "tasklist": tasklist
+                "tasklist": tasklist.code
             }).then(function(response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-                console.dir(response.result);
-                console.dir(response.result.items);
                 let dispTasks = document.querySelector("#disptasks");
                 dispTasks.textContent = null;//削除
-                var label = document.createElement('label');
-                label.innerText = "TASKS";
-                dispTasks.appendChild(label);
 
+                // var label = document.createElement('label');
+                // label.innerText = "TASKS";
+                // dispTasks.appendChild(label);
+                addLabel(dispTasks,"TASKS");
+
+                console.log("ここでリスト名が取れるなら並べるのと一緒にwsにも登録");
+                console.dir(response);
                 for(item of response.result.items){
-                    console.dir(item.title);    
                     makeTaskLi(item.title,dispTasks);
+
+                    //wsに登録？
+                    ws.addCommaItem(tasklist.value,item.title);
                 }
-
-
             }, function(err) {
                 console.error("Execute error", err);
             });
         }
         gapi.load("client:auth2", function() {
-            // console.log(CLIENT_ID);
             gapi.auth2.init({
                 client_id: CLIENT_ID
             });

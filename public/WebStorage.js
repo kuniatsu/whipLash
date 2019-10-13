@@ -32,13 +32,6 @@ class WebStorage{
     }
 
     /**
-     * Output contents of webstorage to log
-     */
-    log(){
-        console.dir(this.getAllItem());
-    }
-
-    /**
      * set to webstorage
      * @param   {String} key
      * @param   {String} value 
@@ -46,6 +39,16 @@ class WebStorage{
     setItem(key,value){
         console.log(key+":"+value);
         this.storage.setItem(key,value);
+    }
+
+    /**
+     * add CommaSeparatorData to webstorage
+     * @param   {String} key
+     * @param   {String} value 
+     */
+    addCommaItem(key,value){
+        console.log("addCommaItem ->"+ key+":"+this.getItem(key)+","+value);
+        this.setItem(key,this.getItem(key)+","+value);
     }
 
     /**
@@ -94,6 +97,7 @@ class WebStorage{
      * @param   {String} key
      */
     setSelectorInnerText(selector,key){
+        console.log("setSelectorInnerText");
         let textArray = [];
         let eleArray = document.querySelectorAll(selector);
         eleArray.forEach((ele)=>{
@@ -104,4 +108,27 @@ class WebStorage{
         this.setItem(key,textArray);
     }
 
+    /**
+     * Specified selector to be get and save to webStrage
+     * @param  {String} selector
+     * @param   {String} key
+     */
+    setSelectorValue(selector,key){
+        console.log("setSelectorValue");
+        let textArray = [];
+        let eleArray = document.querySelectorAll(selector);
+        eleArray.forEach((ele)=>{
+            if(ele.value != ""){
+                textArray.push(ele.value);
+            }
+        });
+        this.setItem(key,textArray);
+    }
+
+    /**
+     * Output contents of webstorage to log
+     */
+    log(){
+        console.dir(this.getAllItem());
+    }
 }
