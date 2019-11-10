@@ -207,8 +207,6 @@
         var timeORcount = document.querySelector("#timeORcount");
         var googletasks = document.querySelector("#googletasks");
 
-
-
         (()=>{
             document.querySelector('#host').value=window.location.href;　//host欄を入力する
 
@@ -315,6 +313,8 @@
                 +"&timeORcount="+timeORcount.childNodes[3].value;
             });
         })();
+
+
 
         //タスクのLiを作成する
         function makeTaskLi(task,dispTasks){
