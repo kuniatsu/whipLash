@@ -154,7 +154,7 @@
                 </section>
             </section>     
 
-            <section class="showcase">
+            <section class="showcase displayNone" id="tasklist">
                 <section class="nes-container with-title">
                     <h3  class="title">TASKLISTS</h3>
                     <div id="disptaskList">
@@ -310,13 +310,11 @@
         })();
 
         //タスクのLiを作成する
-        function makeTaskLi(task,dispTasks){
-            var input = document.createElement('input');
-            input.value = task;
-            input.type = "text";
-            input.readOnly="readonly";
-            dispTasks.appendChild(input);
-
+        function makeTaskLabel(task,dispTasks){
+            var Label = document.createElement('Label');
+            Label.value = task;
+            dispTasks.appendChild(Label);
+            addBR(dispTasks);
         }
 
         function makeWs(){
@@ -361,9 +359,6 @@
             var disptaskList = document.querySelector("#disptaskList");
             //タスクリストの初期化
             disptaskList.textContent = null;//削除
-            addLabel(disptaskList,"TASKLISTS"); //のちに消す
-
-            console.log("ここまでよし");
             return gapi.client.tasks.tasklists.list({}).then(function(response) {
                 var getListStr=[];
                 getListStr = makeTaskListLabel(response.result.items);
@@ -373,7 +368,8 @@
                     console.dir(getListStr);
                     ws.setItem("List",getListStr);
                 }
-                disptaskList.classList.remove("displayNone");
+                document.querySelector('#taskList').classList.remove("displayNone");
+
                 changeTaskFlg = true;
             }, function(err) {
                 console.error("Execute error", err);
@@ -381,18 +377,14 @@
         }
 
         //タスクリストのLIを作成する
-//        function makeTaskListLi(List){
         function makeTaskListLabel(List){
             var disptaskList = document.querySelector("#disptaskList");
             var getListStr=[];
             for(item of List){
                 getListStr.push('{"'+ item.title +'" : "'+ item.id +'"}');
-
                 var label = document.createElement('label');
                 label.innerText = item.title;
                 label.code = item.id;
-                // label.type = "text";
-                // label.readOnly="readonly";
                 label.addEventListener('click',(event)=>{
                     console.dir(event.target);
                     console.log("taskId:"+event.target.code);
@@ -483,7 +475,7 @@
                 console.log("ここでリスト名が取れるなら並べるのと一緒にwsにも登録");
                 console.dir(response);
                 for(item of response.result.items){
-                    makeTaskLi(item.title,dispTasks);
+                    makeTaskLabel(item.title,dispTasks);
 
                     //wsに登録？
                     ws.addCommaItem(tasklist.value,item.title);
