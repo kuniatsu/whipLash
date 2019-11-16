@@ -70,15 +70,15 @@
                 <section class="nes-container with-title">
                     <h3 class="title">じゅんばん</h3> 
                     <div id="order" class="item">
-                    <label>
+                    <label id="sequential">
                         <input type="radio" class="nes-radio" name="order" checked="">
                         <span>じゅんじ</span>
                     </label><br />
-                    <label>
+                    <label id="random">
                         <input type="radio" class="nes-radio" name="order">
                         <span>ランダム</span>
                     </label><br />                
-                    <label>
+                    <label id="shuffle">
                         <input type="radio" class="nes-radio" name="order">
                         <span>シャッフル</span>
                     </label>
@@ -247,6 +247,11 @@
         var timeLimit_1 = document.querySelector("#timelimit_1");
         var timeLimit_3 = document.querySelector("#timelimit_3");
         var timeLimit_5 = document.querySelector("#timelimit_5");
+
+        var sequential = document.querySelector("#sequential");
+        var random = document.querySelector("#random");
+        var shuffle = document.querySelector("#shuffle");
+        
         var order = document.querySelector("#order");
         var showList = document.querySelector("#showlist");
         var set = document.querySelector("#set");
@@ -287,17 +292,6 @@
 
             // 制限時間
             var timeLimit=3;
-            /*
-            timeLimit.addEventListener("click",(e)=>{
-                if(timeLimit.childNodes[3].value == "3:00"){
-                    timeLimit.childNodes[3].value = "5:00";
-                }else if(timeLimit.childNodes[3].value == "5:00"){
-                    timeLimit.childNodes[3].value = "1:00";
-                }else{
-                    timeLimit.childNodes[3].value = "3:00";
-                }
-            });
-            */
             timeLimit_1.addEventListener("click",(e)=>{
                 timeLimit=1;
             });
@@ -308,21 +302,19 @@
                 timeLimit=5;
             });
 
-
-
-
-
-
-            order.addEventListener("click",(e)=>{
-                if(order.childNodes[3].value == "Sequential"){
-                    order.childNodes[3].value = "Random";
-                }else if(order.childNodes[3].value == "Random"){
-                    order.childNodes[3].value = "Shuffle";
-                }else{
-                    order.childNodes[3].value = "Sequential";
-                }
+            //順番
+            var order = "Sequential";
+            sequential.addEventListener("click",(e)=>{
+                order="Sequential";
+            });
+            random.addEventListener("click",(e)=>{
+                order="Random";
+            });
+            shuffle.addEventListener("click",(e)=>{
+                order="Sequential";
             });
 
+            //タスクリスト表示
             showList.addEventListener("click",(e)=>{
                 if(showList.childNodes[3].value == "ON"){
                     showList.childNodes[3].value = "OFF";
@@ -376,7 +368,7 @@
                 window.location.href="./index.html"+"?"
 //                +"timelimit="+timeLimit.childNodes[3].value 
                 +"timelimit="+timeLimit
-                +"&order="+order.childNodes[3].value
+                +"&order="+order
                 +"&showlist="+showList.childNodes[3].value
                 +"&animetion="+animetion.childNodes[3].value            
                 +"&timeORcount="+timeORcount.childNodes[3].value;
