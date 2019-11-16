@@ -366,7 +366,7 @@
             console.log("ここまでよし");
             return gapi.client.tasks.tasklists.list({}).then(function(response) {
                 var getListStr=[];
-                getListStr = makeTaskListLi(response.result.items);
+                getListStr = makeTaskListLabel(response.result.items);
 
                 //wsに保存
                 if(getListStr.length){
@@ -381,18 +381,19 @@
         }
 
         //タスクリストのLIを作成する
-        function makeTaskListLi(List){
+//        function makeTaskListLi(List){
+        function makeTaskListLabel(List){
             var disptaskList = document.querySelector("#disptaskList");
             var getListStr=[];
             for(item of List){
                 getListStr.push('{"'+ item.title +'" : "'+ item.id +'"}');
 
-                var input = document.createElement('input');
-                input.value = item.title;
-                input.code = item.id;
-                input.type = "text";
-                input.readOnly="readonly";
-                input.addEventListener('click',(event)=>{
+                var label = document.createElement('label');
+                label.innerText = item.title;
+                label.code = item.id;
+                // label.type = "text";
+                // label.readOnly="readonly";
+                label.addEventListener('click',(event)=>{
                     console.dir(event.target);
                     console.log("taskId:"+event.target.code);
                     console.log("taskName:"+event.target.value);
@@ -407,40 +408,40 @@
                     //GoogleApiから取得
                     execute(event.target);
                 });
-                disptaskList.appendChild(input);
+                disptaskList.appendChild(label);
             }
             return getListStr;
         }
 
-        //タスクリストのLIを作成する
-        function setTaskListLi(List){
-            var disptaskList = document.querySelector("#disptaskList");
-            for(item of List){
-                var obj = JSON.parse(item);
+        // //タスクリストのLIを作成する
+        // function setTaskListLi(List){
+        //     var disptaskList = document.querySelector("#disptaskList");
+        //     for(item of List){
+        //         var obj = JSON.parse(item);
 
-                var input = document.createElement('input');
-                input.value = Object.keys(obj)[0];
-                input.code = obj[Object.keys(obj)[0]];
-                input.type = "text";
-                input.readOnly="readonly";
-                input.addEventListener('click',(event)=>{
-                    console.dir(event.target);
-                    console.log("taskId:"+event.target.code);
+        //         var label = document.createElement('label');
+        //         label.innerText = Object.keys(obj)[0];
+        //         label.code = obj[Object.keys(obj)[0]];
+        //         // label.type = "text";
+        //         // label.readOnly="readonly";
+        //         label.addEventListener('click',(event)=>{
+        //             console.dir(event.target);
+        //             console.log("taskId:"+event.target.code);
 
-                    console.log("wsにあったならexecuteではなくwsから引っ張る");
-                    //wsから取得
-                    if(ws.checkItem(event.target.value)){
-                        console.log("このリストwsにある");
-                    }else{
-                        console.log("このリストwsにない");
-                    }
+        //             console.log("wsにあったならexecuteではなくwsから引っ張る");
+        //             //wsから取得
+        //             if(ws.checkItem(event.target.value)){
+        //                 console.log("このリストwsにある");
+        //             }else{
+        //                 console.log("このリストwsにない");
+        //             }
 
-                    execute(event.target);
+        //             execute(event.target);
 
-                });
-                disptaskList.appendChild(input);
-            }
-        }
+        //         });
+        //         disptaskList.appendChild(label);
+        //     }
+        // }
 
         //指定のタグの子要素にLabelを追加
         function addLabel(parent,text){
