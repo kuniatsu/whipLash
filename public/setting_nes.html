@@ -156,7 +156,7 @@
 
             <section class="showcase displayNone" id="tasklists">
                 <section class="nes-container with-title">
-                    <h3  class="title">TASKLISTS</h3>
+                    <h3  class="title">TaskLists</h3>
                     <div id="disptaskList">
                     </div>
                 </section>
@@ -309,10 +309,10 @@
             });
         })();
 
-        //タスクのLiを作成する
+        //タスクのLabelを作成する
         function makeTaskLabel(task,dispTasks){
             var Label = document.createElement('Label');
-            Label.value = task;
+            Label.innerText = task;
             dispTasks.appendChild(Label);
             addBR(dispTasks);
         }
