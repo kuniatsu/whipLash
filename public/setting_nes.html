@@ -252,11 +252,17 @@
         var random = document.querySelector("#random");
         var shuffle = document.querySelector("#shuffle");
         
-        var order = document.querySelector("#order");
-        var showList = document.querySelector("#showlist");
+        var dispList = document.querySelector("#dispList");
+        var hiddenList = document.querySelector("#hiddenList");
+
+        var dispAnime = document.querySelector("#dispAnime");
+        var hiddenAnime = document.querySelector("#hiddenAnime");
+        
+        var countMain = document.querySelector("#countMain");
+        var timeMain = document.querySelector("#timeMain");
+        
+        
         var set = document.querySelector("#set");
-        var animetion = document.querySelector("#animetion");
-        var timeORcount = document.querySelector("#timeORcount");
         var googletasks = document.querySelector("#googletasks");
 
 
@@ -274,21 +280,6 @@
                     }
                 }
             }
-
-            // if(ws.checkItem('List')){
-            //     console.log("ws.List確認！");
-            //     let taskListArray = ws.getItem('List').split(',');
-            //     setTaskListLi(taskListArray);//追加!
-            //     disptaskList.classList.remove("displayNone");
-            // }
-
-            // document.getElementById("test").addEventListener('click',()=>{
-            //     console.log(111);
-            //     ws.log();
-            //     ws.log2();
-            //     ws.setSelectorValu();
-            // });
-
 
             // 制限時間
             var timeLimit=3;
@@ -315,34 +306,31 @@
             });
 
             //タスクリスト表示
-            showList.addEventListener("click",(e)=>{
-                if(showList.childNodes[3].value == "ON"){
-                    showList.childNodes[3].value = "OFF";
-                }else if(showList.childNodes[3].value == "OFF"){
-                    showList.childNodes[3].value = "ON";
-                }else{
-                    showList.childNodes[3].value = "OFF";
-                }
+            var showList = "ON";
+            dispList.addEventListener("click",(e)=>{
+                showList = "ON";
+            });
+            hiddenList.addEventListener("click",(e)=>{
+                showList = "OFF";
+            });
+            
+
+            //アニメーション表示
+            var animetion = "ON";
+            dispAnime.addEventListener("click",(e)=>{
+                animetion = "ON";
+            });
+            hiddenAnime.addEventListener("click",(e)=>{
+                animetion = "OFF";
             });
 
-            animetion.addEventListener("click",(e)=>{
-                if(animetion.childNodes[3].value == "ON"){
-                    animetion.childNodes[3].value = "OFF";
-                }else if(animetion.childNodes[3].value == "OFF"){
-                    animetion.childNodes[3].value = "ON";
-                }else{
-                    animetion.childNodes[3].value = "OFF";
-                }
+            //カウントダウン
+            var timeORcount = "COUNT";
+            countMain.addEventListener("click",(e)=>{
+                timeORcount = "COUNT";
             });
-
-            timeORcount.addEventListener("click",(e)=>{
-                if(timeORcount.childNodes[3].value == "TIME"){
-                    timeORcount.childNodes[3].value = "COUNT";
-                }else if(timeORcount.childNodes[3].value == "COUNT"){
-                    timeORcount.childNodes[3].value = "TIME";
-                }else{
-                    timeORcount.childNodes[3].value = "COUNT";
-                }
+            timeMain.addEventListener("click",(e)=>{
+                timeORcount = "TIME";
             });
 
             googletasks.addEventListener("click",(e)=>{
@@ -369,9 +357,9 @@
 //                +"timelimit="+timeLimit.childNodes[3].value 
                 +"timelimit="+timeLimit
                 +"&order="+order
-                +"&showlist="+showList.childNodes[3].value
-                +"&animetion="+animetion.childNodes[3].value            
-                +"&timeORcount="+timeORcount.childNodes[3].value;
+                +"&showlist="+showList
+                +"&animetion="+animetion            
+                +"&timeORcount="+timeORcount;
             });
         })();
 
