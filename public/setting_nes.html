@@ -154,7 +154,7 @@
                 </section>
             </section>     
 
-            <section class="showcase displayNone" id="tasklist">
+            <section class="showcase displayNone" id="tasklists">
                 <section class="nes-container with-title">
                     <h3  class="title">TASKLISTS</h3>
                     <div id="disptaskList">
@@ -368,7 +368,7 @@
                     console.dir(getListStr);
                     ws.setItem("List",getListStr);
                 }
-                document.querySelector('#taskList').classList.remove("displayNone");
+                document.querySelector('#taskLists').classList.remove("displayNone");
 
                 changeTaskFlg = true;
             }, function(err) {
