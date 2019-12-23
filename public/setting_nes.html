@@ -1,0 +1,493 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./index.css">
+        <title>whipLash _settings</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />    
+        <style>
+            @font-face{
+            font-family: 美咲ゴシック;
+            src: url('https://cdn.leafscape.be/misaki/misaki_gothic_web.woff2')
+                format("woff2");
+            }
+            body{
+                font-family: "Press Start 2P","美咲ゴシック";
+                margin: auto;
+            }
+
+            button{
+                width: 100%;
+                height: 100%;
+                font-size: 80%;
+            }
+
+            displayNone{
+                display:none;
+            }
+
+            .showcase{
+                margin-top:5%;
+            }
+
+            .footermargin{
+                margin-bottom: 25%;
+            }
+        </style>        
+    </head>
+    <body>
+        <form class="">
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">URL</h3> 
+                    <div id="url" class="item">
+                    <label style="width:100%">
+                        <input type="radio" class="nes-radio" name="url" checked="">
+                        <input id="host" value="" style="width:100%;border: none;">
+                    </label><br />                
+                    </div> 
+                </section>
+            </section>
+
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">せってい じかん</h3> 
+                    <div id="timelimit" class="item">
+                    <label id="timelimit_1">
+                        <input type="radio" class="nes-radio" name="timelimit">
+                        <span>1:00</span>
+                    </label><br />
+                    <label id="timelimit_3">
+                        <input type="radio" class="nes-radio" name="timelimit" checked="">
+                        <span>3:00</span>
+                    </label><br />                
+                    <label id="timelimit_5">
+                        <input type="radio" class="nes-radio" name="timelimit">
+                        <span>5:00</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+        
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">じゅんばん</h3> 
+                    <div id="order" class="item">
+                    <label id="sequential">
+                        <input type="radio" class="nes-radio" name="order" checked="">
+                        <span>じゅんじ</span>
+                    </label><br />
+                    <label id="random">
+                        <input type="radio" class="nes-radio" name="order">
+                        <span>ランダム</span>
+                    </label><br />                
+                    <label id="shuffle">
+                        <input type="radio" class="nes-radio" name="order">
+                        <span>シャッフル</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+            
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">りすと ひょうじ</h3> 
+                    <div id="showlist" class="item">
+                    <label id="dispList">
+                        <input type="radio" class="nes-radio" name="showlist" checked="">
+                        <span>ひょうじ</span>
+                    </label><br />
+                    <label id="hiddenList">
+                        <input type="radio" class="nes-radio" name="showlist">
+                        <span>かくす</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+            
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">アニメーション</h3> 
+                    <div id="animetion" class="item">
+                    <label id="dispAnime">
+                        <input type="radio" class="nes-radio" name="animetion" checked="">
+                        <span>ひょうじ</span>
+                    </label><br />
+                    <label id="hiddenAnime">
+                        <input type="radio" class="nes-radio" name="animetion">
+                        <span>かくす</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>                    
+        
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">カウントせってい</h3> 
+                    <div id="count" class="item">
+                    <label id="countMain">
+                        <input type="radio" class="nes-radio" name="count" checked="">
+                        <span>カウント じゅうし</span>
+                    </label><br />
+                    <label id="timeMain">
+                        <input type="radio" class="nes-radio" name="count">
+                        <span>びょうすう じゅうし</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>       
+
+
+            <section id="syncBox" class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">GoogleTasks</h3> 
+                    <div id="googletasks" class="item">
+                        <label id="async">
+                            <input type="radio" class="nes-radio" name="googletasks" checked="">
+                            <span>ひどうき</span>
+                        </label><br />
+                        <label id="sync">
+                            <input type="radio" class="nes-radio" name="googletasks">
+                            <span>どうき</span>
+                        </label>
+                    </div> 
+                </section>
+            </section>     
+
+            <section class="showcase displayNone" id="tasklists">
+                <section class="nes-container with-title">
+                    <h3  class="title">TaskLists</h3>
+                    <div id="disptaskList">
+                    </div>
+                </section>
+            </section>
+
+            <section class="showcase footermargin">
+                <section class="nes-container with-title">
+                    <h3 class="title">Tasks</h3> 
+                    <div id="disptasks">
+                    </div>   
+                </section>
+            </section>  
+        </form>
+        <footer id="set">
+            <div id="taskList2">
+                <button>SET</button>
+            </div>
+        </footer>
+    </body>
+    <script src="./WebStorage.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>    
+        const CLIENT_ID ="500100005158-lkuvjh25mvsc4kbfqqssfg9n1bdl8h5m.apps.googleusercontent.com";
+        var changeTaskFlg = false;   //同期によりタスクに変更があった時にtrue
+        let ws;                      //WebStorageのObject用
+        let gApiFlg = false;
+
+        //DOM取得
+        var hostValue = document.querySelector("#host").value;
+        var timeLimit_1 = document.querySelector("#timelimit_1");
+        var timeLimit_3 = document.querySelector("#timelimit_3");
+        var timeLimit_5 = document.querySelector("#timelimit_5");
+
+        var sequential = document.querySelector("#sequential");
+        var random = document.querySelector("#random");
+        var shuffle = document.querySelector("#shuffle");
+        
+        var dispList = document.querySelector("#dispList");
+        var hiddenList = document.querySelector("#hiddenList");
+
+        var dispAnime = document.querySelector("#dispAnime");
+        var hiddenAnime = document.querySelector("#hiddenAnime");
+        
+        var countMain = document.querySelector("#countMain");
+        var timeMain = document.querySelector("#timeMain");
+        
+        var sync = document.querySelector("#sync");
+        
+        
+        var set = document.querySelector("#set");
+        var googletasks = document.querySelector("#googletasks");
+
+
+
+        (()=>{
+            document.querySelector('#host').value=window.location.href;　//host欄を入力する
+
+            makeWs();//create object
+            if(ws.checkItem('task')){
+                let taskArray = ws.getItem('task').split(',');
+                let dispTasks = document.querySelector("#disptasks");
+                for(let task of taskArray){
+                    if(task!==""){
+                        // makeTaskLi(task,dispTasks);  //左右が逆になっている
+                        addLabel(dispTasks,task);
+                        addBR(dispTasks); //br追加
+                    }
+                }
+            }
+
+            // 制限時間
+            var timeLimit=3;
+            timeLimit_1.addEventListener("click",(e)=>{
+                timeLimit=1;
+            });
+            timeLimit_3.addEventListener("click",(e)=>{
+                timeLimit=3;
+            });
+            timeLimit_5.addEventListener("click",(e)=>{
+                timeLimit=5;
+            });
+
+            //順番
+            var order = "Sequential";
+            sequential.addEventListener("click",(e)=>{
+                order="Sequential";
+            });
+            random.addEventListener("click",(e)=>{
+                order="Random";
+            });
+            shuffle.addEventListener("click",(e)=>{
+                order="Sequential";
+            });
+
+            //タスクリスト表示
+            var showList = "ON";
+            dispList.addEventListener("click",(e)=>{
+                showList = "ON";
+            });
+            hiddenList.addEventListener("click",(e)=>{
+                showList = "OFF";
+            });
+            
+
+            //アニメーション表示
+            var animetion = "ON";
+            dispAnime.addEventListener("click",(e)=>{
+                animetion = "ON";
+            });
+            hiddenAnime.addEventListener("click",(e)=>{
+                animetion = "OFF";
+            });
+
+            //カウントダウン
+            var timeORcount = "COUNT";
+            countMain.addEventListener("click",(e)=>{
+                timeORcount = "COUNT";
+            });
+            timeMain.addEventListener("click",(e)=>{
+                timeORcount = "TIME";
+            });
+
+            //同期のclickイベント
+            sync.addEventListener("click",(e)=>{
+                console.log("googletasks");
+                console.dir(googletasks);
+                var syncBox = document.querySelector("#syncBox");
+                syncBox.classList.add("displayNone");
+
+                //ACCESS_KEY取得
+                console.log("ACCESS_KEY取得");            
+                authenticate().then(loadClient);//GoogleAPI
+             });
+
+            set.addEventListener("click",()=>{
+                //wsにタスクを登録する
+                if(changeTaskFlg){
+                    console.log("changeTaskFlg:"+changeTaskFlg);
+                    var tasks = document.querySelectorAll('#disptasks > input[type=text]');
+                    ws.setSelectorValue('#disptasks > input[type=text]',"task");    
+                }
+
+                window.location.href="./index.html"+"?"
+//                +"timelimit="+timeLimit.childNodes[3].value 
+                +"timelimit="+timeLimit
+                +"&order="+order
+                +"&showlist="+showList
+                +"&animetion="+animetion            
+                +"&timeORcount="+timeORcount;
+            });
+        })();
+
+        //タスクのLabelを作成する
+        function makeTaskLabel(task,dispTasks){
+            var Label = document.createElement('Label');
+            Label.innerText = task;
+            dispTasks.appendChild(Label);
+            addBR(dispTasks);
+        }
+
+        function makeWs(){
+            if(ws == undefined || ws == null){
+                console.log("makeWs");
+                ws = new WebStorage();
+            }
+            ws.log();
+        }
+
+        function authenticate() {
+            console.log("authenticate()");
+            return gapi.auth2.getAuthInstance().signIn({
+                client_id: CLIENT_ID,
+                scope: "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly"
+            }).then(function() {
+                console.log("Sign-in successful");
+                gApiFlg = true;//APIが成功した場合
+            }, function(err) {
+                console.error("Error signing in", err);
+            });
+        }
+        function loadClient() {
+            console.log("loadClient()");
+            if(gApiFlg==true){
+                return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest").then(function() {
+                    console.log("GAPI client loaded for API");
+                    //タスクリストの作成
+                    getTaskList();             
+                }, function(err) {
+                    console.error("Error loading GAPI client for API", err);
+                    return null;
+                });
+            }else{
+                console.log("Google API async");
+            }
+        }
+
+        //GoogleAPIで取得したタスクリストを出力する。
+        function getTaskList(){
+            console.log("getTaskList()");
+            var disptaskList = document.querySelector("#disptaskList");
+            //タスクリストの初期化
+            disptaskList.textContent = null;//削除
+            return gapi.client.tasks.tasklists.list({}).then(function(response) {
+                var getListStr=[];
+                getListStr = makeTaskListLabel(response.result.items);
+
+                //wsに保存
+                if(getListStr.length){
+                    console.dir(getListStr);
+                    ws.setItem("List",getListStr);
+                }
+                document.querySelector('#taskLists').classList.remove("displayNone");
+
+                changeTaskFlg = true;
+            }, function(err) {
+                console.error("Execute error", err);
+            });
+        }
+
+        //タスクリストのLIを作成する
+        function makeTaskListLabel(List){
+            var disptaskList = document.querySelector("#disptaskList");
+            var getListStr=[];
+            for(item of List){
+                getListStr.push('{"'+ item.title +'" : "'+ item.id +'"}');
+                var label = document.createElement('label');
+                label.innerText = item.title;
+                label.code = item.id;
+                label.addEventListener('click',(event)=>{
+                    console.dir(event.target);
+                    console.log("taskId:"+event.target.code);
+                    console.log("taskName:"+event.target.value);
+
+                    //wsから取得
+                    if(ws.checkItem(event.target.value)){
+                        console.log("wsにある");
+                    }else{
+                        console.log("wsにない");
+                    }
+
+                    //GoogleApiから取得
+                    execute(event.target);
+                });
+                disptaskList.appendChild(label);
+                addBR(disptaskList);
+            }
+            return getListStr;
+        }
+
+        // //タスクリストのLIを作成する
+        // function setTaskListLi(List){
+        //     var disptaskList = document.querySelector("#disptaskList");
+        //     for(item of List){
+        //         var obj = JSON.parse(item);
+
+        //         var label = document.createElement('label');
+        //         label.innerText = Object.keys(obj)[0];
+        //         label.code = obj[Object.keys(obj)[0]];
+        //         // label.type = "text";
+        //         // label.readOnly="readonly";
+        //         label.addEventListener('click',(event)=>{
+        //             console.dir(event.target);
+        //             console.log("taskId:"+event.target.code);
+
+        //             console.log("wsにあったならexecuteではなくwsから引っ張る");
+        //             //wsから取得
+        //             if(ws.checkItem(event.target.value)){
+        //                 console.log("このリストwsにある");
+        //             }else{
+        //                 console.log("このリストwsにない");
+        //             }
+
+        //             execute(event.target);
+
+        //         });
+        //         disptaskList.appendChild(label);
+        //     }
+        // }
+
+        //指定のタグの子要素にLabelを追加
+        function addLabel(parent,text){
+            var label = document.createElement('label');
+            label.innerText = text;
+            parent.appendChild(label);
+        }
+
+        //指定のタグの子要素にbrを追加
+        function addBR(parent){
+            var br = document.createElement('br');
+            parent.appendChild(br);
+        }
+
+        //TaskAPIを叩いて、タスクリストのコードからタスクを取得する
+        function execute(tasklist="") {
+            console.log("execute()");
+            if(tasklist.code==""){
+                console.log("return");
+                return;
+            }else{
+                console.log("tasklist:"+tasklist.code);                    
+            }
+            
+            console.dir(gapi.client.tasks);
+            if(undefined == gapi.client.tasks){
+                //GoogleにログインしていないのでAPIが叩けない状態
+                authenticate().then(loadClient);
+                return;
+            }
+            return gapi.client.tasks.tasks.list({
+                "tasklist": tasklist.code
+            }).then(function(response) {
+                let dispTasks = document.querySelector("#disptasks");
+                dispTasks.textContent = null;//削除
+                // addLabel(dispTasks,"TASKS");
+                
+                console.log("ここでリスト名が取れるなら並べるのと一緒にwsにも登録");
+                console.dir(response);
+                for(item of response.result.items){
+                    makeTaskLabel(item.title,dispTasks);
+
+                    //wsに登録？
+                    ws.addCommaItem(tasklist.value,item.title);
+                }
+            }, function(err) {
+                console.error("Execute error", err);
+            });
+        }
+        gapi.load("client:auth2", function() {
+            gapi.auth2.init({
+                client_id: CLIENT_ID
+            });
+        });
+    </script>
+</html>
