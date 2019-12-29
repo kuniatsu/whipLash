@@ -14,7 +14,22 @@
             body{
                 font-family: "Press Start 2P","美咲ゴシック";
                 margin: auto;
+                font-size: 100%;
             }
+            @media only screen and (max-device-width: 480px) {
+                body{
+                    font-size: 300%;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+                .nes-container.with-title > .title {
+                    margin: -3.0rem 0 1rem;
+                    font-size: 2rem;
+                }
+            }
+
+
+
 
             button{
                 width: 100%;
