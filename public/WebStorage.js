@@ -122,6 +122,7 @@ class WebStorage{
                 textArray.push(ele.value);
             }
         });
+        console.dir(textArray);
         this.setItem(key,textArray);
     }
 
