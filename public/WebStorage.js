@@ -47,8 +47,14 @@ class WebStorage{
      * @param   {String} value 
      */
     addCommaItem(key,value){
-        console.log("addCommaItem ->"+ key+":"+this.getItem(key)+","+value);
-        this.setItem(key,this.getItem(key)+","+value);
+        if(this.checkItem(key)){
+            console.log("addCommaItem ->"+ key+":"+this.getItem(key)+","+value);
+            this.setItem(key,this.getItem(key)+","+value);
+        }else{
+            //存在しないリストにaddする場合
+            console.log("addCommaItem.make ->"+ key+":"+value);
+            this.setItem(key,value);
+        }
     }
 
     /**

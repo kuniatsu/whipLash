@@ -245,7 +245,6 @@
                 let dispTasks = document.querySelector("#disptasks");
                 for(let task of taskArray){
                     if(task!==""){
-                        // makeTaskLi(task,dispTasks);  //左右が逆になっている
                         addLabel(dispTasks,task);
                         addBR(dispTasks); //br追加
                     }
@@ -322,7 +321,8 @@
                     console.log("changeTaskFlg:"+changeTaskFlg);
                     var tasks = document.querySelectorAll('#disptasks > input[type=text]');
                     console.dir(tasks);
-                    ws.setSelectorValue('#disptasks > input[type=text]',"task");    
+                    ws.setSelectorValue("task",'#disptasks > input[type=text]');  
+                      
                 }
 
                 window.location.href="./index.html"+"?"
@@ -500,11 +500,15 @@
                 
                 console.log("ここでリスト名が取れるなら並べるのと一緒にwsにも登録");
                 console.dir(response);
+                ws.removeItem("task");
                 for(item of response.result.items){
-                    makeTaskLabel(item.title,dispTasks);
-
-                    //wsに登録？
-                    ws.addCommaItem(tasklist.value,item.title);
+                    if(item!=""&&item!=null){
+                        makeTaskLabel(item.title,dispTasks);
+                        //wsに登録
+                        ws.addCommaItem("task",item.title);
+                    }else{
+                        console.log("確認後削除");
+                    }
                 }
             }, function(err) {
                 console.error("Execute error", err);
