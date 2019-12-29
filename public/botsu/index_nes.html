@@ -1,0 +1,88 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./index.css">
+        <link rel="shortcut icon" href="image/favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />    
+        <title>whipLash</title>
+        <style>
+            @font-face{
+                font-family: 美咲ゴシック;
+                src: url('https://cdn.leafscape.be/misaki/misaki_gothic_web.woff2')
+                format("woff2");
+            }
+            html, body{
+                margin: 0 auto;         /* 余白の削除 */
+                padding: 0;        /* 余白の削除 */
+                width:100%;
+                height:100%;
+                font-family: "Press Start 2P","美咲ゴシック";
+            }
+            #title {
+                font-size: 7em;
+            }
+            .timer1 {
+                font-size: 6em;
+            }
+            
+            @media screen and (max-width: 999px){
+                #taskList {
+                    font-size: 5em;
+                }
+            }
+                
+        </style>
+    </head>
+    <body>
+    <header>
+        <a href="./setting.html"><img id="settingIcon" src="./image/settingIcon.png" ></a>
+    </header>
+    <article>
+        <p id="title">タイトル</p>
+        <div id="animationBox">
+            <p id="timer" class="timer1">3:00</p>
+        </div>
+        <div id="playBox">
+            <img src="./image/back.png" id="back">
+            <img src="./image/play.png" id="playstop">
+            <img src="./image/next.png" id="next">
+        </div>
+
+        <ol id="taskList">
+            <li id="inputTaskList"></li>
+        </ol>
+        <div style ="visibility: hidden">
+            <hr />
+            <button id="bt">button</button>
+            <button id="bt2">next</button>
+            <button id="bt3">delete</button>
+            <button id="bt4">timer</button>
+            <button id="bt5">start</button>
+            <button id="bt6">stop</button>
+            <button id="bt7">back</button>
+            <button id="bt8"> < </button>
+            <button id="bt9"> > </button>
+            <button id="bt10">init</button>
+            <button id="bt11">ws</button>
+            <button id="bt12">animationBox start</button>
+            <button id="bt13">animationBox toggle</button>
+            <button id="bt14">name</button>
+        </div>
+
+    </article>
+    <footer>
+        <div id="taskList2">
+            <span id="inputTaskList2"><input type="text" id="inputTask" placeholder="→"></span>
+        </div>
+    </footer>
+    </body>
+    <script src="./Config.js"></script>
+    <script src="./Sortable.js"></script>
+    <script src="./TimeLimit.js"></script>
+    <script src="./WebStorage.js"></script>
+    <script src="./Animation.js"></script>    
+    <script src="./module.js"></script>
+    <script src="./index.js"></script>
+    <script src="./test.js"></script>
+</html>

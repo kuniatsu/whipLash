@@ -3,185 +3,197 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./index.css">
         <title>whipLash _settings</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />    
         <style>
-            .form-style-7{
-                margin:100px auto;
-                background:#fff;
-                border-radius:2px;
-                padding:20px;
-                font-family: Georgia, "Times New Roman", Times, serif;
+            @font-face{
+            font-family: 美咲ゴシック;
+            src: url('https://cdn.leafscape.be/misaki/misaki_gothic_web.woff2')
+                format("woff2");
             }
-            .form-style-7 ul{
-                list-style:none;
-                padding:0;
-                margin:0;	
+            body{
+                font-family: "Press Start 2P","美咲ゴシック";
+                margin: auto;
+                font-size: 100%;
             }
-            .form-style-7 li{
-                display: block;
-                padding-top: 20px;
-                padding-left: 0px;
-                padding-right: 0px;                
-                margin-bottom: 60px;
-                border-radius: 3px;
-                /* border:1px solid #DDDDDD; */
-                border-top: 1px solid #000;
-            }
-
-            .form-style-7 li:last-child{
-                border:none;
-                margin-bottom: 0px;
-                text-align: center;
-            }
-            .form-style-7 li > label{
-                display: block;
-                float: left;
-                margin-top: -49px;
-                margin-left:20px;
-                background: #FFFFFF;
-                height: 60px;
-                font-size: 60px;
-                color: #B9B9B9;
-                overflow: hidden;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            .form-style-7 input[type="text"],
-            .form-style-7 input[type="date"],
-            .form-style-7 input[type="datetime"],
-            .form-style-7 input[type="email"],
-            .form-style-7 input[type="number"],
-            .form-style-7 input[type="search"],
-            .form-style-7 input[type="time"],
-            .form-style-7 input[type="url"],
-            .form-style-7 input[type="password"],
-            .form-style-7 textarea,
-            .form-style-7 select 
-            {
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                width: 90%;
-                display: block;
-                outline: none;
-                border: none;
-                height: 90px;
-                line-height: 25px;
-                font-size: 80px;
-                padding: 0;
-                margin-left:20px;
-                font-family: Georgia, "Times New Roman", Times, serif;
+            @media only screen and (max-device-width: 480px) {
+                body{
+                    font-size: 300%;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+                .nes-container.with-title > .title {
+                    margin: -3.0rem 0 1rem;
+                    font-size: 2rem;
+                }
+                .nes-radio:checked + span::before {
+                    position: absolute;
+                    top: -20px;
+                    left: -60px;
+                    content: "▶︎";
+                    /* width: 2px;
+                    height: 2px; */
+                    /* color: #212529; */
+                    box-shadow: 0px 0px;
+                }
             }
 
-            /* .form-style-7 input[type="text"]:focus,
-            .form-style-7 input[type="date"]:focus,
-            .form-style-7 input[type="datetime"]:focus,
-            .form-style-7 input[type="email"]:focus,
-            .form-style-7 input[type="number"]:focus,
-            .form-style-7 input[type="search"]:focus,
-            .form-style-7 input[type="time"]:focus,
-            .form-style-7 input[type="url"]:focus,
-            .form-style-7 input[type="password"]:focus,
-            .form-style-7 textarea:focus,
-            .form-style-7 select:focus 
-            {
-            } */
 
-            .form-style-7 li > span{
-                background: #F3F3F3;
-                display: block;
-                text-align: center;
-                color: #C0C0C0;
-                font-family: Arial, Helvetica, sans-serif;
-                width: 100%;
-                font-size: 25px;
-                height: 30px;
-            }
-            .form-style-7 textarea{
-                resize:none;
-            }
-            .form-style-7 input[type="submit"],
-            .form-style-7 input[type="button"]{
-                background: #F3F3F3;
-                color: #C0C0C0;
-                width: 100%;
-                height: 150px;
-                font-size: 130px;
-            }
-            .form-style-7 input[type="button"]:hover{
-                background: #C0C0C0;
-                color:#F3F3F3;
-            }
+
 
             button{
                 width: 100%;
                 height: 100%;
                 font-size: 80%;
-                color: #C0C0C0;
-            }
-            #host{
-                color: #DDD;
             }
 
-            li.displayNone{
+            displayNone{
                 display:none;
+            }
+
+            .showcase{
+                margin-top:5%;
+            }
+
+            .footermargin{
+                margin-bottom: 25%;
             }
         </style>        
     </head>
     <body>
-        <form class="form-style-7">
-            <ul>
-                <li >
-                    <label for="url">URL</label>
-                    <input id="host" type="text"  name="url" readonly="readonly" value="whiplash-todo.firebaseapp.com/">
-                    <span>HOST for Parameter</span>
-                </li>
-                <li id="timelimit">
-                    <label for="timelimit">TIMELIMIT</label>
-                    <input type="text" name="timelimit" readonly="readonly" value="3:00">
-                    <span> 1:00 > 3:00 > 5:00</span>
-                </li>
-                <li id="order">
-                    <label for="order">ORDER</label>
-                    <input type="text" name="order" readonly="readonly" value="Sequential">
-                    <span> Sequential > Random > Shuffle</span>
-                </li>
-                <li id="showlist">
-                    <label for="showlist">SHOWLIST</label>
-                    <input type="text" name="showlist" readonly="readonly" value="ON">
-                    <span> ON > OFF </span>
-                </li>    
-                <li id="animetion">
-                    <label for="animetion">ANIMETION</label>
-                    <input type="text" name="animetion" readonly="readonly" value="ON">
-                    <span> ON > OFF </span>
-                </li>    
+        <form class="">
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">URL</h3> 
+                    <div id="url" class="item">
+                    <label style="width:100%">
+                        <input type="radio" class="nes-radio" name="url" checked="">
+                        <input id="host" value="" style="width:100%;border: none;">
+                    </label><br />                
+                    </div> 
+                </section>
+            </section>
 
-                <li id="timeORcount">
-                    <label for="timeORcount">MODE</label>
-                    <input type="text" name="timeORcount" readonly="readonly" value="COUNT">
-                    <span> COUNT > TIME </span>
-                </li>    
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">せってい じかん</h3> 
+                    <div id="timelimit" class="item">
+                    <label id="timelimit_1">
+                        <input type="radio" class="nes-radio" name="timelimit">
+                        <span>1:00</span>
+                    </label><br />
+                    <label id="timelimit_3">
+                        <input type="radio" class="nes-radio" name="timelimit" checked="">
+                        <span>3:00</span>
+                    </label><br />                
+                    <label id="timelimit_5">
+                        <input type="radio" class="nes-radio" name="timelimit">
+                        <span>5:00</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+        
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">じゅんばん</h3> 
+                    <div id="order" class="item">
+                    <label id="sequential">
+                        <input type="radio" class="nes-radio" name="order" checked="">
+                        <span>じゅんじ</span>
+                    </label><br />
+                    <label id="random">
+                        <input type="radio" class="nes-radio" name="order">
+                        <span>ランダム</span>
+                    </label><br />                
+                    <label id="shuffle">
+                        <input type="radio" class="nes-radio" name="order">
+                        <span>シャッフル</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+            
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">りすと ひょうじ</h3> 
+                    <div id="showlist" class="item">
+                    <label id="dispList">
+                        <input type="radio" class="nes-radio" name="showlist" checked="">
+                        <span>ひょうじ</span>
+                    </label><br />
+                    <label id="hiddenList">
+                        <input type="radio" class="nes-radio" name="showlist">
+                        <span>かくす</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>
+            
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">アニメーション</h3> 
+                    <div id="animetion" class="item">
+                    <label id="dispAnime">
+                        <input type="radio" class="nes-radio" name="animetion" checked="">
+                        <span>ひょうじ</span>
+                    </label><br />
+                    <label id="hiddenAnime">
+                        <input type="radio" class="nes-radio" name="animetion">
+                        <span>かくす</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>                    
+        
+            <section class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">カウントせってい</h3> 
+                    <div id="count" class="item">
+                    <label id="countMain">
+                        <input type="radio" class="nes-radio" name="count" checked="">
+                        <span>カウント じゅうし</span>
+                    </label><br />
+                    <label id="timeMain">
+                        <input type="radio" class="nes-radio" name="count">
+                        <span>びょうすう じゅうし</span>
+                    </label>
+                    </div> 
+                </section>
+            </section>       
 
-                <li id="googletasks">
-                    <label for="googletasks">GoogleTasks</label>
-                    <input type="text" name="googletasks" readonly="readonly" value="ASYNC">
-                </li>
 
-                <li id="disptaskList" class="displayNone">
-                    <label>TASKLISTS</label>
-                </li>
+            <section id="syncBox" class="showcase">
+                <section class="nes-container with-title">
+                    <h3 class="title">GoogleTasks</h3> 
+                    <div id="googletasks" class="item">
+                        <label id="async">
+                            <input type="radio" class="nes-radio" name="googletasks" checked="">
+                            <span>ひどうき</span>
+                        </label><br />
+                        <label id="sync">
+                            <input type="radio" class="nes-radio" name="googletasks">
+                            <span>どうき</span>
+                        </label>
+                    </div> 
+                </section>
+            </section>     
 
-                <!-- <span id="test" ><button type="button" >TEST</button></button></span> -->
-                <li id="disptasks">
-                    <label>TASKS</label>
-                </li>    
+            <section class="showcase displayNone" id="tasklists">
+                <section class="nes-container with-title">
+                    <h3  class="title">TaskLists</h3>
+                    <div id="disptaskList">
+                    </div>
+                </section>
+            </section>
 
-                <li>
-                    <input type="hidden" value="SET" >
-                </li>
-            </ul>
-            <div>
-
-            </div>
+            <section class="showcase footermargin">
+                <section class="nes-container with-title">
+                    <h3 class="title">Tasks</h3> 
+                    <div id="disptasks">
+                    </div>   
+                </section>
+            </section>  
         </form>
         <footer id="set">
             <div id="taskList2">
@@ -199,13 +211,30 @@
 
         //DOM取得
         var hostValue = document.querySelector("#host").value;
-        var timeLimit = document.querySelector("#timelimit");
-        var order = document.querySelector("#order");
-        var showList = document.querySelector("#showlist");
+        var timeLimit_1 = document.querySelector("#timelimit_1");
+        var timeLimit_3 = document.querySelector("#timelimit_3");
+        var timeLimit_5 = document.querySelector("#timelimit_5");
+
+        var sequential = document.querySelector("#sequential");
+        var random = document.querySelector("#random");
+        var shuffle = document.querySelector("#shuffle");
+        
+        var dispList = document.querySelector("#dispList");
+        var hiddenList = document.querySelector("#hiddenList");
+
+        var dispAnime = document.querySelector("#dispAnime");
+        var hiddenAnime = document.querySelector("#hiddenAnime");
+        
+        var countMain = document.querySelector("#countMain");
+        var timeMain = document.querySelector("#timeMain");
+        
+        var sync = document.querySelector("#sync");
+        
+        
         var set = document.querySelector("#set");
-        var animetion = document.querySelector("#animetion");
-        var timeORcount = document.querySelector("#timeORcount");
         var googletasks = document.querySelector("#googletasks");
+
+
 
         (()=>{
             document.querySelector('#host').value=window.location.href;　//host欄を入力する
@@ -216,86 +245,76 @@
                 let dispTasks = document.querySelector("#disptasks");
                 for(let task of taskArray){
                     if(task!==""){
-                        makeTaskLi(task,dispTasks);
+                        // makeTaskLi(task,dispTasks);  //左右が逆になっている
+                        addLabel(dispTasks,task);
+                        addBR(dispTasks); //br追加
                     }
                 }
             }
 
-            // if(ws.checkItem('List')){
-            //     console.log("ws.List確認！");
-            //     let taskListArray = ws.getItem('List').split(',');
-            //     setTaskListLi(taskListArray);//追加!
-            //     disptaskList.classList.remove("displayNone");
-            // }
-
-            // document.getElementById("test").addEventListener('click',()=>{
-            //     console.log(111);
-            //     ws.log();
-            //     ws.log2();
-            //     ws.setSelectorValu();
-            // });
-
-            timeLimit.addEventListener("click",(e)=>{
-                if(timeLimit.childNodes[3].value == "3:00"){
-                    timeLimit.childNodes[3].value = "5:00";
-                }else if(timeLimit.childNodes[3].value == "5:00"){
-                    timeLimit.childNodes[3].value = "1:00";
-                }else{
-                    timeLimit.childNodes[3].value = "3:00";
-                }
+            // 制限時間
+            var timeLimit="3:00";
+            timeLimit_1.addEventListener("click",(e)=>{
+                timeLimit="1:00";
+            });
+            timeLimit_3.addEventListener("click",(e)=>{
+                timeLimit="3:00";
+            });
+            timeLimit_5.addEventListener("click",(e)=>{
+                timeLimit="5:00";
             });
 
-            order.addEventListener("click",(e)=>{
-                if(order.childNodes[3].value == "Sequential"){
-                    order.childNodes[3].value = "Random";
-                }else if(order.childNodes[3].value == "Random"){
-                    order.childNodes[3].value = "Shuffle";
-                }else{
-                    order.childNodes[3].value = "Sequential";
-                }
+            //順番
+            var order = "Sequential";
+            sequential.addEventListener("click",(e)=>{
+                order="Sequential";
+            });
+            random.addEventListener("click",(e)=>{
+                order="Random";
+            });
+            shuffle.addEventListener("click",(e)=>{
+                order="Sequential";
             });
 
-            showList.addEventListener("click",(e)=>{
-                if(showList.childNodes[3].value == "ON"){
-                    showList.childNodes[3].value = "OFF";
-                }else if(showList.childNodes[3].value == "OFF"){
-                    showList.childNodes[3].value = "ON";
-                }else{
-                    showList.childNodes[3].value = "OFF";
-                }
+            //タスクリスト表示
+            var showList = "ON";
+            dispList.addEventListener("click",(e)=>{
+                showList = "ON";
+            });
+            hiddenList.addEventListener("click",(e)=>{
+                showList = "OFF";
+            });
+            
+
+            //アニメーション表示
+            var animetion = "ON";
+            dispAnime.addEventListener("click",(e)=>{
+                animetion = "ON";
+            });
+            hiddenAnime.addEventListener("click",(e)=>{
+                animetion = "OFF";
             });
 
-            animetion.addEventListener("click",(e)=>{
-                if(animetion.childNodes[3].value == "ON"){
-                    animetion.childNodes[3].value = "OFF";
-                }else if(animetion.childNodes[3].value == "OFF"){
-                    animetion.childNodes[3].value = "ON";
-                }else{
-                    animetion.childNodes[3].value = "OFF";
-                }
+            //カウントダウン
+            var timeORcount = "COUNT";
+            countMain.addEventListener("click",(e)=>{
+                timeORcount = "COUNT";
+            });
+            timeMain.addEventListener("click",(e)=>{
+                timeORcount = "TIME";
             });
 
-            timeORcount.addEventListener("click",(e)=>{
-                if(timeORcount.childNodes[3].value == "TIME"){
-                    timeORcount.childNodes[3].value = "COUNT";
-                }else if(timeORcount.childNodes[3].value == "COUNT"){
-                    timeORcount.childNodes[3].value = "TIME";
-                }else{
-                    timeORcount.childNodes[3].value = "COUNT";
-                }
-            });
-
-            googletasks.addEventListener("click",(e)=>{
+            //同期のclickイベント
+            sync.addEventListener("click",(e)=>{
                 console.log("googletasks");
                 console.dir(googletasks);
-                
-                if(googletasks.childNodes[3].value == "ASYNC"){
-                    googletasks.childNodes[3].value = "SYNC";
-                    //ACCESS_KEY取得
-                    console.log("ACCESS_KEY取得");            
-                    authenticate().then(loadClient);//GoogleAPI
-                }
-            });
+                var syncBox = document.querySelector("#syncBox");
+                syncBox.classList.add("displayNone");
+
+                //ACCESS_KEY取得
+                console.log("ACCESS_KEY取得");            
+                authenticate().then(loadClient);//GoogleAPI
+             });
 
             set.addEventListener("click",()=>{
                 //wsにタスクを登録する
@@ -306,23 +325,21 @@
                 }
 
                 window.location.href="./index.html"+"?"
-                +"timelimit="+timeLimit.childNodes[3].value
-                +"&order="+order.childNodes[3].value
-                +"&showlist="+showList.childNodes[3].value
-                +"&animetion="+animetion.childNodes[3].value            
-                +"&timeORcount="+timeORcount.childNodes[3].value;
+//                +"timelimit="+timeLimit.childNodes[3].value 
+                +"timelimit="+timeLimit
+                +"&order="+order
+                +"&showlist="+showList
+                +"&animetion="+animetion            
+                +"&timeORcount="+timeORcount;
             });
         })();
 
-
-
-        //タスクのLiを作成する
-        function makeTaskLi(task,dispTasks){
-            var input = document.createElement('input');
-            input.value = task;
-            input.type = "text";
-            input.readOnly="readonly";
-            dispTasks.appendChild(input);
+        //タスクのLabelを作成する
+        function makeTaskLabel(task,dispTasks){
+            var Label = document.createElement('Label');
+            Label.innerText = task;
+            dispTasks.appendChild(Label);
+            addBR(dispTasks);
         }
 
         function makeWs(){
@@ -361,24 +378,23 @@
             }
         }
 
-        //GoogleAPIでタスクリストを取得する。
+        //GoogleAPIで取得したタスクリストを出力する。
         function getTaskList(){
             console.log("getTaskList()");
             var disptaskList = document.querySelector("#disptaskList");
             //タスクリストの初期化
             disptaskList.textContent = null;//削除
-            addLabel(disptaskList,"TASKLISTS");
-
             return gapi.client.tasks.tasklists.list({}).then(function(response) {
                 var getListStr=[];
-                getListStr = makeTaskListLi(response.result.items);
+                getListStr = makeTaskListLabel(response.result.items);
 
                 //wsに保存
                 if(getListStr.length){
                     console.dir(getListStr);
                     ws.setItem("List",getListStr);
                 }
-                disptaskList.classList.remove("displayNone");
+                document.querySelector('#taskLists').classList.remove("displayNone");
+
                 changeTaskFlg = true;
             }, function(err) {
                 console.error("Execute error", err);
@@ -386,18 +402,15 @@
         }
 
         //タスクリストのLIを作成する
-        function makeTaskListLi(List){
+        function makeTaskListLabel(List){
             var disptaskList = document.querySelector("#disptaskList");
             var getListStr=[];
             for(item of List){
                 getListStr.push('{"'+ item.title +'" : "'+ item.id +'"}');
-
-                var input = document.createElement('input');
-                input.value = item.title;
-                input.code = item.id;
-                input.type = "text";
-                input.readOnly="readonly";
-                input.addEventListener('click',(event)=>{
+                var label = document.createElement('label');
+                label.innerText = item.title;
+                label.code = item.id;
+                label.addEventListener('click',(event)=>{
                     console.dir(event.target);
                     console.log("taskId:"+event.target.code);
                     console.log("taskName:"+event.target.value);
@@ -412,46 +425,53 @@
                     //GoogleApiから取得
                     execute(event.target);
                 });
-                disptaskList.appendChild(input);
+                disptaskList.appendChild(label);
+                addBR(disptaskList);
             }
             return getListStr;
         }
 
-        //タスクリストのLIを作成する
-        function setTaskListLi(List){
-            var disptaskList = document.querySelector("#disptaskList");
-            for(item of List){
-                var obj = JSON.parse(item);
+        // //タスクリストのLIを作成する
+        // function setTaskListLi(List){
+        //     var disptaskList = document.querySelector("#disptaskList");
+        //     for(item of List){
+        //         var obj = JSON.parse(item);
 
-                var input = document.createElement('input');
-                input.value = Object.keys(obj)[0];
-                input.code = obj[Object.keys(obj)[0]];
-                input.type = "text";
-                input.readOnly="readonly";
-                input.addEventListener('click',(event)=>{
-                    console.dir(event.target);
-                    console.log("taskId:"+event.target.code);
+        //         var label = document.createElement('label');
+        //         label.innerText = Object.keys(obj)[0];
+        //         label.code = obj[Object.keys(obj)[0]];
+        //         // label.type = "text";
+        //         // label.readOnly="readonly";
+        //         label.addEventListener('click',(event)=>{
+        //             console.dir(event.target);
+        //             console.log("taskId:"+event.target.code);
 
-                    console.log("wsにあったならexecuteではなくwsから引っ張る");
-                    //wsから取得
-                    if(ws.checkItem(event.target.value)){
-                        console.log("このリストwsにある");
-                    }else{
-                        console.log("このリストwsにない");
-                    }
+        //             console.log("wsにあったならexecuteではなくwsから引っ張る");
+        //             //wsから取得
+        //             if(ws.checkItem(event.target.value)){
+        //                 console.log("このリストwsにある");
+        //             }else{
+        //                 console.log("このリストwsにない");
+        //             }
 
-                    execute(event.target);
+        //             execute(event.target);
 
-                });
-                disptaskList.appendChild(input);
-            }
-        }
+        //         });
+        //         disptaskList.appendChild(label);
+        //     }
+        // }
 
         //指定のタグの子要素にLabelを追加
         function addLabel(parent,text){
             var label = document.createElement('label');
             label.innerText = text;
             parent.appendChild(label);
+        }
+
+        //指定のタグの子要素にbrを追加
+        function addBR(parent){
+            var br = document.createElement('br');
+            parent.appendChild(br);
         }
 
         //TaskAPIを叩いて、タスクリストのコードからタスクを取得する
@@ -475,16 +495,12 @@
             }).then(function(response) {
                 let dispTasks = document.querySelector("#disptasks");
                 dispTasks.textContent = null;//削除
-
-                // var label = document.createElement('label');
-                // label.innerText = "TASKS";
-                // dispTasks.appendChild(label);
-                addLabel(dispTasks,"TASKS");
-
+                // addLabel(dispTasks,"TASKS");
+                
                 console.log("ここでリスト名が取れるなら並べるのと一緒にwsにも登録");
                 console.dir(response);
                 for(item of response.result.items){
-                    makeTaskLi(item.title,dispTasks);
+                    makeTaskLabel(item.title,dispTasks);
 
                     //wsに登録？
                     ws.addCommaItem(tasklist.value,item.title);
