@@ -82,23 +82,27 @@ class Newton extends Animation {
     start(){
         this.img.classList.add('apple0');
         super.getAnimationBox().appendChild(this.img);
-        super.getTimer().classList.replace( 'timer2', 'timer1' );
+        //super.getTimer().classList.replace( 'timer2', 'timer1' );
+        super.getTimer().className = 'timer1'; //#17
     }
 
     toggle(){
         let activeClass = this.img.className;
         let i = Number(activeClass.replace(/[^0-9^\.]/g,""));
         i = (i+1)%5;
-        this.img.classList.replace( activeClass, 'apple'+i );
+        //this.img.classList.replace( activeClass, 'apple'+i );
+        this.img.className = 'apple'+i; //#17
     }
 
     last(num){
         if(num==0){
             this.img.src = "./image/neko.png";
-            this.img.classList.replace( this.img.className, 'appleEnd' );
+            //this.img.classList.replace( this.img.className, 'appleEnd' );
+            this.img.className = "appleEnd";
         }else if(num<10){
             let i = 4 - (num%5);
-            this.img.classList.replace( this.img.className, 'apple'+i );
+            //this.img.classList.replace( this.img.className, 'apple'+i );
+            this.img.className = 'apple'+i;
         }else{
             this.toggle();
         }
@@ -125,7 +129,8 @@ class Darwin extends Animation {
 
     start(){
         super.getAnimationBox().classList.add('darwin0');
-        super.getTimer().classList.replace( 'timer1', 'timer2' );
+        //super.getTimer().classList.replace( 'timer1', 'timer2' );
+        super.getTimer().className = 'timer2'; //#17
         super.getAnimationBox().style.border = "none";        
     }
 
@@ -135,23 +140,30 @@ class Darwin extends Animation {
         let i = Number(activeClass.replace(/[^0-9^\.]/g,""));
         i = (i+1)%5;
         // console.dir(activeClass);
-        div.classList.replace( activeClass, 'darwin'+i );
+        //div.classList.replace( activeClass, 'darwin'+i );
+        div.className = 'darwin'+i; //#17
     }
 
     last(num){
         let div = super.getAnimationBox();
         if(num==0){
-            div.classList.replace( div.className, 'darwin_end' );
+            // div.classList.replace( div.className, 'darwin_end' );
+            div.className = 'darwin_end';//#17
         }else if(num==1){
-            div.classList.replace( div.className, 'darwin8' );
+            // div.classList.replace( div.className, 'darwin8' );
+            div.className = 'darwin8';//#17
         }else if(num==2){
-            div.classList.replace( div.className, 'darwin7' );
+            // div.classList.replace( div.className, 'darwin7' );
+            div.className = 'darwin7';//#17
         }else if(num==3){
-            div.classList.replace( div.className, 'darwin6' );
+            // div.classList.replace( div.className, 'darwin6' );
+            div.className = 'darwin6';//#17
         }else if(num==4){
-            div.classList.replace( div.className, 'darwin5' );
+            // div.classList.replace( div.className, 'darwin5' );
+            div.className = 'darwin5';//#17
         }else if(num==5){
-            div.classList.replace( div.className, 'darwin0' );
+            // div.classList.replace( div.className, 'darwin0' );
+            div.className = 'darwin0';//#17
         }else{
             this.toggle();
         }
