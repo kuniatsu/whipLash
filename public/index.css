@@ -38,12 +38,14 @@ article{
     /*SP*/
     body{
         width:100%;
-        font-size: 300%; 
+        font-size: 300%; /* monaca 削除 */
+        /* font-size: 200%; /* monaca 追加 */
     }
 
     #taskList{
-        margin-left: 10%;
-        font-size: 1.5em;
+        margin-left: 10%;  /* monaca 削除 */
+        font-size: 1.5em;  /* monaca 削除 */
+        /* font-size: 1em; /* monaca 追加 */
     }
 
     #taskList2{
@@ -54,7 +56,8 @@ article{
 
     
     .timer2{
-        font-size: 3em;
+        font-size: 3em; /* monaca 削除 */
+        /* font-size: 2em; /* monaca 追加*/
         right: 35%;
     }
 }
@@ -83,7 +86,7 @@ article{
 #title{
     margin-top: 0px;
     margin-bottom:0px;
-    font-size: 3em;
+    font-size: 3em; /* monaca削除 */
     white-space: nowrap;
     overflow:hidden;
     text-overflow: ellipsis;
@@ -106,7 +109,8 @@ article{
 }
 
 .timer1{
-    font-size: 3em;
+    font-size: 3em; /* monaca 削除 */
+    /* font-size: 2em monaca 追加 */
     margin-left: 5%;
     bottom: 0;
 }
