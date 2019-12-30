@@ -1,0 +1,328 @@
+@charset "UTF-8";
+
+@font-face{
+    font-family: 美咲ゴシック;
+    src: url('https://cdn.leafscape.be/misaki/misaki_gothic_web.woff2')
+        format("woff2");
+}
+
+
+/* html,bodyタグの設定 */
+html, body{
+    margin: 0 auto;         /* 余白の削除 */
+    padding: 0;        /* 余白の削除 */
+    width:100%;
+    height:100%;
+    /* font-family: "美咲ゴシック"; */
+    /* font-family: "Press Start 2P","美咲ゴシック"; */
+}
+
+header {
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width: 100%;                /* 横幅100%　*/
+    height: 5%;
+    text-align: right;
+    /* background-color:rgba(250,250,250,0.8);
+    border-bottom: solid 2px; */
+}
+
+article{
+    margin-top:10%;
+    margin-bottom:10%;
+    
+}
+
+@media screen and (max-width: 999px) { 
+    /*SP*/
+    body{
+        width:100%;
+        /* font-size: 300%; /* monaca 削除 */
+        font-size: 200%; /* monaca 追加 */
+    }
+
+    #taskList{
+        /* margin-left: 10%; /* monaca 削除 */
+        /* font-size: 1.5em; /* monaca 削除 */
+        font-size: 1em; /* monaca 追加 */
+    }
+
+    #taskList2{
+        margin-left: 10%;
+        font-size: 1.5em;
+        height: 100%;
+    }
+
+    
+    .timer2{
+        /* font-size: 3em; /* monaca 削除 */
+        font-size: 2em; /* monaca 追加*/
+        right: 35%;
+    }
+}
+@media screen and (min-width:1000px) {
+    body{
+        width:60%;
+        font-size: 100%; 
+    }
+    #taskList{
+        font-size: 2em;
+    }
+    #taskList2{
+        font-size: 2em;
+        width: 60%;
+    }
+    .timer2{
+        font-size: 6em;
+        right: 40%;
+    }
+}
+
+#settingIcon{
+    height:100%;
+}
+
+#title{
+    margin-top: 0px;
+    margin-bottom:0px;
+    /* font-size: 3em; /* monaca削除 */
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+#animationBox{
+    position: relative;
+    height:40%;
+    border-top:solid 2px;
+    border-bottom:solid 2px;
+    
+    /* background-image: url("./image/darwin/darwin0.png");
+    background-size: contain; */
+}
+
+#timer{
+    position: absolute;
+    margin-top: 0px;
+    margin-bottom:0px; 
+}
+
+.timer1{
+    /* font-size: 3em; /* monaca 削除 */
+    font-size: 2em;
+    margin-left: 5%;
+    bottom: 0;
+}
+
+
+
+
+#taskList{
+    margin-top: 0px;
+    margin-bottom:0px; 
+}
+
+#taskList2{
+    margin-top: 0px;
+    margin-bottom:0px; 
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+
+li{
+    border-bottom: solid 2px #000;
+    position: relative;       
+    font-family:  serif;  /*日本語とアルファベットのサイズが異なってしまうため指定*/ 
+}
+
+
+
+#playBox{
+    text-align: center;
+    margin-top: 5%;
+}
+
+img{
+    height: 10%;
+}
+
+#playstop{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.listIcon{
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    height: 50%;
+    transform: translate(-50%,-50%);
+}
+
+
+#inputTask{
+    width: 100%;
+    height: 100%;
+    font-size:100%;
+    outline: 0;
+    /* border: 0px; */
+    border-top-width: 0px;
+    border-bottom-width: 5px;
+    border-bottom-color: #000;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+#inputTask2{
+    width: 100%;
+    height: 100%;
+    font-size:100%;
+    outline: 0;
+    /* border: 0px; */
+    border-top-width: 0px;
+    border-bottom-width: 5px;
+    border-bottom-color: #000;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+#inputTaskList{
+    list-style: none;
+    display: none;
+}
+
+#inputTaskList2{
+    list-style: none;
+    border-bottom: 5px;
+    height:100%;
+}
+
+
+
+.strikethrough{
+    text-decoration: line-through;
+}
+
+.displayNone{
+    display:none;
+}
+
+.apple0{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 0%;
+}
+
+.apple1{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 25%;
+}
+
+.apple2{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 50%;
+}
+
+.apple3{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 75%;
+}
+
+.apple4{
+    position: absolute;
+    right: 3%;
+    height: 0%;
+}
+
+.appleEnd{
+    position: absolute;
+    right: 3%;
+    height: 20%;
+    top: 75%;
+}
+
+.darwin0{
+    background-image: url("./image/darwin/darwin0.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin1{
+    background-image: url("./image/darwin/darwin1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin2{
+    background-image: url("./image/darwin/darwin2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin3{
+    background-image: url("./image/darwin/darwin3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin4{
+    background-image: url("./image/darwin/darwin4.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin5{
+    background-image: url("./image/darwin/darwin5.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin6{
+    background-image: url("./image/darwin/darwin6.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin7{
+    background-image: url("./image/darwin/darwin7.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.darwin8{
+    background-image: url("./image/darwin/darwin8.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.darwin_end{
+    background-image: url("./image/darwin/darwin_end.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+footer{
+    position: fixed;            /* ヘッダーの固定 */
+    bottom: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width: 100%;                /* 横幅100%　*/
+    height: 10%;
+    background-color:rgba(250,250,250,0.8);
+    border-top: solid 2px;
+}
