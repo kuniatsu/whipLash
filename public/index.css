@@ -130,7 +130,8 @@ article{
 
 li{
     border-bottom: solid 2px #000;
-    position: relative;        
+    position: relative;       
+    font-family:  serif;  /*日本語とアルファベットのサイズが異なってしまうため指定*/ 
 }
 
 
