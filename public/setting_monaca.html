@@ -1,8 +1,5 @@
 <html lang="ja">
     <head>
-        <script>
-                console.log(0);
-        </script>            
         <meta charset="UTF-8">
         <title>whipLash _settings</title>
         <link rel="stylesheet" href="./index.css">
@@ -44,7 +41,7 @@
     </head>
     <body>
         <form class="main_form">
-            <!-- <section class="showcase">
+            <section class="showcase" style="display:none">
                 <section class="nes-container with-title">
                     <h3 class="title">URL</h3> 
                     <div id="url" class="item">
@@ -54,7 +51,8 @@
                     </label><br />                
                     </div> 
                 </section>
-            </section> -->
+            </section>
+
 
             <section class="showcase">
                 <section class="nes-container with-title">
@@ -144,8 +142,7 @@
                 </section>
             </section>       
 
-<!-- Monacaでは一旦GoogleAPIを封印 -->
-            <!-- <section id="syncBox" class="showcase">
+            <section id="syncBox" class="showcase" style="display:none">
                 <section class="nes-container with-title">
                     <h3 class="title">GoogleTasks</h3> 
                     <div id="googletasks" class="item">
@@ -159,7 +156,8 @@
                         </label>
                     </div> 
                 </section>
-            </section>      -->
+            </section>  
+
 
             <section class="showcase displayNone" id="tasklists">
                 <section class="nes-container with-title">
@@ -188,7 +186,6 @@
         </footer>
     </body>
     <script src="./WebStorage.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- <script src="https://apis.google.com/js/api.js"></script> -->
     <script src="./setting.js"></script>
-
 </html>
