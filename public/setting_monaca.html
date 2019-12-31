@@ -188,4 +188,22 @@
     <script src="./WebStorage.js"></script>
     <!-- <script src="https://apis.google.com/js/api.js"></script> -->
     <script src="./setting.js"></script>
+    <script>
+        set.addEventListener("click",()=>{
+            //wsにタスクを登録する
+            if(changeTaskFlg){
+                console.log("changeTaskFlg:"+changeTaskFlg);
+                var tasks = document.querySelectorAll('#disptasks > input[type=text]');
+                console.dir(tasks);
+                ws.setSelectorValue("task",'#disptasks > input[type=text]');  
+            }
+
+            window.location.href="./index_monaca.html"+"?"
+            +"timelimit="+timeLimit
+            +"&order="+order
+            +"&showlist="+showList
+            +"&animetion="+animetion            
+            +"&timeORcount="+timeORcount;
+        });
+    </script>
 </html>

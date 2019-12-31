@@ -110,26 +110,22 @@ var googletasks = document.querySelector("#googletasks");
         authenticate().then(loadClient);//GoogleAPI
     });
 
-    set.addEventListener("click",()=>{
-        console.log("set");
+    // set.addEventListener("click",()=>{
+    //     //wsにタスクを登録する
+    //     if(changeTaskFlg){
+    //         console.log("changeTaskFlg:"+changeTaskFlg);
+    //         var tasks = document.querySelectorAll('#disptasks > input[type=text]');
+    //         console.dir(tasks);
+    //         ws.setSelectorValue("task",'#disptasks > input[type=text]');  
+    //     }
 
-        //wsにタスクを登録する
-        if(changeTaskFlg){
-            console.log("changeTaskFlg:"+changeTaskFlg);
-            var tasks = document.querySelectorAll('#disptasks > input[type=text]');
-            console.dir(tasks);
-            ws.setSelectorValue("task",'#disptasks > input[type=text]');  
-                
-        }
-
-        window.location.href="./index.html"+"?"
-//                +"timelimit="+timeLimit.childNodes[3].value 
-        +"timelimit="+timeLimit
-        +"&order="+order
-        +"&showlist="+showList
-        +"&animetion="+animetion            
-        +"&timeORcount="+timeORcount;
-    });
+    //     window.location.href="./index.html"+"?"
+    //     +"timelimit="+timeLimit
+    //     +"&order="+order
+    //     +"&showlist="+showList
+    //     +"&animetion="+animetion            
+    //     +"&timeORcount="+timeORcount;
+    // });
 })();
 
 //タスクのLabelを作成する
