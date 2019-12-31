@@ -118,8 +118,16 @@ var googletasks = document.querySelector("#googletasks");
             console.dir(tasks);
             ws.setSelectorValue("task",'#disptasks > input[type=text]');  
         }
+        var referrerUrl = document.referrer;
+        console.log(referrerUrl);
+        var url = "./index.html";
+        if(referrerUrl.match(/monaca/)){
+            console.log("monaca含む");
+            url = "./index_monaca.html";
+        }
 
-        window.location.href="./index.html"+"?"
+
+        window.location.href=url+"?"
         +"timelimit="+timeLimit
         +"&order="+order
         +"&showlist="+showList
