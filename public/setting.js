@@ -31,6 +31,7 @@ var googletasks = document.querySelector("#googletasks");
 
 
 (()=>{
+    console.log("()=>{}");
     document.querySelector('#host').value=window.location.href;　//host欄を入力する
 
     makeWs();//create object
@@ -107,9 +108,11 @@ var googletasks = document.querySelector("#googletasks");
         //ACCESS_KEY取得
         console.log("ACCESS_KEY取得");            
         authenticate().then(loadClient);//GoogleAPI
-        });
+    });
 
     set.addEventListener("click",()=>{
+        console.log("set");
+
         //wsにタスクを登録する
         if(changeTaskFlg){
             console.log("changeTaskFlg:"+changeTaskFlg);
