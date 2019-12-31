@@ -34,6 +34,16 @@ var googletasks = document.querySelector("#googletasks");
     console.log("()=>{}");
     document.querySelector('#host').value=window.location.href;　//host欄を入力する
 
+    var referrerUrl = document.referrer;
+    var url = "./index.html";
+    if(referrerUrl.match(/index.html/)){
+        console.log("web版");
+    }else{
+        //monacaの場合
+        console.log("monaca版");
+        url = "./index_monaca.html";
+    }
+
     makeWs();//create object
     if(ws.checkItem('task')){
         let taskArray = ws.getItem('task').split(',');
@@ -118,14 +128,6 @@ var googletasks = document.querySelector("#googletasks");
             console.dir(tasks);
             ws.setSelectorValue("task",'#disptasks > input[type=text]');  
         }
-        var referrerUrl = document.referrer;
-        console.log(referrerUrl);
-        var url = "./index.html";
-        if(referrerUrl.match(/monaca/)){
-            console.log("monaca含む");
-            url = "./index_monaca.html";
-        }
-
 
         window.location.href=url+"?"
         +"timelimit="+timeLimit
