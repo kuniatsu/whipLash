@@ -60,6 +60,10 @@ article{
         /* font-size: 2em; /* monaca 追加*/
         right: 35%;
     }
+
+    header {
+        z-index: 2;
+    }
 }
 @media screen and (min-width:1000px) {
     body{
