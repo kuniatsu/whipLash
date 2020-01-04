@@ -47,6 +47,8 @@ var googletasks = document.querySelector("#googletasks");
         //monacaの場合
         console.log("monaca版");
         url = "./index_monaca.html";
+    }else{
+        console.log("referrerなし");
     }
 
     makeWs();//create object
