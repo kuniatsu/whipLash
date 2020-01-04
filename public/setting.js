@@ -35,6 +35,8 @@ var googletasks = document.querySelector("#googletasks");
     document.querySelector('#host').value=window.location.href;　//host欄を入力する
 
     var referrerUrl = document.referrer;
+    var ua = navigator.userAgent.toLowerCase();
+    console.dir(ua);
     var url = "./index.html";
     if(referrerUrl.match(/index.html/)){
         console.log("web版");
