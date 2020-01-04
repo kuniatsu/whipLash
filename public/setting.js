@@ -43,7 +43,7 @@ var googletasks = document.querySelector("#googletasks");
     if(referrerUrl.match(/index.html/)){
         console.log("web版");
         url = "./index.html";
-    }else if(referrerUrl.match(/index_monaca.html/)){
+    }else if(ua.match(/monacalocalkit/)){
         //monacaの場合
         console.log("monaca版");
         url = "./index_monaca.html";
