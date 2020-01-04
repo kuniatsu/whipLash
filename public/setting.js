@@ -36,11 +36,14 @@ var googletasks = document.querySelector("#googletasks");
 
     var referrerUrl = document.referrer;
     var ua = navigator.userAgent.toLowerCase();
+    console.dir(referrerUrl);
     console.dir(ua);
+
     var url = "./index.html";
     if(referrerUrl.match(/index.html/)){
         console.log("web版");
-    }else{
+        url = "./index.html";
+    }else if(referrerUrl.match(/index_monaca.html/)){
         //monacaの場合
         console.log("monaca版");
         url = "./index_monaca.html";
