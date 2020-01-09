@@ -39,15 +39,31 @@ var googletasks = document.querySelector("#googletasks");
     var url = "./index.html";
     if(referrerUrl.match(/index.html/)){
         console.log("web版");
+        alert("web版");        
+        devise_environment();
         url = "./index.html";
     }else if(ua.match(/monacalocalkit/)){
         //monacaの場合
         console.log("monaca版");
+        alert("monaca版");
+        devise_environment();
         url = "./index_monaca.html";
     }else{
         console.log("referrerなし");
+        alert("referrerなし");
+        devise_environment();
     }
 
+    function devise_environment(){
+        alert(referrerUrl);
+        alert(ua);
+        if(typeof cordova==="undefined"){
+            alert("web browser");
+        }else{
+            alert("phonegap");
+        }
+    }
+    
     makeWs();//create object
     if(ws.checkItem('task')){
         let taskArray = ws.getItem('task').split(',');
@@ -171,3 +187,4 @@ function addBR(parent){
     var br = document.createElement('br');
     parent.appendChild(br);
 }
+
