@@ -33,36 +33,23 @@ var googletasks = document.querySelector("#googletasks");
 
     var referrerUrl = document.referrer;
     var ua = navigator.userAgent.toLowerCase();
-    console.dir(referrerUrl);
-    console.dir(ua);
-
     var url = "./index.html";
-    if(referrerUrl.match(/index.html/)){
-        console.log("web版");
-        alert("web版");        
-        devise_environment();
+    var fileName = location.href.split("/").slice(-1)[0];//htmlファイル情報で環境確認
+
+    if(fileName =="setting.html"){
         url = "./index.html";
-    }else if(ua.match(/monacalocalkit/)){
-        //monacaの場合
-        console.log("monaca版");
-        alert("monaca版");
-        devise_environment();
+    }else if(fileName =="setting_monaca.html"){
         url = "./index_monaca.html";
     }else{
-        console.log("referrerなし");
-        alert("referrerなし");
-        devise_environment();
-    }
-
-    function devise_environment(){
         alert(referrerUrl);
         alert(ua);
-        if(typeof cordova==="undefined"){
-            alert("web browser");
-        }else{
-            alert("phonegap");
-        }
+        alert(location.href);
+        alert(typeof cordova);
     }
+    console.log(referrerUrl);
+    console.log(ua);
+    console.log(location.href);
+    console.log(typeof cordova);
     
     makeWs();//create object
     if(ws.checkItem('task')){
