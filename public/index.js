@@ -5,6 +5,7 @@ let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
+let device;
 
 (()=>{    
     setParam();
@@ -19,7 +20,7 @@ let config;
     });
 
     //デバイス確認
-    var getDevice = (()=>{
+    device = (()=>{
         var ua = navigator.userAgent;
         if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
             return 'sp';
@@ -114,7 +115,7 @@ function setEvent(){
     //スマホだった場合フォーカスが外れるだけで入力したい
     inputTask.addEventListener('blur', (e)=> {
         if(getDevice=="sp"||getDevice=="tab"){
-            console.log("spかつフォーカス外れた!");
+            console.log("フォーカス外れた!");
             makeTask();
         }
     });   
