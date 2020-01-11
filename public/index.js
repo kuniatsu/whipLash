@@ -114,7 +114,7 @@ function setEvent(){
     });
     //スマホだった場合フォーカスが外れるだけで入力したい
     inputTask.addEventListener('blur', (e)=> {
-        if(getDevice=="sp"||getDevice=="tab"){
+        if(device=="sp"||device=="tab"){
             console.log("フォーカス外れた!");
             makeTask();
         }
