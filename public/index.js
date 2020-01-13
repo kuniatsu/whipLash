@@ -621,3 +621,11 @@ let changeTitle = ()=>{
     tts(titleText+"開始");
 }
 
+
+/**
+ * if hosting is firebase.
+ * Add β to title
+ */
+let changeTitleBeta = ()=>{
+    
+}
