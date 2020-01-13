@@ -26,7 +26,8 @@
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|再生ボタン中早送り| |
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|再生ボタン中巻き戻し| |
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|設定ボタンリンク| |
-|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|タスクinputbox入力　文字| |
+|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|タスクinputbox入力　文字Enter| |
+|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|タスクinputbox入力　文字フォーカスアウト| |
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|「あと○分」のテキストスピーチがある| |
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|「あと○秒」のテキストスピーチがある| |
 |<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|<input type="checkbox">|タスクの読み上げのテキストスピーチがある| |
