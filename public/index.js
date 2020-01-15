@@ -1,6 +1,7 @@
 "use strict";
 
-let speach = new SpeechSynthesisUtterance();
+//let speach = new SpeechSynthesisUtterance();//#48
+let TTS = new TextToSpeech();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
@@ -364,10 +365,10 @@ let deleteEndTask=()=>{
             time = "0:00";
             loopFlg = false;
         }else if(limit <= 10 && timeObj.getFlg() != false){
-            tts(limit);
+            TTS.speak(limit);
             ani.last(limit);
         }else if(limit%60==0 && timeObj.getFlg() != false){
-            tts("あと"+(limit/60)+"分です");
+            TTS.speak("あと"+(limit/60)+"分です");
         }else if(timeObj.getFlg() != false){
             ani.toggle();
         }
@@ -605,11 +606,14 @@ let checkClass = (ele,checkClass)=>{
  * Speak parameters
  * @param   {String} speak
  */
-let tts = (speak)=> {
-    // speach = new SpeechSynthesisUtterance();
-    speach.text = speak; // 喋る内容
-    speechSynthesis.speak(speach);// 発話実行
-};
+// let TTS = {
+//     speak:(text)=>{
+//         speach.text = text; // 喋る内容
+//         speechSynthesis.speak(speach);// 発話実行
+//         console.log("TTS");
+//     }
+// };
+
 
 /**
  * Set titleDisplay and speak title
@@ -618,6 +622,6 @@ let tts = (speak)=> {
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText;
-    tts(titleText+"開始");
+    TTS.speak(titleText+"開始");
 }
 
