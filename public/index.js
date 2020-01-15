@@ -626,6 +626,8 @@ let changeTitle = ()=>{
  * if hosting is firebase.
  * Add β to title
  */
-let changeTitleBeta = ()=>{
-    
-}
+// let changeTitleBeta = (title)=>{
+//     if(){
+//         return title+"β";
+//     }
+// }//微妙だから仕組み変える 変数を先頭にくっつけてβの場合のみ変数に値入れるとか
