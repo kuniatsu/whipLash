@@ -6,6 +6,7 @@ let ani;
 let ws;
 let config;
 let device;
+let prefix;
 
 (()=>{    
     setParam();
@@ -30,6 +31,13 @@ let device;
             return 'other';
         }
     })();
+
+    //β版か確認
+    if(location.href.match(/firebase/)){
+        prefix = "(β)";
+        document.title = prefix + "whipLashToDo"; //Prefix追加(β)
+    }
+
 })();
 
 function arrayShuffle(arg){
@@ -617,7 +625,6 @@ let tts = (speak)=> {
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
-    title.innerText = titleText;
+    title.innerText = prefix + titleText; //Prefix追加(β)
     tts(titleText+"開始");
 }
-
