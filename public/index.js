@@ -6,6 +6,7 @@ let ani;
 let ws;
 let config;
 let device;
+let prefix;
 
 (()=>{    
     setParam();
@@ -30,6 +31,9 @@ let device;
             return 'other';
         }
     })();
+
+    //β版か確認
+    prefix = location.href.match(/firebase/)?"β":"";
 })();
 
 function arrayShuffle(arg){
@@ -617,17 +621,6 @@ let tts = (speak)=> {
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
-    title.innerText = titleText;
+    title.innerText = prefix + titleText; //Prefix追加(β)
     tts(titleText+"開始");
 }
-
-
-/**
- * if hosting is firebase.
- * Add β to title
- */
-// let changeTitleBeta = (title)=>{
-//     if(){
-//         return title+"β";
-//     }
-// }//微妙だから仕組み変える 変数を先頭にくっつけてβの場合のみ変数に値入れるとか
