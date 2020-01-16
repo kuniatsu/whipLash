@@ -33,7 +33,11 @@ let prefix;
     })();
 
     //β版か確認
-    prefix = location.href.match(/firebase/)?"β":"";
+    if(location.href.match(/firebase/)){
+        prefix = "β";
+        title.innerText = prefix + titleText; //Prefix追加(β)
+    }
+
 })();
 
 function arrayShuffle(arg){
