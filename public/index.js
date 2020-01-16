@@ -34,8 +34,8 @@ let prefix;
 
     //β版か確認
     if(location.href.match(/firebase/)){
-        prefix = "β";
-        title.innerText = prefix + "whipLashToDo"; //Prefix追加(β)
+        prefix = "(β)";
+        document.title = prefix + "whipLashToDo"; //Prefix追加(β)
     }
 
 })();
