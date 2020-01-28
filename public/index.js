@@ -3,12 +3,13 @@
 //let speach = new SpeechSynthesisUtterance();//#48
 //let tts = new TextToSpeech();
 //将来的にはTTSもラップして、newのタイミングで速さと言語を指定できるようにする。
-let tts = device.platform=="Android"? TTS : new TextToSpeech();
+//let tts = device.platform=="Android"? new TextToSpeechAndroid() : new TextToSpeech();
+let tts = new TextToSpeechAndroid();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
-let device;
+let deviceType;
 
 (()=>{    
     setParam();
@@ -23,16 +24,8 @@ let device;
     });
 
     //デバイス確認
-    device = (()=>{
-        var ua = navigator.userAgent;
-        if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-            return 'sp';
-        }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
-            return 'tab';
-        }else{
-            return 'other';
-        }
-    })();
+    deviceType = checkDevice();
+
 })();
 
 function arrayShuffle(arg){
@@ -117,7 +110,7 @@ function setEvent(){
     });
     //スマホだった場合フォーカスが外れるだけで入力したい
     inputTask.addEventListener('blur', (e)=> {
-        if(device=="sp"||device=="tab"){
+        if(deviceType=="sp"||deviceType=="tab"){
             makeTask();
         }
     });   
@@ -612,5 +605,32 @@ let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText;
     tts.speak(titleText+"開始");
+}
+
+
+
+
+//deviceType
+let checkDevice = ()=>{
+    var ua = navigator.userAgent;
+    if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+        return 'sp';
+    }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
+        return 'tab';
+    }else{
+        return 'other';
+    }
+}
+
+//webアプリかAndroidアプリかiOSアプリか
+let checkPlatform = ()=>{
+    var fileName = location.href.split("/").slice(-1)[0];//htmlファイル情報で環境確認
+    if(fileName =="index.html"){
+        return "webApp";
+    }else if(fileName =="index_monaca.html"){
+        return "spApp";
+    }else{
+        return "otherApp";
+    }
 }
 
