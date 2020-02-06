@@ -10,6 +10,7 @@ let ani;
 let ws;
 let config;
 let deviceType;
+let prefix;
 
 (()=>{    
     setParam();
@@ -35,6 +36,12 @@ let deviceType;
         tts = new TextToSpeech();
     }     
     
+
+    //β版か確認
+    if(location.href.match(/firebase/)){
+        prefix = "(β)";
+        document.title = prefix + "whipLashToDo"; //Prefix追加(β)
+    }
 
 
 })();
@@ -614,6 +621,7 @@ let checkClass = (ele,checkClass)=>{
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
+<<<<<<< HEAD
     title.innerText = titleText;
     tts.speak(titleText+"開始");
 }
@@ -673,3 +681,8 @@ function platformInfo(){
     }
 }
 
+=======
+    title.innerText = prefix + titleText; //Prefix追加(β)
+    tts(titleText+"開始");
+}
+>>>>>>> master
