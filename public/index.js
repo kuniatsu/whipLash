@@ -23,8 +23,19 @@ let deviceType;
         animation: 100
     });
 
-    //デバイス確認
-    deviceType = checkDevice();
+    //デバイス確認、環境確認
+    deviceType = checkDeviceType();
+    if((platformInfo.device == 'Android'||
+        platformInfo.device == 'AndroidTab')&&
+        platform=='spApp'){
+        console.log("Androidアプリ");
+        tts = new TextToSpeechAndroid();
+    }else{
+        console.log("Androidアプリではない");
+        tts = new TextToSpeech();
+    }     
+    
+
 
 })();
 
@@ -611,7 +622,7 @@ let changeTitle = ()=>{
 
 
 //deviceType
-let checkDevice = ()=>{
+function checkDeviceType(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
         return 'sp';
@@ -622,8 +633,28 @@ let checkDevice = ()=>{
     }
 }
 
+//device
+function checkDevice(){
+    var ua = navigator.userAgent;
+    if(ua.indexOf('iPhone') > 0 ){
+        return 'iPhone';
+    }else if(ua.indexOf('iPod') > 0){
+        return 'iPod';
+    }else if(ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+        return 'Android';
+    }else if(ua.indexOf('iPad') > 0){
+        return 'iPad';
+    }else if(ua.indexOf('Android') > 0){
+        return 'AndroidTab';
+    }else if(ua.indexOf('Windows') > 0){
+        return 'Windows';
+    }else{
+        return 'otherDevice';
+    }
+}
+
 //webアプリかAndroidアプリかiOSアプリか
-let checkPlatform = ()=>{
+function checkUseing(){
     var fileName = location.href.split("/").slice(-1)[0];//htmlファイル情報で環境確認
     if(fileName =="index.html"){
         return "webApp";
@@ -631,6 +662,14 @@ let checkPlatform = ()=>{
         return "spApp";
     }else{
         return "otherApp";
+    }
+}
+
+function platformInfo(){
+    return {
+        'deviceType':checkDeviceType(),
+        'device':checkDeviceType(),
+        'platform':checkUseing()
     }
 }
 
