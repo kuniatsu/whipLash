@@ -622,7 +622,7 @@ let checkClass = (ele,checkClass)=>{
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = prefix + titleText; //Prefix追加(β)
-    tts(titleText+"開始");
+    tts.speak(titleText+"開始");
 }
 
 
