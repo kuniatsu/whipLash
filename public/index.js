@@ -1,11 +1,15 @@
 "use strict";
 
-let speach = new SpeechSynthesisUtterance();
+//let speach = new SpeechSynthesisUtterance();//#48
+//let tts = new TextToSpeech();
+//将来的にはTTSもラップして、newのタイミングで速さと言語を指定できるようにする。
+//let tts = device.platform=="Android"? new TextToSpeechAndroid() : new TextToSpeech();
+let tts = new TextToSpeechAndroid();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
-let device;
+let deviceType;
 let prefix;
 
 (()=>{    
@@ -20,23 +24,25 @@ let prefix;
         animation: 100
     });
 
-    //デバイス確認
-    device = (()=>{
-        var ua = navigator.userAgent;
-        if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-            return 'sp';
-        }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
-            return 'tab';
-        }else{
-            return 'other';
-        }
-    })();
+    //デバイス確認、環境確認
+    deviceType = checkDeviceType();
+    if((platformInfo.device == 'Android'||
+        platformInfo.device == 'AndroidTab')&&
+        platform=='spApp'){
+        console.log("Androidアプリ");
+        tts = new TextToSpeechAndroid();
+    }else{
+        console.log("Androidアプリではない");
+        tts = new TextToSpeech();
+    }     
+    
 
     //β版か確認
     if(location.href.match(/firebase/)){
         prefix = "(β)";
         document.title = prefix + "whipLashToDo"; //Prefix追加(β)
     }
+
 
 })();
 
@@ -122,7 +128,7 @@ function setEvent(){
     });
     //スマホだった場合フォーカスが外れるだけで入力したい
     inputTask.addEventListener('blur', (e)=> {
-        if(device=="sp"||device=="tab"){
+        if(deviceType=="sp"||deviceType=="tab"){
             makeTask();
         }
     });   
@@ -372,10 +378,10 @@ let deleteEndTask=()=>{
             time = "0:00";
             loopFlg = false;
         }else if(limit <= 10 && timeObj.getFlg() != false){
-            tts(limit);
+            tts.speak(limit);
             ani.last(limit);
         }else if(limit%60==0 && timeObj.getFlg() != false){
-            tts("あと"+(limit/60)+"分です");
+            tts.speak("あと"+(limit/60)+"分です");
         }else if(timeObj.getFlg() != false){
             ani.toggle();
         }
@@ -610,21 +616,73 @@ let checkClass = (ele,checkClass)=>{
 } 
 
 /**
- * Speak parameters
- * @param   {String} speak
- */
-let tts = (speak)=> {
-    // speach = new SpeechSynthesisUtterance();
-    speach.text = speak; // 喋る内容
-    speechSynthesis.speak(speach);// 発話実行
-};
-
-/**
  * Set titleDisplay and speak title
  * ControlDom
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
+<<<<<<< HEAD
+    title.innerText = titleText;
+    tts.speak(titleText+"開始");
+}
+
+
+
+
+//deviceType
+function checkDeviceType(){
+    var ua = navigator.userAgent;
+    if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+        return 'sp';
+    }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
+        return 'tab';
+    }else{
+        return 'other';
+    }
+}
+
+//device
+function checkDevice(){
+    var ua = navigator.userAgent;
+    if(ua.indexOf('iPhone') > 0 ){
+        return 'iPhone';
+    }else if(ua.indexOf('iPod') > 0){
+        return 'iPod';
+    }else if(ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+        return 'Android';
+    }else if(ua.indexOf('iPad') > 0){
+        return 'iPad';
+    }else if(ua.indexOf('Android') > 0){
+        return 'AndroidTab';
+    }else if(ua.indexOf('Windows') > 0){
+        return 'Windows';
+    }else{
+        return 'otherDevice';
+    }
+}
+
+//webアプリかAndroidアプリかiOSアプリか
+function checkUseing(){
+    var fileName = location.href.split("/").slice(-1)[0];//htmlファイル情報で環境確認
+    if(fileName =="index.html"){
+        return "webApp";
+    }else if(fileName =="index_monaca.html"){
+        return "spApp";
+    }else{
+        return "otherApp";
+    }
+}
+
+function platformInfo(){
+    return {
+        'deviceType':checkDeviceType(),
+        'device':checkDeviceType(),
+        'platform':checkUseing()
+    }
+}
+
+=======
     title.innerText = prefix + titleText; //Prefix追加(β)
     tts(titleText+"開始");
 }
+>>>>>>> master
