@@ -47,6 +47,46 @@ class TextToSpeechAndroid{
                 break;
             case "9":
                 this.audio_9.play();
+                break;     
+            case 0:
+                this.audio_0.play();
+                break;
+            case 1:
+                this.audio_1.play();
+                break;
+            case 2:
+                this.audio_2.play();
+                break;
+            case 3:
+                this.audio_3.play();
+                break;
+            case 4:
+                this.audio_4.play();
+                break;                                                            
+            case 5:
+                this.audio_5.play();
+                break;
+            case 6:
+                this.audio_6.play();
+                break;                                                           
+            case 7:
+                this.audio_7.play();
+                break;
+            case 8:
+                this.audio_8.play();
+                break;
+            case 9:
+                this.audio_9.play();
+                break;        
+            case "あと1分です":
+                break;
+            case "あと2分です":
+                break;
+            case "あと3分です":
+                break;
+            case "あと4分です":
+                break;
+            case "あと5分です":
                 break;
             case "タスクを登録する":
                 this.audio_setTask.play();
