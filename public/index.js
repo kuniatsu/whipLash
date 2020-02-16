@@ -9,7 +9,11 @@ let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
+<<<<<<< HEAD
 let device;
+=======
+let deviceType;
+>>>>>>> master
 let prefix="";
 
 (()=>{    
