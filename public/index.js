@@ -621,8 +621,7 @@ let checkClass = (ele,checkClass)=>{
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
-<<<<<<< HEAD
-    title.innerText = titleText;
+    title.innerText = prefix + titleText; //Prefix追加(β)
     tts.speak(titleText+"開始");
 }
 
@@ -681,8 +680,3 @@ function platformInfo(){
     }
 }
 
-=======
-    title.innerText = prefix + titleText; //Prefix追加(β)
-    tts(titleText+"開始");
-}
->>>>>>> master
