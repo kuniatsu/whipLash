@@ -10,7 +10,7 @@ let ani;
 let ws;
 let config;
 let deviceType;
-let prefix;
+let prefix="";
 
 (()=>{    
     setParam();
