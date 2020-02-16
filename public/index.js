@@ -9,7 +9,7 @@ let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
-let deviceType;
+let device;//名前にブレがある 135ぎょうと28行目の生合成が取れていない
 let prefix;
 
 (()=>{    
@@ -25,13 +25,14 @@ let prefix;
     });
 
     //デバイス確認、環境確認
-    deviceType = checkDeviceType();
-    console.log(platformInfo.device);
-    console.log(platform);
-    
-    if((platformInfo.device == 'Android'||
-        platformInfo.device == 'AndroidTab')&&
-        platform=='spApp'){
+    device = platformInfo();
+    console.log(device.deviceType);
+    console.log(device.deviceSeries);
+    console.log(device.platform);
+
+    if((device.deviceSeries == 'Android'||
+        device.deviceSeries == 'AndroidTab')&&
+        device.platform=='spApp'){
         console.log("Androidアプリ");
         tts = new TextToSpeechAndroid();
     }else{
@@ -131,7 +132,7 @@ function setEvent(){
     });
     //スマホだった場合フォーカスが外れるだけで入力したい
     inputTask.addEventListener('blur', (e)=> {
-        if(deviceType=="sp"||deviceType=="tab"){
+        if(device.deviceType=="sp"||device.deviceType=="tab"){
             makeTask();
         }
     });   
@@ -643,7 +644,7 @@ function checkDeviceType(){
     }
 }
 
-//device
+//deviceSeries
 function checkDevice(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 ){
@@ -664,6 +665,7 @@ function checkDevice(){
 }
 
 //webアプリかAndroidアプリかiOSアプリか
+//platform
 function checkUseing(){
     var fileName = location.href.split("/").slice(-1)[0];//htmlファイル情報で環境確認
     if(fileName =="index.html"){
@@ -678,7 +680,7 @@ function checkUseing(){
 function platformInfo(){
     return {
         'deviceType':checkDeviceType(),
-        'device':checkDeviceType(),
+        'deviceSeries':checkDevice(),
         'platform':checkUseing()
     }
 }
