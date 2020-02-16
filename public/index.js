@@ -9,7 +9,7 @@ let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
 let config;
-let device;//名前にブレがある 135ぎょうと28行目の生合成が取れていない
+let device;
 let prefix;
 
 (()=>{    
