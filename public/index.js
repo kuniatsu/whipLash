@@ -26,6 +26,9 @@ let prefix;
 
     //デバイス確認、環境確認
     deviceType = checkDeviceType();
+    console.log(platformInfo.device);
+    console.log(platform);
+    
     if((platformInfo.device == 'Android'||
         platformInfo.device == 'AndroidTab')&&
         platform=='spApp'){
