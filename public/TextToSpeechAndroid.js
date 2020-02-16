@@ -48,6 +48,9 @@ class TextToSpeechAndroid{
             case "9":
                 this.audio_9.play();
                 break;     
+            case "10":
+                this.audio_9.play();
+                break;     
             case 0:
                 this.audio_0.play();
                 break;
@@ -78,6 +81,9 @@ class TextToSpeechAndroid{
             case 9:
                 this.audio_9.play();
                 break;        
+            case 10:
+                break;        
+
             case "あと1分です":
                 break;
             case "あと2分です":
