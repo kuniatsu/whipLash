@@ -625,7 +625,8 @@ let checkClass = (ele,checkClass)=>{
  */
 let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
-    title.innerText = prefix + titleText; //Prefix追加(β)
+    // title.innerText = prefix + titleText; //Prefix追加(β)
+    title.innerText = titleText; //表示タスク名
     tts.speak(titleText+"開始");
 }
 
