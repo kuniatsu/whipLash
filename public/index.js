@@ -460,7 +460,9 @@ let everySecond = (callback,timeLimitObj)=>{
  * taskStart
  */
 let start = ()=>{
-    // console.log("start()");
+    console.log("start()");
+    window.plugins.insomnia.keepAwake();//sleep制御
+
     deleteEndTask();
     if(getTaskLength()>0){
         playTask();
@@ -548,6 +550,9 @@ let aniObjToggle = (ani)=>{
  * taskStop
  */
 let stop = ()=>{
+    console.log("stop");
+    window.plugins.insomnia.allowSleepAgain();//sleep制御
+
     changeStartImage();
     timeLimit.stop();
     addInput();
