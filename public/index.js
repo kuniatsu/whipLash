@@ -34,7 +34,8 @@ let prefix="";
         device.deviceSeries == 'AndroidTab')&&
         device.platform=='spApp'){
         console.log("Androidアプリ");
-        tts = new TextToSpeechAndroid();
+        // tts = new TextToSpeechAndroid();
+        tts = new TextToSpeechAndroidMp3();
     }else{
         console.log("Androidアプリではない");
         tts = new TextToSpeech();
