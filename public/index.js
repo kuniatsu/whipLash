@@ -293,7 +293,7 @@ function loopList(list){
  * method for clickEvent
  * @return  {HTMLElement[]} task
  */
-let previousTask=()=>{
+function previousTask() {
     // console.log('previousTask()');
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
@@ -311,7 +311,7 @@ let previousTask=()=>{
  * Get the count number of tasks
  * @return  {Number} countTask
  */
-let getTaskLength=()=>{
+function getTaskLength() {
     // console.log("getTaskLength()");
     let list = document.getElementById('taskList');
     return list.querySelectorAll('li:not(#inputTaskList)').length;
@@ -320,7 +320,7 @@ let getTaskLength=()=>{
 /**
  * Make it the next task during execution
  */
-let next2 = () =>{
+function next2() {
     deleteEndTask();
     timeLimit.stop();
     let task = document.querySelectorAll('li:not(#inputTaskList)');
@@ -337,7 +337,7 @@ let next2 = () =>{
 /**
  * Make it the previous task during execution
  */
-let back2 = () =>{
+function back2() {
     deleteEndTask();
     timeLimit.stop();
     let task = document.querySelectorAll('li:not(#inputTaskList)');
@@ -357,7 +357,7 @@ let back2 = () =>{
  * Delete if strikethroughLine is drawn 
  * method for clickEvent
  */
-let deleteEndTask=()=>{
+function deleteEndTask() {
     // console.log("deleteEndTask()");
     htmlParentElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
@@ -366,8 +366,8 @@ let deleteEndTask=()=>{
 /**
  * Control time
  * method for clickEvent
- */
- let timeCount = async (dispTimer)=>{
+ */ 
+async function timeCount(dispTimer) {
     timeLimit = new TimeLimit(dispTimer.innerText,":");
     ani.start();
     let timeObj = timeLimit;
@@ -404,12 +404,12 @@ let deleteEndTask=()=>{
  * Changing the order in the List
  * @param   {HTMLElement} List
  */
-let sequentialLoopList=(list)=>{
+function sequentialLoopList(list) {
     // addTaskList(list.children[0]);
     list.appendChild(list.children[0]);
 };
 
-let randomLoopList=(list)=>{
+function randomLoopList(list) {
     // console.log("randomLoopList");
     list.appendChild(list.children[0]);
     htmlCollectionShuffle(list);    
@@ -422,7 +422,7 @@ let randomLoopList=(list)=>{
  * Changing the order in the List
  * @param   {HTMLElement} List
  */
-let reverseLoopList=(list)=>{
+function reverseLoopList(list) {
     //Since there is inputbox twice
     list.insertBefore(list.lastElementChild, list.children[0]);
     list.insertBefore(list.lastElementChild, list.children[0]);
@@ -432,7 +432,7 @@ let reverseLoopList=(list)=>{
  * Delete All HTMLElement 
  * @param   {HTMLElement} Delete target
  */
-let htmlParentElementAllDelete=(delElement)=>{
+function htmlParentElementAllDelete(delElement) {
     while (delElement.length > 0) {
         delElement.item(0).parentNode.remove();
     }
@@ -443,7 +443,7 @@ let htmlParentElementAllDelete=(delElement)=>{
  * recursiveCall
  * @param   {callback} callback everySecond
  */
-let everySecond = (callback,timeLimitObj)=>{
+function everySecond(callback,timeLimitObj) {
     return new Promise((res)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
@@ -459,7 +459,7 @@ let everySecond = (callback,timeLimitObj)=>{
 /**
  * taskStart
  */
-let start = ()=>{
+function start() {
     // console.log("start()");
     deleteEndTask();
     if(getTaskLength()>0){
@@ -474,14 +474,14 @@ let start = ()=>{
 /**
  * Change to playButton
  */
-let changeStartImage = ()=>{
+function changeStartImage() {
     changeImageSrc(playstop,"./image/play.png");
 }
 
 /**
  * Change to stopButton
  */
-let changeStopImage = ()=>{
+function changeStopImage() {
     changeImageSrc(playstop,"./image/stop.png");
 }
 
@@ -490,7 +490,7 @@ let changeStopImage = ()=>{
  * @param   {HTMLElement} imageTag
  * @param   {String} URL
  */
-let changeImageSrc = (imageTag,url)=>{
+function changeImageSrc(imageTag,url) {
     imageTag.src = url;
 }
 
@@ -502,7 +502,7 @@ let changeImageSrc = (imageTag,url)=>{
  * Loop if there is a task
  * recursiveCall
  */
-let playTask = async ()=>{
+async function playTask() {
     // console.log("playTask()");
     ani = aniObjToggle(ani);
     changeStopImage();
@@ -524,7 +524,7 @@ let playTask = async ()=>{
  * Change animation alternately
  * @param   {Animation} ani obj
  */
-let aniObjToggle = (ani)=>{
+function aniObjToggle(ani) {
     // console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
     if(ani.flg && ani.getName() == 'darwin'){
@@ -547,7 +547,7 @@ let aniObjToggle = (ani)=>{
 /**
  * taskStop
  */
-let stop = ()=>{
+function stop() {
     changeStartImage();
     timeLimit.stop();
     addInput();
@@ -560,7 +560,7 @@ let stop = ()=>{
  * @param   {method} method callbackMethod
  * @return  {callBackResult} 
  */
-let checkKeyPress = (e,keyNum,method)=>{
+function checkKeyPress(e,keyNum,method) {
     var key = e.which || e.keyCode;
     if (key === keyNum) { // 13 is enter
         return method();
@@ -570,7 +570,7 @@ let checkKeyPress = (e,keyNum,method)=>{
 /**
  * init to timeLimit
  */
-let makeTask = ()=>{
+function makeTask() {
     if(inputTask.value!=""){
         createTaskElement(inputTask.value);
         saveWs();
@@ -582,7 +582,7 @@ let makeTask = ()=>{
 /**
  * save to WebStrage
  */
-let saveWs = ()=>{
+function saveWs() {
     // ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
     ws.setSelectorInnerText('span.task',"task");    
 }
@@ -590,14 +590,14 @@ let saveWs = ()=>{
 /**
  * Add class to hide input box 
  */
-let deleteInput = ()=>{
+function deleteInput() {
     inputTaskList.classList.add("displayNone");
 }
 
 /**
  * Delete class hiding input box 
  */
-let addInput = ()=>{
+function addInput() {
     inputTaskList.classList.remove('displayNone');
 }
 
@@ -608,7 +608,7 @@ let addInput = ()=>{
  * @param   {String} checkClass
  * @return  {bool} checkFlag
  */
-let checkClass = (ele,checkClass)=>{
+function checkClass(ele,checkClass) {
     let checkFlag = false;
     let classes = ele.className;
     if(!classes)return checkFlag;
@@ -623,7 +623,7 @@ let checkClass = (ele,checkClass)=>{
  * Set titleDisplay and speak title
  * ControlDom
  */
-let changeTitle = ()=>{
+function changeTitle() {
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText; //表示タスク名
     tts.speak(titleText+"開始");
