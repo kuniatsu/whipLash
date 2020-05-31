@@ -1,3 +1,9 @@
+スマホアプリ版のリポジトリ
+https://github.com/kuniatsu/whipLash_cordova
+
+
+
+ベータ版
 https://whiplash-todo.firebaseapp.com/  
 
 ## 効果  
