@@ -64,8 +64,8 @@ class TimeLimit{
      * @return  {Number} second  
      */ 
     calcLimitTime(mode=null){
-        console.dir("calcLimitTime() ");
-        console.dir("mode:"+mode);
+        // console.dir("calcLimitTime() ");
+        // console.dir("mode:"+mode);
 
         if(this.limitSec > 10){
             //正確な時間を返却 50/60でここを通過
