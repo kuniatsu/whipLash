@@ -475,7 +475,8 @@ let everySecond = (callback,timeLimitObj)=>{
 let start = ()=>{
     console.log("start()");
     console.log("sleep制御");
-    window.plugins.insomnia.keepAwake();//sleep制御
+    //manacaのpluginのためコメント 
+    //window.plugins.insomnia.keepAwake();//sleep制御
 
     deleteEndTask();
     if(getTaskLength()>0){
@@ -566,7 +567,8 @@ let aniObjToggle = (ani)=>{
 let stop = ()=>{
     console.log("stop");
     console.log("sleep制御");
-    window.plugins.insomnia.allowSleepAgain();//sleep制御
+    //manacaのpluginのためコメント 
+    // window.plugins.insomnia.allowSleepAgain();//sleep制御
 
     changeStartImage();
     timeLimit.stop();

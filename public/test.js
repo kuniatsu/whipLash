@@ -59,17 +59,17 @@
         console.log(obj.getName());
     });
 
-    insomniaOn.addEventListener('click',()=>{
-      mess.innerText = "sleep制御_keepON";
-      console.log("sleep制御_keepON");
-      window.plugins.insomnia.keepAwake();//sleep制御
-    });
+    // insomniaOn.addEventListener('click',()=>{
+    //   mess.innerText = "sleep制御_keepON";
+    //   console.log("sleep制御_keepON");
+    //   window.plugins.insomnia.keepAwake();//sleep制御
+    // });
 
-    insomniaOff.addEventListener('click',()=>{
-      mess.innerText = "sleep制御_keepOFF ./../../";
-      console.log("sleep制御_keepOFF");
-      window.plugins.insomnia.allowSleepAgain();//sleep制御
-    });
+    // insomniaOff.addEventListener('click',()=>{
+    //   mess.innerText = "sleep制御_keepOFF ./../../";
+    //   console.log("sleep制御_keepOFF");
+    //   window.plugins.insomnia.allowSleepAgain();//sleep制御
+    // });
 
 
 })();
