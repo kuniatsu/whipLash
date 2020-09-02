@@ -128,7 +128,7 @@ class WebStorage{
                 textArray.push(ele.value);
             }
         });
-        console.dir(textArray);
+        // console.dir(textArray);
         this.setItem(key,textArray);
     }
 
@@ -136,6 +136,7 @@ class WebStorage{
      * Output contents of webstorage to log
      */
     log(){
-        console.dir(this.getAllItem());
+        console.log("log!");
+        //console.dir(this.getAllItem()); //monacaでのdirは禁止
     }
 }

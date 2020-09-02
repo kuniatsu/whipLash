@@ -19,7 +19,7 @@ class Animation{
     getElementStyle(elementId){
         console.log("getElementStyle()");
         let ele = document.getElementById(elementId);
-        console.dir(ele);
+        // console.dir(ele);
         return ele.style;
     }
 
@@ -60,10 +60,10 @@ class Animation{
     }
 
     //abstract method
-    start(){}
-    toggle(){}
-    last(num){}
-    end(){}
+    start(){console.log("non_animetion_start");}
+    toggle(){console.log("non_animetion_toggle");}
+    last(num){console.log("non_animetion_last");}
+    end(){console.log("non_animetion_end");}
 
 }
 
@@ -85,6 +85,7 @@ class Newton extends Animation {
     }
 
     start(){
+        console.log("Newton_start");
         this.img.classList.add('apple0');
         super.getAnimationBox().appendChild(this.img);
         //super.getTimer().classList.replace( 'timer2', 'timer1' );
@@ -115,7 +116,7 @@ class Newton extends Animation {
         }
     }
     end(){
-        console.dir(this.img);
+        // console.dir(this.img);
         if(this.img){
             this.img = null;
             super.getAnimationBox().innerHTML = "";
@@ -135,6 +136,7 @@ class Darwin extends Animation {
     }
 
     start(){
+        console.log("Darwin_start");
         super.getAnimationBox().classList.add('darwin0');
         //super.getTimer().classList.replace( 'timer1', 'timer2' );
         super.getTimer().className = 'timer2'; //#17
