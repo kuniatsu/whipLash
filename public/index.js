@@ -4,7 +4,7 @@
 //let tts = new TextToSpeech();
 //将来的にはTTSもラップして、newのタイミングで速さと言語を指定できるようにする。
 //let tts = device.platform=="Android"? new TextToSpeechAndroid() : new TextToSpeech();
-let tts = new TextToSpeechAndroid();
+let tts;// = new TextToSpeechAndroid();
 let timeLimit = {getFlg:function(){return false}/*prototype*/};
 let ani;
 let ws;
@@ -15,6 +15,7 @@ let prefix="";
 (()=>{    
     setParam();
     setList();//addTask
+    console.log("End_setList");
     setEvent();
     initTime(); 
     setAnimetion();
@@ -30,11 +31,16 @@ let prefix="";
     console.log(device.deviceSeries);
     console.log(device.platform);
 
-    if((device.deviceSeries == 'Android'||
-        device.deviceSeries == 'AndroidTab')&&
-        device.platform=='spApp'){
+    // device.platformはsettingからの戻りでotherが出るのでコメント
+    // if((device.deviceSeries == 'Android'||
+    //     device.deviceSeries == 'AndroidTab')&&
+    //     device.platform=='spApp'){
+            
+    if(device.deviceSeries == 'Android'||
+        device.deviceSeries == 'AndroidTab'){
         console.log("Androidアプリ");
         tts = new TextToSpeechAndroid();
+        // tts = new TextToSpeechAndroidMp3();
     }else{
         console.log("Androidアプリではない");
         tts = new TextToSpeech();
@@ -49,6 +55,10 @@ let prefix="";
 
 
 })();
+
+function testLog(text){
+  console.log("index.js:"+text);
+}
 
 function arrayShuffle(arg){
     var array = arg;
@@ -115,6 +125,7 @@ function getParam(){
  * Assign events
  */
 function setEvent(){
+    console.log("Add_ButtonEvent");
     back.addEventListener('click',()=>{
         console.log("back");
         activeIfMethod(previousTask,back2);
@@ -169,6 +180,7 @@ function makeWs(){
  * add task to taskList from webstorage
  */
 function setList(){
+    console.log("setList");
     makeWs();//create object
     if(!ws.checkItem('task')){
         //disp GuideLine
@@ -178,13 +190,11 @@ function setList(){
         return;
     }
     let taskArray = ws.getItem('task').split(',');
-
     //task nothing 
     if(taskArray.length == 1 && taskArray[0] == ""){
         inputTask.placeholder = "→  タスク入力してENTER";
         createTaskElement("タスクを登録する");
     }
-
     //タンスの順番をRandomにする。
     // console.log(config.order);
     if(config.order !== "Sequential"){
@@ -195,7 +205,6 @@ function setList(){
             createTaskElement(task);
         }
     }
-
     //Listの表示がOFFの場合
     if(config.showlist == "OFF"){
         document.querySelector("#taskList").classList.add('displayNone');
@@ -237,6 +246,7 @@ function createTaskElement(taskName){
  * @param   {HTMLElement} element
  */
 function addTaskList(Ele){
+    console.log("addTaskList");
     taskList.appendChild(Ele);
     taskList.appendChild(inputTaskList);
 }
@@ -264,9 +274,10 @@ function initTime(){
  * method for clickEvent
  * @return  {HTMLElement[]} task
  */
- let nextTask=()=>{
-    // console.log('nextTask()');
+function nextTask(){
+    console.log('nextTask()');
     let list = document.getElementById('taskList');
+    console.log('nextTask()2');
     let task = list.getElementsByTagName('li');
     if(task.length > 0){
         initTime();
@@ -274,6 +285,7 @@ function initTime(){
         list.appendChild(inputTaskList);
         return task;
     }
+    console.log('nextTask()3');
     return null;
 };
 
@@ -293,11 +305,12 @@ function loopList(list){
  * method for clickEvent
  * @return  {HTMLElement[]} task
  */
-function previousTask() {
-    // console.log('previousTask()');
+let previousTask=()=>{
+    console.log('previousTask()');
     let list = document.getElementById('taskList');
     let task = list.getElementsByTagName('li');
-    console.dir(task);
+    // console.dir(task);
+
     if(task.length > 0){
         initTime();
         reverseLoopList(list);
@@ -311,7 +324,7 @@ function previousTask() {
  * Get the count number of tasks
  * @return  {Number} countTask
  */
-function getTaskLength() {
+let getTaskLength=()=>{
     // console.log("getTaskLength()");
     let list = document.getElementById('taskList');
     return list.querySelectorAll('li:not(#inputTaskList)').length;
@@ -320,7 +333,7 @@ function getTaskLength() {
 /**
  * Make it the next task during execution
  */
-function next2() {
+let next2 = () =>{
     deleteEndTask();
     timeLimit.stop();
     let task = document.querySelectorAll('li:not(#inputTaskList)');
@@ -337,7 +350,7 @@ function next2() {
 /**
  * Make it the previous task during execution
  */
-function back2() {
+let back2 = () =>{
     deleteEndTask();
     timeLimit.stop();
     let task = document.querySelectorAll('li:not(#inputTaskList)');
@@ -357,7 +370,7 @@ function back2() {
  * Delete if strikethroughLine is drawn 
  * method for clickEvent
  */
-function deleteEndTask() {
+let deleteEndTask=()=>{
     // console.log("deleteEndTask()");
     htmlParentElementAllDelete(document.getElementsByClassName('strikethrough'));
     saveWs();
@@ -366,8 +379,8 @@ function deleteEndTask() {
 /**
  * Control time
  * method for clickEvent
- */ 
-async function timeCount(dispTimer) {
+ */
+ let timeCount = async (dispTimer)=>{
     timeLimit = new TimeLimit(dispTimer.innerText,":");
     ani.start();
     let timeObj = timeLimit;
@@ -404,12 +417,12 @@ async function timeCount(dispTimer) {
  * Changing the order in the List
  * @param   {HTMLElement} List
  */
-function sequentialLoopList(list) {
+let sequentialLoopList=(list)=>{
     // addTaskList(list.children[0]);
     list.appendChild(list.children[0]);
 };
 
-function randomLoopList(list) {
+let randomLoopList=(list)=>{
     // console.log("randomLoopList");
     list.appendChild(list.children[0]);
     htmlCollectionShuffle(list);    
@@ -422,7 +435,7 @@ function randomLoopList(list) {
  * Changing the order in the List
  * @param   {HTMLElement} List
  */
-function reverseLoopList(list) {
+let reverseLoopList=(list)=>{
     //Since there is inputbox twice
     list.insertBefore(list.lastElementChild, list.children[0]);
     list.insertBefore(list.lastElementChild, list.children[0]);
@@ -432,7 +445,7 @@ function reverseLoopList(list) {
  * Delete All HTMLElement 
  * @param   {HTMLElement} Delete target
  */
-function htmlParentElementAllDelete(delElement) {
+let htmlParentElementAllDelete=(delElement)=>{
     while (delElement.length > 0) {
         delElement.item(0).parentNode.remove();
     }
@@ -443,7 +456,7 @@ function htmlParentElementAllDelete(delElement) {
  * recursiveCall
  * @param   {callback} callback everySecond
  */
-function everySecond(callback,timeLimitObj) {
+let everySecond = (callback,timeLimitObj)=>{
     return new Promise((res)=>{
         setTimeout(async ()=>{
             let loopFlg = callback();
@@ -459,8 +472,12 @@ function everySecond(callback,timeLimitObj) {
 /**
  * taskStart
  */
-function start() {
-    // console.log("start()");
+let start = ()=>{
+    console.log("start()");
+    console.log("sleep制御");
+    //manacaのpluginのためコメント 
+    //window.plugins.insomnia.keepAwake();//sleep制御
+
     deleteEndTask();
     if(getTaskLength()>0){
         playTask();
@@ -474,14 +491,14 @@ function start() {
 /**
  * Change to playButton
  */
-function changeStartImage() {
+let changeStartImage = ()=>{
     changeImageSrc(playstop,"./image/play.png");
 }
 
 /**
  * Change to stopButton
  */
-function changeStopImage() {
+let changeStopImage = ()=>{
     changeImageSrc(playstop,"./image/stop.png");
 }
 
@@ -490,7 +507,7 @@ function changeStopImage() {
  * @param   {HTMLElement} imageTag
  * @param   {String} URL
  */
-function changeImageSrc(imageTag,url) {
+let changeImageSrc = (imageTag,url)=>{
     imageTag.src = url;
 }
 
@@ -502,7 +519,7 @@ function changeImageSrc(imageTag,url) {
  * Loop if there is a task
  * recursiveCall
  */
-async function playTask() {
+let playTask = async ()=>{
     // console.log("playTask()");
     ani = aniObjToggle(ani);
     changeStopImage();
@@ -524,7 +541,7 @@ async function playTask() {
  * Change animation alternately
  * @param   {Animation} ani obj
  */
-function aniObjToggle(ani) {
+let aniObjToggle = (ani)=>{
     // console.log("aniObjToggle()  aniflg:"+ani.flg);
     ani.end();
     if(ani.flg && ani.getName() == 'darwin'){
@@ -547,7 +564,12 @@ function aniObjToggle(ani) {
 /**
  * taskStop
  */
-function stop() {
+let stop = ()=>{
+    console.log("stop");
+    console.log("sleep制御");
+    //manacaのpluginのためコメント 
+    // window.plugins.insomnia.allowSleepAgain();//sleep制御
+
     changeStartImage();
     timeLimit.stop();
     addInput();
@@ -560,7 +582,7 @@ function stop() {
  * @param   {method} method callbackMethod
  * @return  {callBackResult} 
  */
-function checkKeyPress(e,keyNum,method) {
+let checkKeyPress = (e,keyNum,method)=>{
     var key = e.which || e.keyCode;
     if (key === keyNum) { // 13 is enter
         return method();
@@ -570,7 +592,7 @@ function checkKeyPress(e,keyNum,method) {
 /**
  * init to timeLimit
  */
-function makeTask() {
+let makeTask = ()=>{
     if(inputTask.value!=""){
         createTaskElement(inputTask.value);
         saveWs();
@@ -582,7 +604,7 @@ function makeTask() {
 /**
  * save to WebStrage
  */
-function saveWs() {
+let saveWs = ()=>{
     // ws.setSelectorInnerText('li:not(#inputTaskList)',"task");
     ws.setSelectorInnerText('span.task',"task");    
 }
@@ -590,14 +612,14 @@ function saveWs() {
 /**
  * Add class to hide input box 
  */
-function deleteInput() {
+let deleteInput = ()=>{
     inputTaskList.classList.add("displayNone");
 }
 
 /**
  * Delete class hiding input box 
  */
-function addInput() {
+let addInput = ()=>{
     inputTaskList.classList.remove('displayNone');
 }
 
@@ -608,7 +630,7 @@ function addInput() {
  * @param   {String} checkClass
  * @return  {bool} checkFlag
  */
-function checkClass(ele,checkClass) {
+let checkClass = (ele,checkClass)=>{
     let checkFlag = false;
     let classes = ele.className;
     if(!classes)return checkFlag;
@@ -623,7 +645,7 @@ function checkClass(ele,checkClass) {
  * Set titleDisplay and speak title
  * ControlDom
  */
-function changeTitle() {
+let changeTitle = ()=>{
     let titleText = taskList.children[0].innerText;
     title.innerText = titleText; //表示タスク名
     tts.speak(titleText+"開始");

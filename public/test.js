@@ -1,7 +1,13 @@
 (()=>{
+    var mess = document.getElementById("statusMess");
+    mess.innerText = "masao";
+
     bt.addEventListener('click',()=>{
-        console.dir(taskList);
+        // console.dir(taskList);
+        console.log("buttonClick");
+        testLog("test.js");
     });
+    
     bt2.addEventListener('click',()=>{nextTask()});
     bt3.addEventListener('click',()=>{deleteEndTask()});
     bt4.addEventListener('click',()=>{timeCount(document.getElementById('timer'))});
@@ -51,6 +57,19 @@
     bt14.addEventListener('click',()=>{
         let obj = new Newton(animationBox,timer);
         console.log(obj.getName());
-
     });
+
+    // insomniaOn.addEventListener('click',()=>{
+    //   mess.innerText = "sleep制御_keepON";
+    //   console.log("sleep制御_keepON");
+    //   window.plugins.insomnia.keepAwake();//sleep制御
+    // });
+
+    // insomniaOff.addEventListener('click',()=>{
+    //   mess.innerText = "sleep制御_keepOFF ./../../";
+    //   console.log("sleep制御_keepOFF");
+    //   window.plugins.insomnia.allowSleepAgain();//sleep制御
+    // });
+
+
 })();

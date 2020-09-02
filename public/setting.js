@@ -120,7 +120,7 @@ var googletasks = document.querySelector("#googletasks");
         if(changeTaskFlg){
             console.log("changeTaskFlg:"+changeTaskFlg);
             var tasks = document.querySelectorAll('#disptasks > input[type=text]');
-            console.dir(tasks);
+            // console.dir(tasks);
             ws.setSelectorValue("task",'#disptasks > input[type=text]');  
         }
 
