@@ -58,6 +58,38 @@ class WebStorage{
     }
 
     /**
+     * ＊未テスト
+     * groupBy CommaStringValue
+     * @param  {String} key
+     * @return {Array}
+     */
+    groupByCommaValue(key){
+        console.log("group by:"+ key);
+        var groupArray=[];
+        var flg=true;
+        if(this.checkItem(key)){
+            var valArray = this.getItem(key).split(',');
+            for(var i=0;i<valArray.length;i++){
+                for(var j=1;j<valArray.length;j++){
+                    if(valArray[i]==valArray[i+j]){
+                        flg=false;    
+                    }
+                }
+                if(flg){
+                    groupArray.push(valArray[i]);
+                }
+                flg=true;
+            }
+        }else{
+            //存在しないkeyが渡された場合
+            console.log("存在しないkeyが渡されました。");
+        }
+        return groupArray;
+    }
+
+
+
+    /**
      * Count the contents of webStrage
      * @return  {Number} count Number 
      */
